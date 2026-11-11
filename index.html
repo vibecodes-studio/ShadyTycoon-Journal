@@ -903,8 +903,8 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
 </g></svg>
 </template>
 
-<script src="journal.js"></script>
-<script src="journal.en.js"></script>
+<script src="journal.js?v=ae3c2ef0a1"></script>
+<script src="journal.en.js?v=ef2979d8b4"></script>
 <script>
 // Sprache: DE = journal.js (Master), EN = journal.en.js (Uebersetzung, Fallback je Eintrag auf Deutsch).
 const DE_DATA = window.JOURNAL, EN_DATA = window.JOURNAL_EN || null;
@@ -1261,7 +1261,7 @@ let lbList = [], lbIdx = 0;
 function nav() {
   document.getElementById('nav').innerHTML = Object.entries(VIEWS).map(([k,v]) =>
     `<a href="#${k}" class="${state.view===k?'active':''}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${v.icon}</svg>${v.label}${v.count?`<span class="count">${v.count()}</span>`:''}</a>`).join('');
-  document.getElementById('foot').innerHTML = `${T().stand} <span class="mono">${esc(J.updated)}</span><br>${T().source}: <span class="mono">Docs/Journal/${LANG === 'en' ? 'journal.en.js' : 'journal.js'}</span>`;
+  document.getElementById('foot').innerHTML = `${T().stand} <span class="mono">${esc(J.updated)}</span><br>${T().source}: <span class="mono">${LANG === 'en' ? 'journal.en.js' : 'journal.js'}</span>`;
 }
 
 const match = (...parts) => !state.q || parts.join(' ').toLowerCase().includes(state.q);
