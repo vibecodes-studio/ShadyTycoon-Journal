@@ -1,0 +1,1416 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shady Tycoon – Projekttagebuch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Warm Parchment (web-design-warm, unveraendert) ---------- */
+:root {
+  --bg-0: #f0ebe0; --bg-1: #f7f3eb; --bg-2: #fffef9; --bg-3: #f5f2ea;
+  --line: rgba(80,50,20,0.08); --line-2: rgba(80,50,20,0.12); --line-3: rgba(80,50,20,0.18);
+  --ink-0: #1a1005; --ink-1: #3d2f18; --ink-2: #6b5a40; --ink-3: #9a8870;
+  --accent: #22a35a; --accent-2: #16893f; --accent-soft: #eaf7ed; --accent-glow: rgba(34,163,90,0.28);
+  --navy: #1a1005; --navy-2: #0c0902; --warn: #d97706; --error: #dc2626;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg-0); color: var(--ink-0);
+  font-family: 'Geist', -apple-system, system-ui, sans-serif; font-feature-settings: "ss01","ss02","cv11";
+  -webkit-font-smoothing: antialiased; min-height: 100vh; scrollbar-color: var(--accent) var(--bg-1); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-1); border-radius: 99px; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(34,163,90,0.06), transparent 60%),
+              radial-gradient(900px 500px at 90% 10%, rgba(31,42,68,0.04), transparent 60%); }
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: linear-gradient(rgba(15,30,55,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(15,30,55,0.025) 1px, transparent 1px);
+  background-size: 48px 48px; mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%); }
+.app-shell { position: relative; z-index: 1; display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+.sidebar { position: sticky; top: 0; align-self: start; height: 100vh; display: flex; flex-direction: column;
+  padding: 28px 18px 24px; border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 40%, var(--bg-0) 100%); overflow-y: auto; }
+.sb-brand { display: flex; align-items: center; gap: 12px; padding: 4px 8px 22px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.brand-mark { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, var(--navy), var(--navy-2));
+  display: grid; place-items: center; box-shadow: 0 6px 18px rgba(15,30,55,0.18); color: var(--accent); }
+.brand-text { display: flex; flex-direction: column; line-height: 1; }
+.brand-text .title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 22px; }
+.brand-text .title em { color: var(--accent); }
+.brand-text .sub { font-size: 10px; color: var(--ink-2); margin-top: 6px; letter-spacing: 0.16em; text-transform: uppercase; }
+.sb-section-label { font-size: 10px; color: var(--ink-3); letter-spacing: 0.18em; text-transform: uppercase; padding: 0 10px; margin: 14px 0 8px; font-weight: 500; }
+.sb-nav { display: flex; flex-direction: column; gap: 3px; }
+.sb-nav a { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 10px; color: var(--ink-1);
+  text-decoration: none; font-size: 14px; font-weight: 500; border: 1px solid transparent; transition: all .16s ease; position: relative; }
+.sb-nav a:hover { background: rgba(15,30,55,0.035); color: var(--ink-0); }
+.sb-nav a.active { background: var(--accent-soft); color: var(--accent-2); border-color: rgba(34,163,90,0.22); font-weight: 600; }
+.sb-nav a.active::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2)); border-radius: 0 3px 3px 0; box-shadow: 0 0 8px var(--accent-glow); }
+.sb-nav a .count { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); }
+.sb-spacer { flex: 1; }
+.sb-foot { font-size: 11px; color: var(--ink-3); padding: 0 10px; line-height: 1.6; }
+.main { padding: 32px 44px 60px; min-width: 0; max-width: 1180px; }
+.topbar { display: flex; align-items: center; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 28px; }
+.topbar h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; font-size: 34px; margin: 0; letter-spacing: .2px; }
+.topbar .lead { color: var(--ink-2); font-size: 14px; margin-top: 4px; }
+.search { margin-left: auto; position: relative; }
+.search input { width: 260px; padding: 10px 14px 10px 36px; background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 12px;
+  font-family: inherit; font-size: 13px; color: var(--ink-0); outline: none; }
+.search input:focus { border-color: var(--accent); }
+.search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-3); }
+.lang { display: inline-flex; padding: 3px; background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 12px; gap: 2px; }
+.lang button { border: none; background: none; font: 600 12px 'JetBrains Mono', monospace; color: var(--ink-2); padding: 7px 10px; border-radius: 9px; cursor: pointer; letter-spacing: .04em; }
+.lang button:hover { color: var(--ink-0); }
+.lang button.on { background: var(--accent-soft); color: var(--accent-2); box-shadow: inset 0 0 0 1px rgba(34,163,90,0.28); }
+.tag.de { background: rgba(217,119,6,0.10); border-color: rgba(217,119,6,0.3); color: #a15a06; font-family: 'JetBrains Mono', monospace; }
+.card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px 24px;
+  box-shadow: 0 1px 0 rgba(15,30,55,0.02), 0 12px 32px rgba(15,30,55,0.04); }
+.card h2 { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-0); font-weight: 600; margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
+.card h2 .n { font-family: 'JetBrains Mono', monospace; color: var(--ink-3); letter-spacing: 0; }
+.tag { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 500;
+  background: var(--bg-3); border: 1px solid var(--line-2); color: var(--ink-2); }
+.tag.green { background: var(--accent-soft); border-color: rgba(34,163,90,0.3); color: var(--accent-2); }
+.tag.warn { background: rgba(217,119,6,0.10); border-color: rgba(217,119,6,0.3); color: #a15a06; }
+.tag.grey { background: rgba(80,50,20,0.05); color: var(--ink-2); }
+.mono { font-family: 'JetBrains Mono', monospace; }
+.muted { color: var(--ink-2); }
+
+/* Jetzt */
+.hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; margin-bottom: 22px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+.stat { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.stat .k { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+.stat .v { font-family: 'Instrument Serif', serif; font-size: 32px; line-height: 1.1; margin-top: 4px; }
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.col h3 { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 10px; display: flex; gap: 8px; align-items: center; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-3); }
+.dot.live { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); animation: pulse 2s infinite; }
+.dot.next { background: var(--warn); }
+@keyframes pulse { 50% { box-shadow: 0 0 0 7px rgba(34,163,90,0.08); } }
+.item { background: var(--bg-1); border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; margin-bottom: 8px; }
+.item .t { font-weight: 600; font-size: 14px; color: var(--ink-0); display: flex; gap: 8px; align-items: baseline; }
+.item .t .tag { margin-left: auto; }
+.item .d { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; line-height: 1.5; }
+.item.live { border-color: rgba(34,163,90,0.3); background: var(--accent-soft); }
+.latest { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.latest img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); cursor: zoom-in; display: block; }
+
+/* Zeitleiste */
+.phases { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.phase-chip { padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 12.5px; color: var(--ink-1);
+  cursor: pointer; background: var(--bg-1); user-select: none; transition: all .15s; }
+.phase-chip:hover { border-color: var(--line-3); }
+.phase-chip.on { background: var(--accent-soft); border-color: rgba(34,163,90,0.32); color: var(--accent-2); font-weight: 600; }
+.timeline { position: relative; padding-left: 34px; }
+.timeline::before { content: ""; position: absolute; left: 11px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, var(--accent), var(--line-2)); border-radius: 2px; }
+.phase-head { position: relative; margin: 26px 0 12px; }
+.phase-head::before { content: ""; position: absolute; left: -29px; top: 4px; width: 14px; height: 14px; border-radius: 4px; background: var(--navy); }
+.phase-head .pt { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 26px; }
+.phase-head .pr { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-3); margin-left: 8px; }
+.phase-head .px { color: var(--ink-2); font-size: 13.5px; margin-top: 2px; }
+.ms { position: relative; margin-bottom: 18px; }
+.ms::before { content: ""; position: absolute; left: -28px; top: 26px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--bg-2); border: 2px solid var(--accent); }
+.ms .date { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--ink-3); }
+.ms h3 { margin: 4px 0 6px; font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
+.ms p { margin: 0 0 10px; color: var(--ink-1); line-height: 1.6; font-size: 14px; }
+.ms ul { margin: 0 0 12px; padding-left: 18px; color: var(--ink-1); font-size: 13.5px; line-height: 1.65; }
+.thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 8px; }
+.thumbs figure { margin: 0; }
+.thumbs img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); cursor: zoom-in; display: block; transition: transform .15s; background: var(--bg-3); }
+.thumbs img:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15,30,55,0.10); }
+.thumbs figcaption { font-size: 11px; color: var(--ink-2); margin-top: 4px; line-height: 1.35; }
+.meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+.commit { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-2); background: var(--bg-3); border: 1px solid var(--line); padding: 2px 7px; border-radius: 6px; }
+.todo { margin-top: 10px; font-size: 12.5px; color: #a15a06; background: rgba(217,119,6,0.08); border: 1px dashed rgba(217,119,6,0.35); border-radius: 10px; padding: 8px 12px; }
+.linkchip { cursor: pointer; text-decoration: none; }
+
+/* Vorher/Nachher */
+.compare { position: relative; overflow: hidden; border-radius: 14px; border: 1px solid var(--line-2); margin: 10px 0 4px; aspect-ratio: 16/9; background: var(--bg-3); user-select: none; }
+.compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.compare .top { clip-path: inset(0 50% 0 0); }
+.compare .bar { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.15); pointer-events: none; }
+.compare .knob { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 34px; height: 34px; border-radius: 50%; background: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25); display: grid; place-items: center; color: var(--ink-1); pointer-events: none; font-size: 14px; }
+.compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.compare .lb { position: absolute; top: 10px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; background: rgba(12,9,2,.65); color: #fff; }
+.compare .lb.l { left: 10px; } .compare .lb.r { right: 10px; }
+.cmp-cap { font-size: 12px; color: var(--ink-2); margin-bottom: 8px; }
+
+/* Konzepte */
+.cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.ccard { cursor: pointer; transition: transform .15s, box-shadow .15s; }
+.ccard:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(15,30,55,0.02), 0 16px 36px rgba(15,30,55,0.08); }
+.ccard h3 { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 24px; margin: 8px 0 6px; }
+.ccard p { margin: 0; color: var(--ink-1); font-size: 13.5px; line-height: 1.55; }
+.back { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--ink-2); cursor: pointer; margin-bottom: 14px; }
+.back:hover { color: var(--accent-2); }
+.cdetail h2.big { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 36px; margin: 6px 0 8px; text-transform: none; letter-spacing: 0; }
+.sec { border-top: 1px solid var(--line); padding: 16px 0 6px; }
+.sec h4 { margin: 0 0 8px; font-size: 15px; display: flex; gap: 10px; align-items: center; }
+.sec ul { margin: 0; padding-left: 18px; line-height: 1.7; font-size: 14px; color: var(--ink-1); }
+.diagram { background: var(--bg-1); border: 1px solid var(--line); border-radius: 16px; padding: 12px; margin: 14px 0 6px; }
+.diagram svg { width: 100%; height: auto; display: block; }
+.dg-box rect, .dg-box circle { fill: var(--bg-2); stroke: var(--line-3); stroke-width: 1; }
+.dg-box.p rect, .dg-box.p circle { fill: #f1eefc; stroke: #8b83d9; }
+.dg-box.t rect, .dg-box.t circle { fill: var(--accent-soft); stroke: var(--accent); }
+.dg-box.g rect, .dg-box.g circle { fill: var(--bg-3); stroke: var(--ink-3); }
+.dg-box text.h { font: 600 14px Geist, sans-serif; fill: var(--ink-0); }
+.dg-box text.s { font: 400 12px Geist, sans-serif; fill: var(--ink-2); }
+.dg-arr { stroke: var(--ink-2); stroke-width: 1.3; fill: none; }
+
+/* Entscheidungen / Ideen / Galerie */
+.dec { display: grid; grid-template-columns: 96px 110px 1fr; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.dec:last-child { border-bottom: none; }
+.dec .t { font-weight: 600; font-size: 14px; }
+.dec .w { color: var(--ink-2); font-size: 13px; margin-top: 3px; line-height: 1.5; }
+.igrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.idea h3 { margin: 0 0 6px; font-size: 16px; }
+.idea p { margin: 0 0 10px; font-size: 13.5px; color: var(--ink-1); line-height: 1.55; }
+.gal { columns: 4 220px; column-gap: 10px; }
+.gal figure { break-inside: avoid; margin: 0 0 10px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.gal img { width: 100%; display: block; cursor: zoom-in; }
+.gal figcaption { padding: 7px 10px 9px; font-size: 11.5px; color: var(--ink-2); line-height: 1.4; }
+.gal figcaption .mono { color: var(--ink-3); font-size: 10.5px; display: block; }
+.empty { color: var(--ink-3); font-size: 14px; padding: 40px 0; text-align: center; }
+
+/* Lightbox */
+.lb-wrap { position: fixed; inset: 0; background: rgba(12,9,2,.88); z-index: 100; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 12px; padding: 30px; }
+.lb-wrap.on { display: flex; }
+.lb-wrap img { max-width: 92vw; max-height: 80vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.lb-cap { color: #efe7d6; font-size: 14px; text-align: center; max-width: 900px; }
+.lb-cap .mono { color: #b9ab90; font-size: 12px; }
+.lb-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff;
+  width: 46px; height: 46px; border-radius: 50%; font-size: 20px; cursor: pointer; }
+.lb-btn.prev { left: 22px; } .lb-btn.next { right: 22px; }
+.lb-x { position: absolute; top: 18px; right: 22px; background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; }
+  .main { padding: 20px 16px 50px; }
+  .hero, .board, .stats { grid-template-columns: 1fr; }
+  .topbar { flex-wrap: wrap; } .search input { width: 100%; } .search { width: 100%; order: 3; } .lang { margin-left: auto; }
+  .dec { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="brand-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l4-3v16"/><path d="M9 21V3h6v18"/><path d="M15 21V10l4 2v9"/></svg></div>
+      <div class="brand-text"><span class="title">Shady <em>Tycoon</em></span><span class="sub" id="brandsub">Projekttagebuch</span></div>
+    </div>
+    <div class="sb-section-label" id="navlabel">Ansichten</div>
+    <nav class="sb-nav" id="nav"></nav>
+    <div class="sb-spacer"></div>
+    <div class="sb-foot" id="foot"></div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div><h1 id="vtitle"></h1><div class="lead" id="vlead"></div></div>
+      <div class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Suchen …" autocomplete="off">
+      </div>
+      <div class="lang" role="group" aria-label="Sprache / Language">
+        <button type="button" data-lang="de" title="Deutsch">DE</button><button type="button" data-lang="en" title="English">EN</button>
+      </div>
+    </div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<div class="lb-wrap" id="lb">
+  <button class="lb-x" onclick="closeLb()" aria-label="Close">×</button>
+  <button class="lb-btn prev" onclick="stepLb(-1)" aria-label="Previous">‹</button>
+  <img id="lbimg" alt="">
+  <div class="lb-cap" id="lbcap"></div>
+  <button class="lb-btn next" onclick="stepLb(1)" aria-label="Next">›</button>
+</div>
+
+<template id="dg-eco">
+<svg viewBox="0 0 680 396" role="img" aria-label="Ökosystem der Inselstadt">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box p"><rect x="40" y="40" width="180" height="56" rx="10"/><text class="h" x="130" y="63" text-anchor="middle">Versorgung</text><text class="s" x="130" y="82" text-anchor="middle">Strom, Wasser, Wärme</text></g>
+<g class="dg-box p"><rect x="250" y="40" width="180" height="56" rx="10"/><text class="h" x="340" y="63" text-anchor="middle">Produktion</text><text class="s" x="340" y="82" text-anchor="middle">Baustoffe, Güter</text></g>
+<g class="dg-box p"><rect x="460" y="40" width="180" height="56" rx="10"/><text class="h" x="550" y="63" text-anchor="middle">Bau &amp; Immobilien</text><text class="s" x="550" y="82" text-anchor="middle">Gebäude, Mieten</text></g>
+<g class="dg-box t"><rect x="40" y="170" width="180" height="56" rx="10"/><text class="h" x="130" y="193" text-anchor="middle">Öffentliches</text><text class="s" x="130" y="212" text-anchor="middle">Schule, Klinik, Park</text></g>
+<g class="dg-box t"><rect x="250" y="170" width="180" height="56" rx="10" style="stroke-width:2"/><text class="h" x="340" y="193" text-anchor="middle">Bewohner</text><text class="s" x="340" y="212" text-anchor="middle">Arbeit, Kaufkraft, Steuern</text></g>
+<g class="dg-box p"><rect x="460" y="170" width="180" height="56" rx="10"/><text class="h" x="550" y="193" text-anchor="middle">Handel &amp; Logistik</text><text class="s" x="550" y="212" text-anchor="middle">Läden, Hafen</text></g>
+<g class="dg-box g"><rect x="40" y="300" width="180" height="56" rx="10"/><text class="h" x="130" y="323" text-anchor="middle">Bezirkskasse</text><text class="s" x="130" y="342" text-anchor="middle">Steuern, Zuschüsse</text></g>
+<g class="dg-box p"><rect x="250" y="300" width="180" height="56" rx="10"/><text class="h" x="340" y="323" text-anchor="middle">Finanzen &amp; Dienste</text><text class="s" x="340" y="342" text-anchor="middle">Kredit, Medien</text></g>
+<g class="dg-box g"><rect x="460" y="300" width="180" height="56" rx="10" style="stroke-dasharray:5 4"/><text class="h" x="550" y="323" text-anchor="middle">Festland</text><text class="s" x="550" y="342" text-anchor="middle">Export rein, Import raus</text></g>
+<line class="dg-arr" x1="222" y1="68" x2="246" y2="68" marker-end="url(#ar)"/>
+<line class="dg-arr" x1="432" y1="68" x2="456" y2="68" marker-end="url(#ar)"/>
+<path class="dg-arr" d="M400 98 L400 132 L550 132 L550 166" marker-end="url(#ar)"/>
+<line class="dg-arr" x1="458" y1="198" x2="434" y2="198" marker-end="url(#ar)"/>
+<line class="dg-arr" x1="222" y1="198" x2="246" y2="198" marker-end="url(#ar)"/>
+<path class="dg-arr" d="M280 228 L280 262 L180 262 L180 296" marker-end="url(#ar)"/>
+<line class="dg-arr" x1="100" y1="298" x2="100" y2="230" marker-end="url(#ar)"/>
+<line class="dg-arr" x1="340" y1="228" x2="340" y2="296" marker-end="url(#ar)"/>
+<line class="dg-arr" x1="550" y1="230" x2="550" y2="296" marker-start="url(#ar)" marker-end="url(#ar)"/>
+</svg>
+</template>
+
+<!-- Konzept „Das Machtdreieck“ (05.11.2026): sieben Diagramme. Beschriftungen deutsch, englisch über DG_EN. -->
+<template id="dg-tri">
+<svg viewBox="0 0 680 400" role="img" aria-label="Das Machtdreieck">
+<defs><marker id="ar-tri" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box"><rect x="250" y="18" width="180" height="58" rx="10" style="fill:#fbe9e9;stroke:#d94545;stroke-width:1.5"/><text class="h" x="340" y="42" text-anchor="middle">Politik</text><text class="s" x="340" y="60" text-anchor="middle">Rechte und Regeln</text></g>
+<g class="dg-box t"><rect x="30" y="330" width="180" height="58" rx="10" style="stroke-width:1.5"/><text class="h" x="120" y="354" text-anchor="middle">Wirtschaft</text><text class="s" x="120" y="372" text-anchor="middle">Geld: Bezirk und privat</text></g>
+<g class="dg-box"><rect x="470" y="330" width="180" height="58" rx="10" style="fill:#fdeee0;stroke:#f08a3a;stroke-width:1.5"/><text class="h" x="560" y="354" text-anchor="middle">Medien</text><text class="s" x="560" y="372" text-anchor="middle">Aufmerksamkeit</text></g>
+<g class="dg-box"><circle cx="340" cy="215" r="46" style="fill:#fff3e6;stroke:#c9772a;stroke-width:1.5"/><text class="h" x="340" y="211" text-anchor="middle">Verdacht</text><text class="s" x="340" y="229" text-anchor="middle">die Bremse</text></g>
+<line class="dg-arr" x1="131" y1="324" x2="281" y2="80" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="299" y1="84" x2="149" y2="328" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="549" y1="324" x2="399" y2="80" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="381" y1="84" x2="531" y2="328" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="214" y1="346" x2="466" y2="346" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="466" y1="372" x2="214" y2="372" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="340" y1="80" x2="340" y2="166" stroke-dasharray="4 4" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="500" y1="326" x2="381" y2="244" stroke-dasharray="4 4" marker-end="url(#ar-tri)"/>
+<line class="dg-arr" x1="180" y1="326" x2="299" y2="244" stroke-dasharray="4 4" marker-end="url(#ar-tri)"/>
+<g class="dg-box">
+<text class="h" x="14" y="108" style="font-size:12px">Wirtschaft → Politik</text><text class="s" x="14" y="124">Spenden, Lobby, Stimmen</text>
+<text class="h" x="14" y="150" style="font-size:12px">Politik → Wirtschaft</text><text class="s" x="14" y="166">Genehmigungen, Gesetze, Aufträge</text>
+<text class="h" x="666" y="108" text-anchor="end" style="font-size:12px">Politik → Medien</text><text class="s" x="666" y="124" text-anchor="end">Pressegesetz, Lizenzen, Polizei bremst</text>
+<text class="h" x="666" y="150" text-anchor="end" style="font-size:12px">Medien → Politik</text><text class="s" x="666" y="166" text-anchor="end">Recherche, Kampagne, Umfrage</text>
+<text class="s" x="340" y="340" text-anchor="middle" style="font-size:11px">Werbeetats, Sender kaufen, Ereignisse →</text>
+<text class="s" x="340" y="387" text-anchor="middle" style="font-size:11px">← Nachfrage, Bodenwert, Kredit-Vertrauen</text>
+<text class="s" x="348" y="122" style="font-size:11px">dämpft</text>
+<text class="s" x="458" y="316" style="font-size:11px">verstärkt</text>
+<text class="s" x="222" y="316" text-anchor="end" style="font-size:11px">bezahlt beides</text>
+</g>
+</svg>
+</template>
+
+<template id="dg-meter">
+<svg viewBox="0 0 680 300" role="img" aria-label="Die vier Kapitalien">
+<g class="dg-box t"><rect x="10" y="10" width="214" height="150" rx="10"/><text class="h" x="20" y="32">Geld</text><text class="s" x="20" y="50">Bezirkskasse + Privatvermögen</text>
+<text class="s" x="20" y="74" style="font-size:11px">Quellen: Steuern, Mieten, Gewinne,</text><text class="s" x="20" y="89" style="font-size:11px">Verträge, Export, Werbeerlöse</text>
+<text class="s" x="20" y="111" style="font-size:11px">Senken: Unterhalt, Importe, Zinsen,</text><text class="s" x="20" y="126" style="font-size:11px">Strafen, Spenden, Umschläge</text>
+<text class="s" x="20" y="148" style="font-size:11px">Verfall: Gebäude altern, Märkte sättigen</text></g>
+<g class="dg-box"><rect x="233" y="10" width="214" height="150" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="243" y="32">Einfluss</text><text class="s" x="243" y="50">0–100 · Rechte durchsetzen</text>
+<text class="s" x="243" y="74" style="font-size:11px">Quellen: Ämter je Monat, Spenden,</text><text class="s" x="243" y="89" style="font-size:11px">gewonnene Abstimmungen, Gefälligkeiten</text>
+<text class="s" x="243" y="111" style="font-size:11px">Senken: Lobby je Vorgang 10–25,</text><text class="s" x="243" y="126" style="font-size:11px">Skandale −10 bis −30</text>
+<text class="s" x="243" y="148" style="font-size:11px">Verfall: −2 je Monat ohne Amt</text></g>
+<g class="dg-box"><rect x="456" y="10" width="214" height="150" rx="10" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="466" y="32">Ansehen</text><text class="s" x="466" y="50">−100 bis +100 · Spieler und Bezirk</text>
+<text class="s" x="466" y="74" style="font-size:11px">Quellen: gute Berichte, Kampagnen,</text><text class="s" x="466" y="89" style="font-size:11px">Zufriedenheit, Vorzeigebauten</text>
+<text class="s" x="466" y="111" style="font-size:11px">Senken: Skandale −15 bis −40,</text><text class="s" x="466" y="126" style="font-size:11px">Negativ-Kampagnen</text>
+<text class="s" x="466" y="148" style="font-size:11px">Verfall: 10 % je Monat Richtung 0</text></g>
+<g class="dg-box"><text class="h" x="10" y="192">Verdacht (Heat) – die Bremse für alles Krumme</text>
+<rect x="10" y="204" width="198" height="26" rx="4" style="fill:#dfe9cf;stroke:#b7c69a"/><rect x="208" y="204" width="198" height="26" style="fill:#f3e2a8;stroke:#d9c378"/><rect x="406" y="204" width="165" height="26" style="fill:#f0c08a;stroke:#d9a05a"/><rect x="571" y="204" width="99" height="26" rx="4" style="fill:#e8958a;stroke:#c9675a"/>
+<text class="s" x="109" y="221" text-anchor="middle" style="fill:#3d3a2e">ruhig</text><text class="s" x="307" y="221" text-anchor="middle" style="fill:#3d3a2e">Gerüchte</text><text class="s" x="488" y="221" text-anchor="middle" style="fill:#3d3a2e">Ermittlung</text><text class="s" x="620" y="221" text-anchor="middle" style="fill:#3d3a2e">Verfahren</text>
+<text class="s" x="10" y="246" style="font-size:11px">0</text><text class="s" x="208" y="246" text-anchor="middle" style="font-size:11px">30</text><text class="s" x="406" y="246" text-anchor="middle" style="font-size:11px">60</text><text class="s" x="571" y="246" text-anchor="middle" style="font-size:11px">85</text><text class="s" x="670" y="246" text-anchor="end" style="font-size:11px">100</text>
+<text class="s" x="10" y="270" style="font-size:11px">+ Umschlag 15–30 · Insider-Deal 15 · Bericht unterdrücken 5 · Vertuschung 10 · wer vorn liegt, sammelt 50 % schneller</text>
+<text class="s" x="10" y="290" style="font-size:11px">− 2 je Monat · Anwälte (Geld) · wohlgesonnene Polizei (Einfluss) · unsichtbar, bis Medien eine Story daraus machen</text></g>
+</svg>
+</template>
+
+<template id="dg-era">
+<svg viewBox="0 0 680 300" role="img" aria-label="Epochen-Index der sieben Richtungen">
+<g class="dg-box"><text class="h" x="246" y="28" text-anchor="middle" style="font-size:12px">1950</text><text class="h" x="338" y="28" text-anchor="middle" style="font-size:12px">1970</text><text class="h" x="430" y="28" text-anchor="middle" style="font-size:12px">1990</text><text class="h" x="522" y="28" text-anchor="middle" style="font-size:12px">2010</text><text class="h" x="614" y="28" text-anchor="middle" style="font-size:12px">2030</text>
+<text class="s" x="12" y="60">Energie</text><text class="s" x="12" y="94">Produktion</text><text class="s" x="12" y="128">Bau &amp; Immobilien</text><text class="s" x="12" y="162">Wohnen &amp; Bildung</text><text class="s" x="12" y="196">Handel &amp; Logistik</text><text class="s" x="12" y="230">Finanzen &amp; Dienste</text><text class="s" x="12" y="264">Tourismus &amp; Öffentliches</text></g>
+<g font="600 14px Geist, sans-serif" text-anchor="middle">
+<rect x="202" y="40" width="88" height="30" rx="6" fill="#9a6a24"/><text x="246" y="60" fill="#fff">5</text><rect x="294" y="40" width="88" height="30" rx="6" fill="#c1964a"/><text x="338" y="60" fill="#fff">4</text><rect x="386" y="40" width="88" height="30" rx="6" fill="#d9bd84"/><text x="430" y="60" fill="#3d3a2e">3</text><rect x="478" y="40" width="88" height="30" rx="6" fill="#c1964a"/><text x="522" y="60" fill="#fff">4</text><rect x="570" y="40" width="88" height="30" rx="6" fill="#9a6a24"/><text x="614" y="60" fill="#fff">5</text>
+<rect x="202" y="74" width="88" height="30" rx="6" fill="#c1964a"/><text x="246" y="94" fill="#fff">4</text><rect x="294" y="74" width="88" height="30" rx="6" fill="#9a6a24"/><text x="338" y="94" fill="#fff">5</text><rect x="386" y="74" width="88" height="30" rx="6" fill="#d9bd84"/><text x="430" y="94" fill="#3d3a2e">3</text><rect x="478" y="74" width="88" height="30" rx="6" fill="#ead9b6"/><text x="522" y="94" fill="#3d3a2e">2</text><rect x="570" y="74" width="88" height="30" rx="6" fill="#d9bd84"/><text x="614" y="94" fill="#3d3a2e">3</text>
+<rect x="202" y="108" width="88" height="30" rx="6" fill="#9a6a24"/><text x="246" y="128" fill="#fff">5</text><rect x="294" y="108" width="88" height="30" rx="6" fill="#c1964a"/><text x="338" y="128" fill="#fff">4</text><rect x="386" y="108" width="88" height="30" rx="6" fill="#c1964a"/><text x="430" y="128" fill="#fff">4</text><rect x="478" y="108" width="88" height="30" rx="6" fill="#d9bd84"/><text x="522" y="128" fill="#3d3a2e">3</text><rect x="570" y="108" width="88" height="30" rx="6" fill="#c1964a"/><text x="614" y="128" fill="#fff">4</text>
+<rect x="202" y="142" width="88" height="30" rx="6" fill="#d9bd84"/><text x="246" y="162" fill="#3d3a2e">3</text><rect x="294" y="142" width="88" height="30" rx="6" fill="#d9bd84"/><text x="338" y="162" fill="#3d3a2e">3</text><rect x="386" y="142" width="88" height="30" rx="6" fill="#c1964a"/><text x="430" y="162" fill="#fff">4</text><rect x="478" y="142" width="88" height="30" rx="6" fill="#9a6a24"/><text x="522" y="162" fill="#fff">5</text><rect x="570" y="142" width="88" height="30" rx="6" fill="#9a6a24"/><text x="614" y="162" fill="#fff">5</text>
+<rect x="202" y="176" width="88" height="30" rx="6" fill="#d9bd84"/><text x="246" y="196" fill="#3d3a2e">3</text><rect x="294" y="176" width="88" height="30" rx="6" fill="#c1964a"/><text x="338" y="196" fill="#fff">4</text><rect x="386" y="176" width="88" height="30" rx="6" fill="#c1964a"/><text x="430" y="196" fill="#fff">4</text><rect x="478" y="176" width="88" height="30" rx="6" fill="#d9bd84"/><text x="522" y="196" fill="#3d3a2e">3</text><rect x="570" y="176" width="88" height="30" rx="6" fill="#d9bd84"/><text x="614" y="196" fill="#3d3a2e">3</text>
+<rect x="202" y="210" width="88" height="30" rx="6" fill="#ead9b6"/><text x="246" y="230" fill="#3d3a2e">2</text><rect x="294" y="210" width="88" height="30" rx="6" fill="#d9bd84"/><text x="338" y="230" fill="#3d3a2e">3</text><rect x="386" y="210" width="88" height="30" rx="6" fill="#9a6a24"/><text x="430" y="230" fill="#fff">5</text><rect x="478" y="210" width="88" height="30" rx="6" fill="#c1964a"/><text x="522" y="230" fill="#fff">4</text><rect x="570" y="210" width="88" height="30" rx="6" fill="#d9bd84"/><text x="614" y="230" fill="#3d3a2e">3</text>
+<rect x="202" y="244" width="88" height="30" rx="6" fill="#f4eee1"/><text x="246" y="264" fill="#3d3a2e">1</text><rect x="294" y="244" width="88" height="30" rx="6" fill="#ead9b6"/><text x="338" y="264" fill="#3d3a2e">2</text><rect x="386" y="244" width="88" height="30" rx="6" fill="#d9bd84"/><text x="430" y="264" fill="#3d3a2e">3</text><rect x="478" y="244" width="88" height="30" rx="6" fill="#9a6a24"/><text x="522" y="264" fill="#fff">5</text><rect x="570" y="244" width="88" height="30" rx="6" fill="#c1964a"/><text x="614" y="264" fill="#fff">4</text>
+</g>
+<g class="dg-box"><text class="s" x="12" y="292" style="font-size:11px">1 = mager … 5 = Goldgrube · keine Richtung ist immer vorn · das Leitgesetz jeder Epoche verschiebt die Werte, Spieler können es bremsen oder beschleunigen</text></g>
+</svg>
+</template>
+
+<template id="dg-menu">
+<svg viewBox="0 0 680 532" role="img" aria-label="Radialmenü Politik und Medien">
+<g class="dg-box"><rect x="10" y="10" width="660" height="28" rx="8" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="340" y="29" text-anchor="middle">Politik – 6 Punkte (Ring 2) mit Aktionen (Ring 3)</text></g>
+<g class="dg-box">
+<rect x="10" y="46" width="130" height="32" rx="8"/><text class="h" x="75" y="67" text-anchor="middle" style="font-size:13px">Candidates</text><text class="s" x="152" y="59" style="font-size:11px;fill:#3d3a2e">Run · Endorse · Fund · Dossier</text><text class="s" x="152" y="74" style="font-size:11px">Wer um Ämter antritt – Agenda, Bindungen, Leichen im Keller</text>
+<rect x="10" y="86" width="130" height="32" rx="8"/><text class="h" x="75" y="107" text-anchor="middle" style="font-size:13px">Bills</text><text class="s" x="152" y="99" style="font-size:11px;fill:#3d3a2e">Propose · Lobby for/against · Amend · Forecast</text><text class="s" x="152" y="114" style="font-size:11px">Stadtweite Regeln: Steuern, Zölle, Umwelt, Mietdeckel, Lizenzen, Epochen-Leitgesetz</text>
+<rect x="10" y="126" width="130" height="32" rx="8"/><text class="h" x="75" y="147" text-anchor="middle" style="font-size:13px">Hearings</text><text class="s" x="152" y="139" style="font-size:11px;fill:#3d3a2e">Apply · Object · Lobby · Arrange · Appeal</text><text class="s" x="152" y="154" style="font-size:11px">Bauausschuss je Baufeld: Freigabe, Umwidmung, Ausnahmen – der klassische Shady-Zug</text>
+<rect x="10" y="166" width="130" height="32" rx="8"/><text class="h" x="75" y="187" text-anchor="middle" style="font-size:13px">Votes</text><text class="s" x="152" y="179" style="font-size:11px;fill:#3d3a2e">Cast vote · Forecast · Call in favor · Schedule</text><text class="s" x="152" y="194" style="font-size:11px">Kalender: Wahlen alle 4 Jahre, Rat jährlich, Ausschuss im Quartal – Termine geben Rhythmus</text>
+<rect x="10" y="206" width="130" height="32" rx="8"/><text class="h" x="75" y="227" text-anchor="middle" style="font-size:13px">Arrangements</text><text class="s" x="152" y="219" style="font-size:11px;fill:#3d3a2e">Offer · Collect · Ledger · Clean up</text><text class="s" x="152" y="234" style="font-size:11px">Umschläge und Gefälligkeiten – zwei- bis dreimal schneller, aber jede Form hinterlässt eine Spur</text>
+<rect x="10" y="246" width="130" height="32" rx="8" style="stroke-dasharray:4 3"/><text class="h" x="75" y="267" text-anchor="middle" style="font-size:13px">Tenders</text><text class="s" x="152" y="259" style="font-size:11px;fill:#3d3a2e">Bid · Steer · Inspect · Overview</text><text class="s" x="152" y="274" style="font-size:11px">Öffentliche Aufträge: Straßen, Klinik, Stromnetz – Brücke zur Bausäule (Vorschlag, sechster Punkt)</text>
+</g>
+<g class="dg-box"><rect x="10" y="292" width="660" height="28" rx="8" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="340" y="311" text-anchor="middle">Medien – 5 Punkte (Ring 2) mit Aktionen (Ring 3)</text></g>
+<g class="dg-box">
+<rect x="10" y="328" width="130" height="32" rx="8"/><text class="h" x="75" y="349" text-anchor="middle" style="font-size:13px">Outlets</text><text class="s" x="152" y="341" style="font-size:11px;fill:#3d3a2e">Buy stake · Found · Set line · Finances</text><text class="s" x="152" y="356" style="font-size:11px">Zeitung, Radio, TV, Online je Epoche – Wirkung = Reichweite × Glaubwürdigkeit</text>
+<rect x="10" y="368" width="130" height="32" rx="8"/><text class="h" x="75" y="389" text-anchor="middle" style="font-size:13px">Stories</text><text class="s" x="152" y="381" style="font-size:11px;fill:#3d3a2e">Feed · Push · Spike · Spin · Rebuttal</text><text class="s" x="152" y="396" style="font-size:11px">Berichte aus Ereignissen der Simulation: groß bringen, unterdrücken, drehen – Ansehen und Nachfrage</text>
+<rect x="10" y="408" width="130" height="32" rx="8"/><text class="h" x="75" y="429" text-anchor="middle" style="font-size:13px">Campaign</text><text class="s" x="152" y="421" style="font-size:11px;fill:#3d3a2e">Image · Issue · Attack · Rally</text><text class="s" x="152" y="436" style="font-size:11px">Meinung kaufen: für dich, den Bezirk, ein Gesetz oder gegen einen Rivalen – abnehmender Ertrag</text>
+<rect x="10" y="448" width="130" height="32" rx="8"/><text class="h" x="75" y="469" text-anchor="middle" style="font-size:13px">Investigations</text><text class="s" x="152" y="461" style="font-size:11px;fill:#3d3a2e">Hire · Dossiers · Publish · File charges · Defend</text><text class="s" x="152" y="476" style="font-size:11px">Recherche in beide Richtungen: Gerücht → Hinweis → Beweis → Verfahren; Beweise als Druckmittel</text>
+<rect x="10" y="488" width="130" height="32" rx="8"/><text class="h" x="75" y="509" text-anchor="middle" style="font-size:13px">Ads</text><text class="s" x="152" y="501" style="font-size:11px;fill:#3d3a2e">Book · Billboards · Sponsoring · Report</text><text class="s" x="152" y="516" style="font-size:11px">Nachfrage kaufen; Plakatwände an belebten Ecken verdienen aus echten Passanten- und Verkehrszahlen</text>
+</g>
+</svg>
+</template>
+
+<template id="dg-chain">
+<svg viewBox="0 0 680 320" role="img" aria-label="Beispielkette in acht Zügen">
+<defs><marker id="ar-ch" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box t"><rect x="10" y="10" width="150" height="120" rx="10"/><text class="h" x="20" y="32" style="font-size:12px">1 · 1962 · Feld kaufen</text><text class="s" x="20" y="54" style="font-size:11px">A kauft privat am Rand</text><text class="s" x="20" y="70" style="font-size:11px">Bodenwert 100 k</text><text class="s" x="20" y="96" style="font-size:11px;fill:#3d3a2e">Geld −100 k</text></g>
+<g class="dg-box"><rect x="180" y="10" width="150" height="120" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="190" y="32" style="font-size:12px">2 · Arrangement</text><text class="s" x="190" y="54" style="font-size:11px">Umschlag an Hale</text><text class="s" x="190" y="70" style="font-size:11px">(Ausschuss), 20 k</text><text class="s" x="190" y="96" style="font-size:11px;fill:#3d3a2e">Verdacht +20</text><text class="s" x="190" y="112" style="font-size:11px;fill:#3d3a2e">Hale schuldet A</text></g>
+<g class="dg-box"><rect x="350" y="10" width="150" height="120" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="360" y="32" style="font-size:12px">3 · Anhörung Q3</text><text class="s" x="360" y="54" style="font-size:11px">Umwidmung 2:1</text><text class="s" x="360" y="70" style="font-size:11px">(A sitzt selbst im Ausschuss)</text><text class="s" x="360" y="96" style="font-size:11px;fill:#3d3a2e">Bodenwert ×3 = 300 k</text><text class="s" x="360" y="112" style="font-size:11px;fill:#3d3a2e">Verdacht +15 → 35: Gerüchte</text></g>
+<g class="dg-box"><rect x="520" y="10" width="150" height="120" rx="10" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="530" y="32" style="font-size:12px">4 · Recherche</text><text class="s" x="530" y="54" style="font-size:11px">B verlor das Feld, setzt</text><text class="s" x="530" y="70" style="font-size:11px">Reporter an: 30 k, 2 Monate</text><text class="s" x="530" y="96" style="font-size:11px;fill:#3d3a2e">Hinweis → Beweis</text><text class="s" x="530" y="112" style="font-size:11px;fill:#3d3a2e">(Chance = Verdacht 35 %)</text></g>
+<g class="dg-box"><rect x="10" y="180" width="150" height="120" rx="10" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="20" y="202" style="font-size:12px">5 · Story</text><text class="s" x="20" y="224" style="font-size:11px">B's Zeitung, Glaubw. 70,</text><text class="s" x="20" y="240" style="font-size:11px">Reichweite 60 %</text><text class="s" x="20" y="266" style="font-size:11px;fill:#3d3a2e">A Ansehen −25</text><text class="s" x="20" y="282" style="font-size:11px;fill:#3d3a2e">Hale Ansehen −30</text></g>
+<g class="dg-box"><rect x="180" y="180" width="150" height="120" rx="10" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="190" y="202" style="font-size:12px">6 · Kampagne + Werbung</text><text class="s" x="190" y="224" style="font-size:11px">„A schafft 400 Jobs“,</text><text class="s" x="190" y="240" style="font-size:11px">50 k + 20 k Anzeigen</text><text class="s" x="190" y="266" style="font-size:11px;fill:#3d3a2e">Ansehen +6 (8 × 0,7)</text><text class="s" x="190" y="282" style="font-size:11px;fill:#3d3a2e">Nachfrage +15 %</text></g>
+<g class="dg-box"><rect x="350" y="180" width="150" height="120" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="360" y="202" style="font-size:12px">7 · Wahl 1966</text><text class="s" x="360" y="224" style="font-size:11px">A's Kandidat verliert knapp</text><text class="s" x="360" y="240" style="font-size:11px">(Ansehen −19 netto)</text><text class="s" x="360" y="266" style="font-size:11px;fill:#3d3a2e">Ausschuss neu, A ohne Sitz</text><text class="s" x="360" y="282" style="font-size:11px;fill:#3d3a2e">Einfluss −2 je Monat</text></g>
+<g class="dg-box t"><rect x="520" y="180" width="150" height="120" rx="10"/><text class="h" x="530" y="202" style="font-size:12px">8 · Die Rechnung</text><text class="s" x="530" y="224" style="font-size:11px">A: +200 k Wert, −230 k</text><text class="s" x="530" y="240" style="font-size:11px">Ausgaben, Ansehen im Keller</text><text class="s" x="530" y="266" style="font-size:11px;fill:#3d3a2e">B: −30 k, Ansehen +,</text><text class="s" x="530" y="282" style="font-size:11px;fill:#3d3a2e">nächste Freigabe geht an B</text></g>
+<line class="dg-arr" x1="162" y1="70" x2="176" y2="70" marker-end="url(#ar-ch)"/><line class="dg-arr" x1="332" y1="70" x2="346" y2="70" marker-end="url(#ar-ch)"/><line class="dg-arr" x1="502" y1="70" x2="516" y2="70" marker-end="url(#ar-ch)"/>
+<path class="dg-arr" d="M595 132 L595 155 L85 155 L85 176" marker-end="url(#ar-ch)"/>
+<line class="dg-arr" x1="162" y1="240" x2="176" y2="240" marker-end="url(#ar-ch)"/><line class="dg-arr" x1="332" y1="240" x2="346" y2="240" marker-end="url(#ar-ch)"/><line class="dg-arr" x1="502" y1="240" x2="516" y2="240" marker-end="url(#ar-ch)"/>
+<g class="dg-box"><text class="s" x="340" y="314" text-anchor="middle" style="font-size:11px">Farben: Wirtschaft (gold), Politik (rot), Medien (orange) – alle zehn Menüs waren beteiligt</text></g>
+</svg>
+</template>
+
+<template id="dg-takt">
+<svg viewBox="0 0 680 222" role="img" aria-label="Zeitstruktur 1950 bis 2030">
+<g class="dg-box"><rect x="40" y="70" width="600" height="22" rx="11" style="fill:#efe7d6;stroke:#d9ccb0"/>
+<text class="h" x="40" y="40" text-anchor="middle" style="font-size:12px">1950</text><text class="s" x="40" y="56" text-anchor="middle" style="font-size:11px">Wiederaufbau</text>
+<text class="h" x="190" y="40" text-anchor="middle" style="font-size:12px">1970</text><text class="s" x="190" y="56" text-anchor="middle" style="font-size:11px">Energiegesetz</text>
+<text class="h" x="340" y="40" text-anchor="middle" style="font-size:12px">1990</text><text class="s" x="340" y="56" text-anchor="middle" style="font-size:11px">Privatisierung</text>
+<text class="h" x="490" y="40" text-anchor="middle" style="font-size:12px">2010</text><text class="s" x="490" y="56" text-anchor="middle" style="font-size:11px">Klimagesetz</text>
+<text class="h" x="640" y="40" text-anchor="middle" style="font-size:12px">2030</text><text class="s" x="640" y="56" text-anchor="middle" style="font-size:11px">offen</text></g>
+<g fill="#c9772a"><circle cx="40" cy="81" r="6"/><circle cx="190" cy="81" r="6"/><circle cx="340" cy="81" r="6"/><circle cx="490" cy="81" r="6"/><circle cx="640" cy="81" r="6"/></g>
+<g stroke="#8b83d9" stroke-width="2"><line x1="70" y1="92" x2="70" y2="102"/><line x1="100" y1="92" x2="100" y2="102"/><line x1="130" y1="92" x2="130" y2="102"/><line x1="160" y1="92" x2="160" y2="102"/><line x1="220" y1="92" x2="220" y2="102"/><line x1="250" y1="92" x2="250" y2="102"/><line x1="280" y1="92" x2="280" y2="102"/><line x1="310" y1="92" x2="310" y2="102"/><line x1="370" y1="92" x2="370" y2="102"/><line x1="400" y1="92" x2="400" y2="102"/><line x1="430" y1="92" x2="430" y2="102"/><line x1="460" y1="92" x2="460" y2="102"/><line x1="520" y1="92" x2="520" y2="102"/><line x1="550" y1="92" x2="550" y2="102"/><line x1="580" y1="92" x2="580" y2="102"/><line x1="610" y1="92" x2="610" y2="102"/></g>
+<g class="dg-box"><text class="s" x="40" y="118" style="font-size:11px;fill:#8b83d9">| Wahl alle 4 Jahre (1954, 1958 …): Ausschuss, Rat, Polizeichef – ab 1990 Bürgermeister?</text>
+<text class="s" x="40" y="146" style="font-size:11px">Epoche: Leitgesetz der Stadt, Sanierungswelle, neue Medientypen, Epochen-Index verschiebt sich</text>
+<text class="s" x="40" y="166" style="font-size:11px">Jahr: Haushalt der Stadt (NPC), Zuschüsse, Ratssitzung über Gesetze, Verbände stellen Forderungen</text>
+<text class="s" x="40" y="186" style="font-size:11px">Quartal: Ausschusssitzung (Anhörungen), Umfragen, Werbekampagnen laufen aus</text>
+<text class="s" x="40" y="206" style="font-size:11px">Monat: Wirtschaftstick, Ansehen −10 %, Verdacht −2, Einfluss aus Ämtern, 2–5 Stories aus Ereignissen</text></g>
+</svg>
+</template>
+
+<template id="dg-bezirke">
+<svg viewBox="0 0 680 420" role="img" aria-label="Beispielpartie mit sechs Bezirken">
+<defs><marker id="ar-bz" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box g"><circle cx="340" cy="205" r="48" style="fill:#efe7d6;stroke:#a89878"/><text class="h" x="340" y="200" text-anchor="middle" style="font-size:12px">Zentrum</text><text class="s" x="340" y="215" text-anchor="middle" style="font-size:11px">Stadt (NPC)</text><text class="s" x="340" y="229" text-anchor="middle" style="font-size:10px">alles kaufbar, teurer</text></g>
+<g class="dg-box p"><circle cx="340" cy="65" r="46"/><text class="h" x="340" y="58" text-anchor="middle" style="font-size:13px">Nord</text><text class="s" x="340" y="73" text-anchor="middle" style="font-size:11px">Energie</text><text class="s" x="340" y="87" text-anchor="middle" style="font-size:10px">Berg, Fluss</text></g>
+<g class="dg-box p"><circle cx="461" cy="135" r="46"/><text class="h" x="461" y="128" text-anchor="middle" style="font-size:13px">Ost</text><text class="s" x="461" y="143" text-anchor="middle" style="font-size:11px">Handel &amp; Hafen</text><text class="s" x="461" y="157" text-anchor="middle" style="font-size:10px">Küste, Brückenkopf</text></g>
+<g class="dg-box p"><circle cx="461" cy="275" r="46"/><text class="h" x="461" y="268" text-anchor="middle" style="font-size:13px">Zentrumsnah B</text><text class="s" x="461" y="283" text-anchor="middle" style="font-size:11px">Bau &amp; Tourismus</text><text class="s" x="461" y="297" text-anchor="middle" style="font-size:10px">Zentrumsnähe, Küste</text></g>
+<g class="dg-box p"><circle cx="340" cy="345" r="46"/><text class="h" x="340" y="338" text-anchor="middle" style="font-size:13px">Süd</text><text class="s" x="340" y="353" text-anchor="middle" style="font-size:11px">Produktion</text><text class="s" x="340" y="367" text-anchor="middle" style="font-size:10px">flach, Brückennähe</text></g>
+<g class="dg-box p"><circle cx="219" cy="275" r="46"/><text class="h" x="219" y="268" text-anchor="middle" style="font-size:13px">West</text><text class="s" x="219" y="283" text-anchor="middle" style="font-size:11px">Wohnen &amp; Bildung</text><text class="s" x="219" y="297" text-anchor="middle" style="font-size:10px">Wald, Küste</text></g>
+<g class="dg-box p"><circle cx="219" cy="135" r="46"/><text class="h" x="219" y="128" text-anchor="middle" style="font-size:13px">Zentrumsnah A</text><text class="s" x="219" y="143" text-anchor="middle" style="font-size:11px">Finanzen &amp; Dienste</text><text class="s" x="219" y="157" text-anchor="middle" style="font-size:10px">Zentrumsnähe</text></g>
+<line class="dg-arr" x1="383" y1="90" x2="418" y2="110" marker-end="url(#ar-bz)"/>
+<line class="dg-arr" x1="461" y1="185" x2="461" y2="225" marker-end="url(#ar-bz)" marker-start="url(#ar-bz)"/>
+<line class="dg-arr" x1="383" y1="320" x2="418" y2="300" marker-end="url(#ar-bz)"/>
+<line class="dg-arr" x1="262" y1="300" x2="297" y2="320" marker-end="url(#ar-bz)"/>
+<line class="dg-arr" x1="219" y1="225" x2="219" y2="185" marker-end="url(#ar-bz)"/>
+<line class="dg-arr" x1="262" y1="110" x2="297" y2="90" marker-end="url(#ar-bz)"/>
+<g class="dg-box"><text class="s" x="420" y="84" style="font-size:11px">Strom</text><text class="s" x="472" y="209" style="font-size:11px">Importe, Export</text><text class="s" x="428" y="338" style="font-size:11px">Baustoffe</text><text class="s" x="252" y="338" text-anchor="end" style="font-size:11px">Arbeiter</text><text class="s" x="208" y="209" text-anchor="end" style="font-size:11px">Akademiker</text><text class="s" x="252" y="84" text-anchor="end" style="font-size:11px">Kredit</text>
+<text class="s" x="340" y="412" text-anchor="middle" style="font-size:11px">Jeder braucht mindestens drei andere · zwei Spieler mit derselben Wahl sättigen ihren Markt – die Nische lohnt</text></g>
+</svg>
+</template>
+
+<template id="dg-agenda">
+<svg viewBox="0 0 680 330" role="img" aria-label="Agenda-Band im HUD">
+<rect x="0" y="0" width="680" height="250" rx="12" fill="#22354a"/>
+<rect x="10" y="10" width="92" height="44" rx="8" fill="#101722" stroke="#d8b05a" stroke-width="1"/><text x="18" y="26" text-anchor="start" style="font:600 10px Geist,sans-serif;fill:#ece6d6">Northgate</text><text x="18" y="42" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#a9a394">District 1</text>
+<rect x="108" y="10" width="86" height="44" rx="8" fill="#101722" stroke="#d8b05a" stroke-width="1"/><text x="116" y="26" text-anchor="start" style="font:600 10px Geist,sans-serif;fill:#ece6d6">Treasury</text><text x="116" y="42" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#a9a394">$412k · private $96k</text>
+<rect x="200" y="10" width="186" height="44" rx="8" fill="#101722" stroke="#d8b05a" stroke-width="1"/><text x="208" y="26" text-anchor="start" style="font:600 10px Geist,sans-serif;fill:#ece6d6">City News</text><text x="208" y="42" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#a9a394">Rosenwald opens car showroom · 2 mo ago</text>
+<rect x="392" y="10" width="134" height="44" rx="8" fill="#101722" stroke="#d8b05a" stroke-width="1"/><text x="400" y="26" text-anchor="start" style="font:600 10px Geist,sans-serif;fill:#ece6d6">Mood</text><text x="452" y="26" text-anchor="start" style="font:400 8px Geist,sans-serif;fill:#a9a394">Top issue: Jobs</text>
+<line x1="400" y1="42" x2="470" y2="42" stroke="#3a4a60" stroke-width="3" stroke-linecap="round"/><circle cx="428" cy="42" r="4" fill="#d8b05a"/><text x="474" y="45" text-anchor="start" style="font:400 7px Geist,sans-serif;fill:#a9a394">them ◀ ▶ us</text>
+<rect x="532" y="10" width="66" height="44" rx="8" fill="#101722" stroke="#d8b05a" stroke-width="1"/><text x="540" y="26" text-anchor="start" style="font:600 10px Geist,sans-serif;fill:#ece6d6">Happiness</text><text x="540" y="42" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#a9a394">74 % ▲</text>
+<rect x="604" y="10" width="66" height="44" rx="8" fill="#101722" stroke="#d8b05a" stroke-width="1.5"/><text x="612" y="27" text-anchor="start" style="font:600 11px Geist,sans-serif;fill:#d8b05a">Mar 1958</text><text x="612" y="42" text-anchor="start" style="font:400 8px Geist,sans-serif;fill:#a9a394">calendar ▾</text>
+<rect x="10" y="62" width="660" height="46" rx="10" fill="#0e1420" stroke="#d8b05a" stroke-width="1"/>
+<line x1="56" y1="54" x2="56" y2="62" stroke="#d8b05a" stroke-width="2"/>
+<line x1="56" y1="62" x2="56" y2="108" stroke="#d8b05a" stroke-width="2"/>
+<line x1="106" y1="62" x2="106" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="106" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Apr</text>
+<line x1="156" y1="62" x2="156" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="156" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">May</text>
+<line x1="206" y1="62" x2="206" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="206" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Jun</text>
+<line x1="256" y1="62" x2="256" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="256" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Jul</text>
+<line x1="306" y1="62" x2="306" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="306" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Aug</text>
+<line x1="356" y1="62" x2="356" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="356" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Sep</text>
+<line x1="406" y1="62" x2="406" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="406" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Oct</text>
+<line x1="456" y1="62" x2="456" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="456" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Nov</text>
+<line x1="506" y1="62" x2="506" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="506" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Dec</text>
+<line x1="556" y1="62" x2="556" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="556" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Jan 59</text>
+<line x1="606" y1="62" x2="606" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="606" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Feb 59</text>
+<line x1="656" y1="62" x2="656" y2="68" stroke="#3a4a60" stroke-width="1"/>
+<text x="656" y="78" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Mar 59</text>
+<text x="18" y="78" text-anchor="start" style="font:600 8px Geist,sans-serif;fill:#d8b05a">NOW</text>
+<text x="664" y="78" text-anchor="end" style="font:400 8px Geist,sans-serif;fill:#a9a394">◀</text>
+<rect x="256" y="99" width="260" height="5" rx="2.5" fill="#f08a3a" opacity="0.85"/>
+<circle cx="106" cy="90" r="13" fill="none" stroke="#e0564f" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="106" cy="90" r="9.5" fill="none" stroke="#d8b05a" stroke-width="2"/><circle cx="106" cy="90" r="6" fill="#d94545"/>
+<circle cx="156" cy="90" r="6" fill="#d8b05a"/>
+<circle cx="186" cy="90" r="6" fill="#f08a3a"/>
+<circle cx="456" cy="90" r="9.5" fill="none" stroke="#d8b05a" stroke-width="2"/><circle cx="456" cy="90" r="6" fill="#d94545"/>
+<circle cx="506" cy="90" r="9.5" fill="none" stroke="#d8b05a" stroke-width="2"/><circle cx="506" cy="90" r="6" fill="#d94545"/>
+<line x1="106" y1="98" x2="106" y2="118" stroke="#55657d" stroke-width="1"/><text x="14" y="124" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Hearing field 3-2 · 1 mo · needs 2 of 3</text>
+<line x1="156" y1="98" x2="156" y2="134" stroke="#55657d" stroke-width="1"/><text x="156" y="140" text-anchor="middle" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Bids close: Harbor road · 2 mo</text>
+<line x1="186" y1="98" x2="186" y2="150" stroke="#55657d" stroke-width="1"/><text x="186" y="156" text-anchor="middle" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Herald exposé on Rival C · 10 wk</text>
+<line x1="456" y1="98" x2="456" y2="118" stroke="#55657d" stroke-width="1"/><text x="456" y="124" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Election: Police chief · 8 mo · Hale 46 %</text>
+<line x1="506" y1="98" x2="506" y2="134" stroke="#55657d" stroke-width="1"/><text x="506" y="140" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Council vote: High-rise permit · 9 mo · 4:5</text>
+<text x="386" y="156" text-anchor="middle" style="font:400 9px Geist,sans-serif;fill:#f08a3a">Campaign running: Housing + Jobs (Jun–Nov)</text>
+<rect x="372" y="168" width="296" height="72" rx="10" fill="#101722" stroke="#d8b05a" stroke-width="1.5"/><text x="660" y="180" text-anchor="end" style="font:400 7px Geist,sans-serif;fill:#a9a394">hover</text>
+<text x="382" y="186" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Council vote · High-rise permit · Dec 1958 (9 mo)</text>
+<text x="382" y="202" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#a9a394">Outlook 4–6 of 9 · needs 5 · your bill</text>
+<text x="382" y="218" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#a9a394">Lobby 20 placed · campaign running · 2 swing seats</text>
+<text x="382" y="234" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">Click: open War Room</text>
+<text x="16" y="186" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Pins: Politik rot · Medien orange · Wirtschaft gold</text>
+<text x="16" y="202" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Goldring = mein Einsatz (Gesetz, Kandidat, Antrag, Kampagne)</text>
+<text x="16" y="218" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Puls = weniger als ein Monat und offener Ausgang</text>
+<text x="16" y="234" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Mausrad: 6 / 12 / 24 Monate · Klick auf einen Pin: War Room</text>
+<g class="dg-box">
+<text class="s" x="340" y="276" text-anchor="middle" style="font-size:11px">Heute links unter der Bezirks-Karte, die Zukunft kommt von rechts herein und wandert auf Heute zu (Entscheidung des Users 09.11.).</text>
+<text class="s" x="340" y="296" text-anchor="middle" style="font-size:11px">Erreicht ein Pin das linke Ende, findet das Ereignis statt: Roll Call, Wahlabend, Frist.</text>
+<text class="s" x="340" y="316" text-anchor="middle" style="font-size:11px">Die aufgeklappte Uhr-Karte (Kalender) zeigt dieselben Termine als Liste – ein Datenstand, zwei Ansichten.</text>
+</g></svg>
+</template>
+<template id="dg-warroom">
+<svg viewBox="0 0 680 522" role="img" aria-label="War Room – die Kampagnen-Werkstatt">
+<rect x="10" y="10" width="660" height="446" rx="14" fill="#0e1420" stroke="#d8b05a" stroke-width="1.5"/>
+<text x="24" y="34" text-anchor="start" style="font:600 13px Geist,sans-serif;fill:#d8b05a">WAR ROOM</text><text x="112" y="34" text-anchor="start" style="font:400 10px Geist,sans-serif;fill:#a9a394">Pass bill · High-rise permit · City Council · Dec 1959</text><text x="656" y="34" text-anchor="end" style="font:400 9px Geist,sans-serif;fill:#a9a394">Attempt 2 of 2</text>
+<rect x="22" y="52" width="112" height="38" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/>
+<text x="78" y="76" text-anchor="middle" style="font:400 11px Geist,sans-serif;fill:#a9a394">1 · Goal</text>
+<rect x="22" y="98" width="112" height="38" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/>
+<text x="78" y="122" text-anchor="middle" style="font:400 11px Geist,sans-serif;fill:#a9a394">2 · Vehicle</text>
+<rect x="22" y="144" width="112" height="38" rx="8" fill="#1d2a3a" stroke="#d8b05a" stroke-width="1.5"/>
+<text x="78" y="168" text-anchor="middle" style="font:600 11px Geist,sans-serif;fill:#ece6d6">3 · Message</text>
+<rect x="22" y="190" width="112" height="38" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/>
+<text x="78" y="214" text-anchor="middle" style="font:400 11px Geist,sans-serif;fill:#a9a394">4 · Mix</text>
+<rect x="22" y="236" width="112" height="38" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/>
+<text x="78" y="260" text-anchor="middle" style="font:400 11px Geist,sans-serif;fill:#a9a394">5 · Tricks</text>
+<rect x="22" y="282" width="112" height="38" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/>
+<text x="78" y="306" text-anchor="middle" style="font:400 11px Geist,sans-serif;fill:#a9a394">6 · Timing</text>
+<text x="152" y="60" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">GOAL</text><text x="152" y="74" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#ece6d6">Pass bill: High-rise permit (needs 5 of 9) · council session Dec 1959</text>
+<text x="152" y="92" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">VEHICLE</text><text x="152" y="106" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#ece6d6">Puppet: R. Hale (Progress, owes you 2 favors) · proposes the bill</text><text x="152" y="120" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#ece6d6">Outlets: Island Gazette (own · reach 58 % · cred 72) · WKRO Radio (rented)</text>
+<text x="152" y="138" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">MESSAGE · theme 1 + 2</text>
+<rect x="152" y="144" width="51" height="16" rx="8" fill="#d8b05a" stroke="#d8b05a" stroke-width="1"/><text x="177.5" y="155.5" text-anchor="middle" style="font:600 8.5px Geist,sans-serif;fill:#0e1420">Housing</text>
+<rect x="209" y="144" width="35" height="16" rx="8" fill="#d8b05a" stroke="#d8b05a" stroke-width="1"/><text x="226.5" y="155.5" text-anchor="middle" style="font:600 8.5px Geist,sans-serif;fill:#0e1420">Jobs</text>
+<rect x="250" y="144" width="45" height="16" rx="8" fill="#17202e" stroke="#d8b05a" stroke-width="1"/><text x="272.5" y="155.5" text-anchor="middle" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Safety</text>
+<rect x="301" y="144" width="56" height="16" rx="8" fill="#17202e" stroke="#d8b05a" stroke-width="1"/><text x="329.0" y="155.5" text-anchor="middle" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Progress</text>
+<rect x="363" y="144" width="40" height="16" rx="8" fill="#17202e" stroke="#d8b05a" stroke-width="1"/><text x="383.0" y="155.5" text-anchor="middle" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Taxes</text>
+<rect x="409" y="144" width="72" height="16" rx="8" fill="#17202e" stroke="#d8b05a" stroke-width="1"/><text x="445.0" y="155.5" text-anchor="middle" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Clean Hands</text>
+<rect x="487" y="144" width="109" height="16" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/><text x="541.5" y="155.5" text-anchor="middle" style="font:400 8.5px Geist,sans-serif;fill:#5c6677">Environment (1970)</text>
+<text x="206" y="183" text-anchor="end" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Emotional</text><text x="414" y="183" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Factual</text>
+<line x1="214" y1="180" x2="406" y2="180" stroke="#3a4a60" stroke-width="3" stroke-linecap="round"/>
+<circle cx="333" cy="180" r="5" fill="#d8b05a"/>
+<text x="206" y="199" text-anchor="end" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Hope</text><text x="414" y="199" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Fear</text>
+<line x1="214" y1="196" x2="406" y2="196" stroke="#3a4a60" stroke-width="3" stroke-linecap="round"/>
+<circle cx="272" cy="196" r="5" fill="#d8b05a"/>
+<text x="206" y="215" text-anchor="end" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Positive</text><text x="414" y="215" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Attack</text>
+<line x1="214" y1="212" x2="406" y2="212" stroke="#3a4a60" stroke-width="3" stroke-linecap="round"/>
+<circle cx="252" cy="212" r="5" fill="#d8b05a"/>
+<text x="206" y="231" text-anchor="end" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Local</text><text x="414" y="231" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">City-wide</text>
+<line x1="214" y1="228" x2="406" y2="228" stroke="#3a4a60" stroke-width="3" stroke-linecap="round"/>
+<circle cx="281" cy="228" r="5" fill="#d8b05a"/>
+<text x="152" y="253" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#ece6d6">Audience: Workers ✓ · Families ✓ · Seniors · Business · Youth (1960)</text>
+<text x="152" y="269" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#a9a394">Polarize (us vs. them)</text><line x1="270" y1="266" x2="390" y2="266" stroke="#3a4a60" stroke-width="3" stroke-linecap="round"/><circle cx="312" cy="266" r="5" fill="#d8b05a"/><text x="398" y="269" text-anchor="start" style="font:600 9.5px Geist,sans-serif;fill:#ece6d6">35</text>
+<text x="152" y="285" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#ece6d6">Promise: “Rent cap stays” · due 1963 · +10 reputation if kept, −15 if broken</text>
+<text x="152" y="303" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">MIX · 40 / 40 points</text>
+<text x="152" y="318" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">Radio spots</text>
+<rect x="236" y="311" width="140" height="8" rx="4" fill="#17202e"/>
+<rect x="236" y="311" width="140" height="8" rx="4" fill="#f08a3a"/>
+<text x="384" y="318" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">14</text>
+<text x="152" y="330" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">Door-to-door</text>
+<rect x="236" y="323" width="140" height="8" rx="4" fill="#17202e"/>
+<rect x="236" y="323" width="100" height="8" rx="4" fill="#f08a3a"/>
+<text x="384" y="330" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">10</text>
+<text x="152" y="342" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">Newspaper ads</text>
+<rect x="236" y="335" width="140" height="8" rx="4" fill="#17202e"/>
+<rect x="236" y="335" width="80" height="8" rx="4" fill="#f08a3a"/>
+<text x="384" y="342" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">8</text>
+<text x="152" y="354" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">Rallies</text>
+<rect x="236" y="347" width="140" height="8" rx="4" fill="#17202e"/>
+<rect x="236" y="347" width="80" height="8" rx="4" fill="#f08a3a"/>
+<text x="384" y="354" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">8</text>
+<text x="152" y="366" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">Posters</text>
+<rect x="236" y="359" width="140" height="8" rx="4" fill="#17202e"/>
+<text x="384" y="366" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#ece6d6">0</text>
+<text x="152" y="378" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#5c6677">TV spots (1960)</text>
+<rect x="236" y="371" width="140" height="8" rx="4" fill="#17202e"/>
+<text x="384" y="378" text-anchor="start" style="font:400 8.5px Geist,sans-serif;fill:#5c6677">locked</text>
+<text x="152" y="392" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">TRICKS</text><text x="152" y="405" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#a9a394">☐ Envelope → Okafor (+50 lean · heat +20 · he may report you)</text><text x="152" y="419" text-anchor="start" style="font:400 9.5px Geist,sans-serif;fill:#ece6d6">☑ Buy editor · Evening Post (counter-story runs small · heat +5 · cred −2)</text>
+<text x="152" y="437" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">TIMING</text><rect x="212" y="430" width="240" height="8" rx="4" fill="#17202e"/><rect x="212" y="430" width="240" height="8" rx="4" fill="#f08a3a" opacity="0.7"/><polygon points="382,428 388,420 376,420" fill="#d8b05a"/><text x="212" y="450" text-anchor="start" style="font:400 8px Geist,sans-serif;fill:#a9a394">Jun</text><text x="332" y="450" text-anchor="start" style="font:400 8px Geist,sans-serif;fill:#a9a394">Sep</text><text x="382" y="450" text-anchor="middle" style="font:600 8px Geist,sans-serif;fill:#d8b05a">peak Oct</text><text x="452" y="450" text-anchor="end" style="font:400 8px Geist,sans-serif;fill:#a9a394">Nov vote</text>
+<rect x="484" y="52" width="174" height="122" rx="10" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/><text x="494" y="68" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">OUTLOOK</text><text x="494" y="96" text-anchor="start" style="font:600 22px Geist,sans-serif;fill:#ece6d6">5–7 of 9</text><text x="594" y="96" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#a9a394">needs 5</text>
+<circle cx="505.0" cy="160.0" r="6" fill="#4fc26b"/>
+<circle cx="510.0" cy="143.9" r="6" fill="#4fc26b"/>
+<circle cx="524.3" cy="130.3" r="6" fill="#4fc26b"/>
+<circle cx="545.7" cy="121.2" r="6" fill="#4fc26b"/>
+<circle cx="571.0" cy="118.0" r="6" fill="#e6b450"/>
+<circle cx="596.3" cy="121.2" r="6" fill="#e6b450"/>
+<circle cx="617.7" cy="130.3" r="6" fill="#e6b450"/>
+<circle cx="632.0" cy="143.9" r="6" fill="#e0564f"/>
+<circle cx="637.0" cy="160.0" r="6" fill="#e0564f"/>
+<text x="494" y="170" text-anchor="start" style="font:400 7.5px Geist,sans-serif;fill:#a9a394">safe for · swing · safe against</text>
+<rect x="484" y="182" width="174" height="50" rx="10" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/><text x="494" y="198" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">EXPOSURE</text><text x="648" y="198" text-anchor="end" style="font:400 9px Geist,sans-serif;fill:#ece6d6">low–medium</text>
+<rect x="494" y="208" width="154" height="8" rx="4" fill="#2c3a4e"/><rect x="494" y="208" width="52" height="8" rx="4" fill="#e6b450"/><text x="494" y="227" text-anchor="start" style="font:400 7.5px Geist,sans-serif;fill:#a9a394">heat 5 → 10 after launch · no probe against you</text>
+<rect x="484" y="240" width="174" height="70" rx="10" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/><text x="494" y="256" text-anchor="start" style="font:600 9px Geist,sans-serif;fill:#d8b05a">COST</text><text x="494" y="272" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">$68k · channels + editor</text><text x="494" y="286" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">15 influence · special session</text><text x="494" y="300" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">1 favor · Okafor's ward captain</text>
+<rect x="484" y="322" width="174" height="36" rx="10" fill="#d8b05a" stroke="#d8b05a" stroke-width="1"/><text x="571" y="345" text-anchor="middle" style="font:600 13px Geist,sans-serif;fill:#0e1420">LAUNCH</text>
+<text x="571" y="376" text-anchor="middle" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">Pivot: 1 left (−20 % budget)</text>
+<rect x="484" y="388" width="174" height="24" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/><text x="571" y="404" text-anchor="middle" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Poll Westbrook · ±8 · $8k</text>
+<rect x="484" y="418" width="174" height="24" rx="8" fill="#17202e" stroke="#2c3a4e" stroke-width="1"/><text x="571" y="434" text-anchor="middle" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Playbook · 7 cards</text>
+<g class="dg-box">
+<text class="s" x="340" y="478" text-anchor="middle" style="font-size:11px">Sechs Schritte wie in Mad Games Tycoon 2: Ziel, Vehikel, Botschaft, Mix (40 Punkte), Tricks, Timing – alles auf einem Bildschirm.</text>
+<text class="s" x="340" y="497" text-anchor="middle" style="font-size:10.5px">Rechts: Aussicht als ehrliche Spanne statt Prozent, Entdeckungsrisiko getrennt (Crusader Kings 3), Kosten in Geld, Einfluss, Gefälligkeiten.</text>
+<text class="s" x="340" y="516" text-anchor="middle" style="font-size:11px">Gesperrte Kanäle stehen grau mit Jahreszahl da (TV 1960) – wie die Features in MGT2.</text>
+</g></svg>
+</template>
+<template id="dg-loop">
+<svg viewBox="0 0 680 250" role="img" aria-label="Der Kreislauf einer Kampagne">
+<defs><marker id="ar-lp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box t"><rect x="20" y="16" width="200" height="74" rx="10"/><text class="h" x="32" y="40">Agenda</text><text class="s" x="32" y="60" style="font-size:10.5px">Termin mit Goldring, Restzeit, Stand</text><text class="s" x="32" y="78" style="font-size:10px;fill:#8b83d9">MGT2: der Kalender</text></g>
+<g class="dg-box"><rect x="240" y="16" width="200" height="74" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="252" y="40">War Room</text><text class="s" x="252" y="60" style="font-size:10.5px">sechs Schritte, Aussicht als Spanne</text><text class="s" x="252" y="78" style="font-size:10px;fill:#8b83d9">MGT2: Spiel anlegen</text></g>
+<g class="dg-box"><rect x="460" y="16" width="200" height="74" rx="10" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="472" y="40">Monate laufen</text><text class="s" x="472" y="60" style="font-size:10.5px">Puls je Monat, einmal umsteuern</text><text class="s" x="472" y="78" style="font-size:10px;fill:#8b83d9">MGT2: Entwicklung</text></g>
+<g class="dg-box"><rect x="460" y="150" width="200" height="74" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="472" y="174">Roll Call</text><text class="s" x="472" y="194" style="font-size:10.5px">Sitz für Sitz, der letzte entscheidet</text><text class="s" x="472" y="212" style="font-size:10px;fill:#8b83d9">MGT2: Release</text></g>
+<g class="dg-box g"><rect x="240" y="150" width="200" height="74" rx="10"/><text class="h" x="252" y="174">Debrief</text><text class="s" x="252" y="194" style="font-size:10.5px">was wirkte, wer kippte, warum</text><text class="s" x="252" y="212" style="font-size:10px;fill:#8b83d9">MGT2: Review-Text</text></g>
+<g class="dg-box t"><rect x="20" y="150" width="200" height="74" rx="10"/><text class="h" x="32" y="174">Playbook</text><text class="s" x="32" y="194" style="font-size:10.5px">Lektionen als Karten, die altern</text><text class="s" x="32" y="212" style="font-size:10px;fill:#8b83d9">MGT2: gewusste Regler</text></g>
+<line class="dg-arr" x1="222" y1="53" x2="236" y2="53" marker-end="url(#ar-lp)"/><line class="dg-arr" x1="442" y1="53" x2="456" y2="53" marker-end="url(#ar-lp)"/><line class="dg-arr" x1="560" y1="92" x2="560" y2="146" marker-end="url(#ar-lp)"/><line class="dg-arr" x1="458" y1="187" x2="444" y2="187" marker-end="url(#ar-lp)"/><line class="dg-arr" x1="238" y1="187" x2="224" y2="187" marker-end="url(#ar-lp)"/><line class="dg-arr" x1="120" y1="148" x2="120" y2="94" marker-end="url(#ar-lp)"/>
+<path class="dg-arr" d="M222 160 C 236 140, 232 110, 246 92" stroke-dasharray="4 3" marker-end="url(#ar-lp)"/>
+<g class="dg-box"><text class="s" x="232" y="128" text-anchor="middle" style="font-size:10px;fill:#6b5a40">zweiter Anlauf</text></g>
+<g class="dg-box"><text class="s" x="340" y="242" text-anchor="middle" style="font-size:11px">Fünf Begriffe, ein Kreislauf – Scheitern führt zurück in den War Room, nicht aus der Partie.</text></g>
+</svg>
+</template>
+<template id="dg-rollcall">
+<svg viewBox="0 0 680 410" role="img" aria-label="Roll Call – die Abstimmung als Szene">
+<rect x="10" y="10" width="660" height="296" rx="14" fill="#0e1420" stroke="#d8b05a" stroke-width="1.5"/>
+<text x="24" y="34" text-anchor="start" style="font:600 13px Geist,sans-serif;fill:#d8b05a">ROLL CALL</text><text x="120" y="34" text-anchor="start" style="font:400 10px Geist,sans-serif;fill:#a9a394">City Council · High-rise permit · Nov 1959 · needs 5 of 9</text>
+<circle cx="70.0" cy="221.4" r="18" fill="#4fc26b"/><text x="70.0" y="226.35000000000002" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">FOR</text>
+<text x="70.0" y="253.35000000000002" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Hale</text><text x="70.0" y="264.35" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">North</text>
+<circle cx="137.5" cy="173.5" r="18" fill="#4fc26b"/><text x="137.5" y="178.509375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">FOR</text>
+<text x="137.5" y="205.509375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Marsh</text><text x="137.5" y="216.509375" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">City</text>
+<circle cx="205.0" cy="139.3" r="18" fill="#e0564f"/><text x="205.0" y="144.3375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">NO</text>
+<text x="205.0" y="171.3375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Vance</text><text x="205.0" y="182.3375" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Near A</text>
+<circle cx="272.5" cy="118.8" r="18" fill="#4fc26b"/><text x="272.5" y="123.834375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">FOR</text>
+<text x="272.5" y="150.834375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Petrov</text><text x="272.5" y="161.834375" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Near B</text>
+<circle cx="340.0" cy="112.0" r="24" fill="none" stroke="#d8b05a" stroke-width="2" stroke-dasharray="4 3"/>
+<circle cx="340.0" cy="112.0" r="18" fill="#17202e" stroke="#d8b05a" stroke-width="1.5"/><text x="340.0" y="117.0" text-anchor="middle" style="font:600 15px Geist,sans-serif;fill:#d8b05a">?</text>
+<text x="340.0" y="144.0" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Okafor</text><text x="340.0" y="155.0" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">West</text>
+<circle cx="407.5" cy="118.8" r="18" fill="#e0564f"/><text x="407.5" y="123.834375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">NO</text>
+<text x="407.5" y="150.834375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Reyes</text><text x="407.5" y="161.834375" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">South</text>
+<circle cx="475.0" cy="139.3" r="18" fill="#4fc26b"/><text x="475.0" y="144.3375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">FOR</text>
+<text x="475.0" y="171.3375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Delgado</text><text x="475.0" y="182.3375" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">Mayor</text>
+<circle cx="542.5" cy="173.5" r="18" fill="#e0564f"/><text x="542.5" y="178.509375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">NO</text>
+<text x="542.5" y="205.509375" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Quist</text><text x="542.5" y="216.509375" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">City</text>
+<circle cx="610.0" cy="221.4" r="18" fill="#e0564f"/><text x="610.0" y="226.35000000000002" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#0e1420">NO</text>
+<text x="610.0" y="253.35000000000002" text-anchor="middle" style="font:600 9px Geist,sans-serif;fill:#ece6d6">Lund</text><text x="610.0" y="264.35" text-anchor="middle" style="font:400 8px Geist,sans-serif;fill:#a9a394">East</text>
+<text x="340" y="192" text-anchor="middle" style="font:600 28px Geist,sans-serif;fill:#ece6d6">4 : 4</text><text x="340" y="210" text-anchor="middle" style="font:400 9px Geist,sans-serif;fill:#a9a394">needs 5 · one seat left</text><text x="340" y="226" text-anchor="middle" style="font:600 10px Geist,sans-serif;fill:#d8b05a">Okafor (West) · 3 s …</text>
+<text x="24" y="276" text-anchor="start" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Marsh (City): “Jobs for the East End.” — FOR</text><text x="656" y="276" text-anchor="end" style="font:400 9px Geist,sans-serif;fill:#ece6d6">Vance (Near A): “Not next to a school.” — NO</text>
+<text x="340" y="296" text-anchor="middle" style="font:400 8.5px Geist,sans-serif;fill:#a9a394">safe seats 0.6 s · swing seats 1.5 s · last seat 3 s pause · Space = skip</text>
+<g class="dg-box">
+<text class="s" x="340" y="326" text-anchor="middle" style="font-size:11px">Sitz für Sitz wie die Richter in Die Fugger II: sichere Sitze fallen schnell, Wackelkandidaten langsam, der letzte entscheidet mit Pause.</text>
+<text class="s" x="340" y="346" text-anchor="middle" style="font-size:11px">Jede Karte trägt einen Satz Begründung aus Haltung, Hot issue, Gefälligkeit oder Umschlag – so lernt man die Leute kennen.</text>
+<text class="s" x="340" y="366" text-anchor="middle" style="font-size:11px">Gleichstand → Stichentscheid des Bürgermeisters (NPC, folgt dem Stadt-Pendel) – unser Los aus Fugger II.</text>
+<text class="s" x="340" y="386" text-anchor="middle" style="font-size:11px">Der Wurf ist ehrlich, die Pause nur Inszenierung · Ausschuss 3 Sitze, 2 nötig · Rat 9 Sitze (6 Bezirke + 3 Stadt), 5 nötig.</text>
+<text class="s" x="340" y="404" text-anchor="middle" style="font-size:11px">Wahlabend: die Bezirke melden nacheinander, laufende Summe, „projected“ ab 70 %.</text>
+</g></svg>
+</template>
+<template id="dg-mediatech">
+<svg viewBox="0 0 680 340" role="img" aria-label="Medien-Technik 1950 bis 2030">
+<rect x="40" y="52" width="600" height="8" rx="4" fill="#efe7d6" stroke="#d9ccb0"/>
+<circle cx="40.0" cy="56" r="6" fill="#c9772a"/><text class="h" x="40.0" y="40" text-anchor="middle" style="font-size:12px">1950</text>
+<circle cx="190.0" cy="56" r="6" fill="#c9772a"/><text class="h" x="190.0" y="40" text-anchor="middle" style="font-size:12px">1970</text>
+<circle cx="340.0" cy="56" r="6" fill="#c9772a"/><text class="h" x="340.0" y="40" text-anchor="middle" style="font-size:12px">1990</text>
+<circle cx="490.0" cy="56" r="6" fill="#c9772a"/><text class="h" x="490.0" y="40" text-anchor="middle" style="font-size:12px">2010</text>
+<circle cx="640.0" cy="56" r="6" fill="#c9772a"/><text class="h" x="640.0" y="40" text-anchor="middle" style="font-size:12px">2030</text>
+<g class="dg-box"><text class="s" x="14" y="94" text-anchor="start" style="font-size:11px;fill:#d94545;font-weight:600">Kanäle (Lizenz)</text><text class="s" x="14" y="212" text-anchor="start" style="font-size:11px;fill:#f08a3a;font-weight:600">Methoden (Forschung)</text></g>
+<line x1="40.0" y1="60" x2="40.0" y2="104" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="40.0" y="104" width="303" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="191.5" y="116.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1950 Newspaper · Radio · Posters · Rallies · Newsreel</text><line x1="115.0" y1="60" x2="115.0" y2="130" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="115.0" y="130" width="72" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="151.0" y="142.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1960 TV b/w</text><line x1="190.0" y1="60" x2="190.0" y2="156" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="190.0" y="156" width="83" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="231.5" y="168.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1970 Color TV</text><line x1="250.0" y1="60" x2="250.0" y2="130" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="250.0" y="130" width="67" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="283.5" y="142.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1978 Cable</text><line x1="325.0" y1="60" x2="325.0" y2="104" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="325.0" y="104" width="94" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="372.0" y="116.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1988 Talk radio</text><line x1="340.0" y1="60" x2="340.0" y2="130" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="340.0" y="130" width="94" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="387.0" y="142.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1990 Private TV</text><line x1="385.0" y1="60" x2="385.0" y2="156" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="385.0" y="156" width="56" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="413.0" y="168.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1996 Web</text><line x1="475.0" y1="60" x2="475.0" y2="104" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="475.0" y="104" width="72" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="511.0" y="116.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2008 Social</text><line x1="535.0" y1="60" x2="535.0" y2="130" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="534" y="130" width="138" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="603.0" y="142.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2016 Mobile · Streaming</text><line x1="640.0" y1="60" x2="640.0" y2="156" stroke="#d94545" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="578" y="156" width="94" height="18" rx="6" fill="#fbe9e9" stroke="#d94545"/><text x="625.0" y="168.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2030 Feeds · AI</text>
+<line x1="40.0" y1="60" x2="40.0" y2="222" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="40.0" y="222" width="83" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="81.5" y="234.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1950 Polls ±8</text><line x1="85.0" y1="60" x2="85.0" y2="248" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="85.0" y="248" width="105" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="137.5" y="260.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1956 Focus groups</text><line x1="115.0" y1="60" x2="115.0" y2="274" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="115.0" y="274" width="89" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="159.5" y="286.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1960 TV debate</text><line x1="145.0" y1="60" x2="145.0" y2="222" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="145.0" y="222" width="100" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="195.0" y="234.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1964 Attack spot</text><line x1="220.0" y1="60" x2="220.0" y2="248" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="220.0" y="248" width="138" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="289.0" y="260.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1974 Investigative unit</text><line x1="265.0" y1="60" x2="265.0" y2="274" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="265.0" y="274" width="138" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="334.0" y="286.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1980 Sound bites · Spin</text><line x1="355.0" y1="60" x2="355.0" y2="222" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="355.0" y="222" width="89" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="399.5" y="234.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1992 Push poll</text><line x1="445.0" y1="60" x2="445.0" y2="248" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="445.0" y="248" width="89" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="489.5" y="260.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2004 Astroturf</text><line x1="505.0" y1="60" x2="505.0" y2="274" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="505.0" y="274" width="122" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="566.0" y="286.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2012 Micro-targeting</text><line x1="535.0" y1="60" x2="535.0" y2="222" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="535.0" y="222" width="61" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="565.5" y="234.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2016 Bots</text><line x1="610.0" y1="60" x2="610.0" y2="248" stroke="#f08a3a" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/><rect x="578" y="248" width="94" height="18" rx="6" fill="#fdeee0" stroke="#f08a3a"/><text x="625.0" y="260.5" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2026 AI content</text>
+<g class="dg-box">
+<text class="s" x="340" y="312" text-anchor="middle" style="font-size:11px">Kanäle kommen per Lizenz-Gesetz der Stadt (Spieler bremsen oder beschleunigen), Methoden erforscht der Spieler im War Room.</text>
+<text class="s" x="340" y="332" text-anchor="middle" style="font-size:11px">Die Technik aus MGT2: 1950 Zeitung, Radio, Schwarz-Weiß-Fernsehen – 2030 Feeds und KI. Jahre auf die Spiel-Epochen gerundet.</text>
+</g></svg>
+</template>
+<template id="dg-case">
+<svg viewBox="0 0 680 346" role="img" aria-label="Fallbeispiel: High-rise permit in zwei Anläufen">
+<defs><marker id="ar-cs" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box t"><rect x="5" y="10" width="158" height="128" rx="10"/><text class="h" x="15" y="32" style="font-size:12px">1 · Jan 1958 · Ziel</text><text class="s" x="15" y="52" style="font-size:10.5px">High-rise permit, Rat,</text><text class="s" x="15" y="69" style="font-size:10.5px">5 von 9, Dezember</text><text class="s" x="15" y="86" style="font-size:10.5px;fill:#3d3a2e">Agenda-Pin: 11 Monate,</text><text class="s" x="15" y="103" style="font-size:10.5px;fill:#3d3a2e">Aussicht 3–5</text></g>
+<g class="dg-box"><rect x="173" y="10" width="158" height="128" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="183" y="32" style="font-size:12px">2 · Anlauf 1 (War Room)</text><text class="s" x="183" y="52" style="font-size:10.5px">Progress + Taxes, sachlich,</text><text class="s" x="183" y="69" style="font-size:10.5px">Business owners</text><text class="s" x="183" y="86" style="font-size:10.5px;fill:#3d3a2e">Zeitung 16, Plakate 12,</text><text class="s" x="183" y="103" style="font-size:10.5px;fill:#3d3a2e">Radio 6, Rallies 6</text><text class="s" x="183" y="120" style="font-size:10.5px;fill:#3d3a2e">48 k$ + 20 Einfluss · 4–6</text></g>
+<g class="dg-box"><rect x="341" y="10" width="158" height="128" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="351" y="32" style="font-size:12px">3 · Roll Call Dez 1958</text><text class="s" x="351" y="52" style="font-size:10.5px">4:5 verloren</text><text class="s" x="351" y="69" style="font-size:10.5px">Okafor (West) kippt:</text><text class="s" x="351" y="86" style="font-size:10.5px;fill:#3d3a2e">Story „Shadows over</text><text class="s" x="351" y="103" style="font-size:10.5px;fill:#3d3a2e">Elm Row“ drehte die</text><text class="s" x="351" y="120" style="font-size:10.5px;fill:#3d3a2e">Housing-Angst</text></g>
+<g class="dg-box g"><rect x="509" y="10" width="158" height="128" rx="10"/><text class="h" x="519" y="32" style="font-size:12px">4 · Debrief</text><text class="s" x="519" y="52" style="font-size:10.5px">Progress in West nur Rang 4</text><text class="s" x="519" y="69" style="font-size:10.5px">Business war schon dafür</text><text class="s" x="519" y="86" style="font-size:10.5px;fill:#3d3a2e">Plakate in Northgate</text><text class="s" x="519" y="103" style="font-size:10.5px;fill:#3d3a2e">verpufft (eigener Bezirk)</text><text class="s" x="519" y="120" style="font-size:10.5px;fill:#3d3a2e">3 Lektionen ins Playbook</text></g>
+<g class="dg-box"><rect x="5" y="180" width="158" height="128" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="15" y="202" style="font-size:12px">5 · Anlauf 2 (Jun–Nov 1959)</text><text class="s" x="15" y="222" style="font-size:10.5px">Housing + Jobs, lokal,</text><text class="s" x="15" y="239" style="font-size:10.5px">Workers + Families</text><text class="s" x="15" y="256" style="font-size:10.5px;fill:#3d3a2e">Radio 14, Haustür 10</text><text class="s" x="15" y="273" style="font-size:10.5px;fill:#3d3a2e">(Okafors Ward)</text><text class="s" x="15" y="290" style="font-size:10.5px;fill:#3d3a2e">Versprechen: Rent cap stays</text></g>
+<g class="dg-box"><rect x="173" y="180" width="158" height="128" rx="10" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="183" y="202" style="font-size:12px">6 · Nebenzüge</text><text class="s" x="183" y="222" style="font-size:10.5px">Fund Hale 30 k$ (bringt ein)</text><text class="s" x="183" y="239" style="font-size:10.5px">Redakteur der Evening Post</text><text class="s" x="183" y="256" style="font-size:10.5px;fill:#3d3a2e">gekauft: Story klein,</text><text class="s" x="183" y="273" style="font-size:10.5px;fill:#3d3a2e">Verdacht +5</text><text class="s" x="183" y="290" style="font-size:10.5px;fill:#3d3a2e">Sondersitzung: 15 Einfluss</text></g>
+<g class="dg-box"><rect x="341" y="180" width="158" height="128" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="351" y="202" style="font-size:12px">7 · Roll Call Nov 1959</text><text class="s" x="351" y="222" style="font-size:10.5px">4:4 nach acht Sitzen</text><text class="s" x="351" y="239" style="font-size:10.5px">Okafor zuletzt, 3 s Pause:</text><text class="s" x="351" y="256" style="font-size:10.5px;fill:#3d3a2e">„Two thousand apartments…“</text><text class="s" x="351" y="273" style="font-size:10.5px;fill:#3d3a2e">5:4 angenommen</text></g>
+<g class="dg-box t"><rect x="509" y="180" width="158" height="128" rx="10"/><text class="h" x="519" y="202" style="font-size:12px">8 · Die Rechnung</text><text class="s" x="519" y="222" style="font-size:10.5px">2 Anläufe: 146 k$,</text><text class="s" x="519" y="239" style="font-size:10.5px">35 Einfluss, Verdacht +5</text><text class="s" x="519" y="256" style="font-size:10.5px;fill:#3d3a2e">Hochhaus-Lots:</text><text class="s" x="519" y="273" style="font-size:10.5px;fill:#3d3a2e">Bodenwert ×1,8</text><text class="s" x="519" y="290" style="font-size:10.5px;fill:#3d3a2e">Versprechen fällig 1963</text></g>
+<line class="dg-arr" x1="163" y1="74" x2="172" y2="74" marker-end="url(#ar-cs)"/><line class="dg-arr" x1="163" y1="244" x2="172" y2="244" marker-end="url(#ar-cs)"/>
+<line class="dg-arr" x1="331" y1="74" x2="340" y2="74" marker-end="url(#ar-cs)"/><line class="dg-arr" x1="331" y1="244" x2="340" y2="244" marker-end="url(#ar-cs)"/>
+<line class="dg-arr" x1="499" y1="74" x2="508" y2="74" marker-end="url(#ar-cs)"/><line class="dg-arr" x1="499" y1="244" x2="508" y2="244" marker-end="url(#ar-cs)"/>
+<path class="dg-arr" d="M588 140 L588 158 L84 158 L84 176" marker-end="url(#ar-cs)"/>
+<g class="dg-box"><text class="s" x="340" y="336" text-anchor="middle" style="font-size:11px">Scheitern kostet Zeit und Geld, nicht die Partie: der zweite Anlauf mit umgestellter Botschaft ist der Normalfall (Regel 6).</text></g>
+</svg>
+</template>
+<template id="dg-mood">
+<svg viewBox="0 0 680 334" role="img" aria-label="Verborgene Stimmung und Reichweite">
+<g class="dg-box"><text class="h" x="14" y="26" text-anchor="start" style="font-size:12px">Stimmung Westbrook 1958 (verborgen)</text></g>
+
+<g class="dg-box"><text class="s" x="14" y="55" style="font-size:11px">Housing</text></g>
+<rect x="100" y="44" width="190" height="13" rx="6" fill="#efe7d6"/><rect x="100" y="44" width="170" height="13" rx="6" fill="#8b83d9"/>
+<g class="dg-box"><text class="s" x="274" y="54.5" style="font-size:10px;fill:#3d3a2e">31</text></g>
+
+<g class="dg-box"><text class="s" x="14" y="77" style="font-size:11px">Safety</text></g>
+<rect x="100" y="66" width="190" height="13" rx="6" fill="#efe7d6"/><rect x="100" y="66" width="132" height="13" rx="6" fill="#8b83d9"/>
+<g class="dg-box"><text class="s" x="236" y="76.5" style="font-size:10px;fill:#3d3a2e">24</text></g>
+
+<g class="dg-box"><text class="s" x="14" y="99" style="font-size:11px">Jobs</text></g>
+<rect x="100" y="88" width="190" height="13" rx="6" fill="#efe7d6"/><rect x="100" y="88" width="104" height="13" rx="6" fill="#8b83d9"/>
+<g class="dg-box"><text class="s" x="208" y="98.5" style="font-size:10px;fill:#3d3a2e">19</text></g>
+
+<g class="dg-box"><text class="s" x="14" y="121" style="font-size:11px">Progress</text></g>
+<rect x="100" y="110" width="190" height="13" rx="6" fill="#efe7d6"/><rect x="100" y="110" width="60" height="13" rx="6" fill="#8b83d9"/>
+<g class="dg-box"><text class="s" x="164" y="120.5" style="font-size:10px;fill:#3d3a2e">11</text></g>
+
+<g class="dg-box"><text class="s" x="14" y="143" style="font-size:11px">Taxes</text></g>
+<rect x="100" y="132" width="190" height="13" rx="6" fill="#efe7d6"/><rect x="100" y="132" width="50" height="13" rx="6" fill="#8b83d9"/>
+<g class="dg-box"><text class="s" x="154" y="142.5" style="font-size:10px;fill:#3d3a2e">9</text></g>
+
+<g class="dg-box"><text class="s" x="14" y="165" style="font-size:11px">Clean Hands</text></g>
+<rect x="100" y="154" width="190" height="13" rx="6" fill="#efe7d6"/><rect x="100" y="154" width="33" height="13" rx="6" fill="#8b83d9"/>
+<g class="dg-box"><text class="s" x="137" y="164.5" style="font-size:10px;fill:#3d3a2e">6</text></g>
+<line x1="40" y1="196" x2="290" y2="196" stroke="#d9ccb0" stroke-width="4" stroke-linecap="round"/><circle cx="141" cy="196" r="7" fill="#c9772a"/>
+<g class="dg-box"><text class="s" x="14" y="200" style="font-size:10px">Tradition</text><text class="s" x="298" y="200" style="font-size:10px">Progress</text><text class="s" x="141" y="184" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">Pendel −18</text></g>
+<g class="dg-box">
+<text class="s" x="14" y="226" text-anchor="start" style="font-size:10px">Quellen aus der Simulation: Mieten, Vorfälle, Arbeitslose, Smog, Skandale</text>
+<text class="s" x="14" y="242" text-anchor="start" style="font-size:10px">Umfrage: ±8 Punkte (1950) · ±5 (1970) · ±3 (1990) · ±2 (2010)</text>
+<text class="s" x="14" y="258" text-anchor="start" style="font-size:10px">Debrief nennt nach jeder Kampagne die zwei größten Abweichungen</text>
+</g>
+<g class="dg-box"><text class="h" x="350" y="26" text-anchor="start" style="font-size:12px">Reichweite Kanal × Zielgruppe 1958</text></g>
+<g class="dg-box"><text class="s" x="470" y="46" text-anchor="middle" style="font-size:10px">Workers</text></g>
+<g class="dg-box"><text class="s" x="520" y="46" text-anchor="middle" style="font-size:10px">Families</text></g>
+<g class="dg-box"><text class="s" x="570" y="46" text-anchor="middle" style="font-size:10px">Seniors</text></g>
+<g class="dg-box"><text class="s" x="620" y="46" text-anchor="middle" style="font-size:10px">Business</text></g>
+<g class="dg-box"><text class="s" x="350" y="68" style="font-size:10px">Newspaper</text></g>
+<rect x="447" y="54" width="46" height="20" rx="4" fill="rgba(201,119,42,0.44)"/>
+<g class="dg-box"><text class="s" x="470" y="68" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">2</text></g>
+<rect x="497" y="54" width="46" height="20" rx="4" fill="rgba(201,119,42,0.44)"/>
+<g class="dg-box"><text class="s" x="520" y="68" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">2</text></g>
+<rect x="547" y="54" width="46" height="20" rx="4" fill="rgba(201,119,42,0.78)"/>
+<g class="dg-box"><text class="s" x="570" y="68" text-anchor="middle" style="font-size:10px;fill:#fff">4</text></g>
+<rect x="597" y="54" width="46" height="20" rx="4" fill="rgba(201,119,42,0.95)"/>
+<g class="dg-box"><text class="s" x="620" y="68" text-anchor="middle" style="font-size:10px;fill:#fff">5</text></g>
+<g class="dg-box"><text class="s" x="350" y="92" style="font-size:10px">Radio</text></g>
+<rect x="447" y="78" width="46" height="20" rx="4" fill="rgba(201,119,42,0.78)"/>
+<g class="dg-box"><text class="s" x="470" y="92" text-anchor="middle" style="font-size:10px;fill:#fff">4</text></g>
+<rect x="497" y="78" width="46" height="20" rx="4" fill="rgba(201,119,42,0.95)"/>
+<g class="dg-box"><text class="s" x="520" y="92" text-anchor="middle" style="font-size:10px;fill:#fff">5</text></g>
+<rect x="547" y="78" width="46" height="20" rx="4" fill="rgba(201,119,42,0.61)"/>
+<g class="dg-box"><text class="s" x="570" y="92" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">3</text></g>
+<rect x="597" y="78" width="46" height="20" rx="4" fill="rgba(201,119,42,0.44)"/>
+<g class="dg-box"><text class="s" x="620" y="92" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">2</text></g>
+<g class="dg-box"><text class="s" x="350" y="116" style="font-size:10px">Posters</text></g>
+<rect x="447" y="102" width="46" height="20" rx="4" fill="rgba(201,119,42,0.61)"/>
+<g class="dg-box"><text class="s" x="470" y="116" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">3</text></g>
+<rect x="497" y="102" width="46" height="20" rx="4" fill="rgba(201,119,42,0.44)"/>
+<g class="dg-box"><text class="s" x="520" y="116" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">2</text></g>
+<rect x="547" y="102" width="46" height="20" rx="4" fill="rgba(201,119,42,0.44)"/>
+<g class="dg-box"><text class="s" x="570" y="116" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">2</text></g>
+<rect x="597" y="102" width="46" height="20" rx="4" fill="rgba(201,119,42,0.61)"/>
+<g class="dg-box"><text class="s" x="620" y="116" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">3</text></g>
+<g class="dg-box"><text class="s" x="350" y="140" style="font-size:10px">Rallies</text></g>
+<rect x="447" y="126" width="46" height="20" rx="4" fill="rgba(201,119,42,0.78)"/>
+<g class="dg-box"><text class="s" x="470" y="140" text-anchor="middle" style="font-size:10px;fill:#fff">4</text></g>
+<rect x="497" y="126" width="46" height="20" rx="4" fill="rgba(201,119,42,0.61)"/>
+<g class="dg-box"><text class="s" x="520" y="140" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">3</text></g>
+<rect x="547" y="126" width="46" height="20" rx="4" fill="rgba(201,119,42,0.27)"/>
+<g class="dg-box"><text class="s" x="570" y="140" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">1</text></g>
+<rect x="597" y="126" width="46" height="20" rx="4" fill="rgba(201,119,42,0.27)"/>
+<g class="dg-box"><text class="s" x="620" y="140" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">1</text></g>
+<g class="dg-box"><text class="s" x="350" y="164" style="font-size:10px">Door-to-door</text></g>
+<rect x="447" y="150" width="46" height="20" rx="4" fill="rgba(201,119,42,0.95)"/>
+<g class="dg-box"><text class="s" x="470" y="164" text-anchor="middle" style="font-size:10px;fill:#fff">5</text></g>
+<rect x="497" y="150" width="46" height="20" rx="4" fill="rgba(201,119,42,0.78)"/>
+<g class="dg-box"><text class="s" x="520" y="164" text-anchor="middle" style="font-size:10px;fill:#fff">4</text></g>
+<rect x="547" y="150" width="46" height="20" rx="4" fill="rgba(201,119,42,0.61)"/>
+<g class="dg-box"><text class="s" x="570" y="164" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">3</text></g>
+<rect x="597" y="150" width="46" height="20" rx="4" fill="rgba(201,119,42,0.27)"/>
+<g class="dg-box"><text class="s" x="620" y="164" text-anchor="middle" style="font-size:10px;fill:#3d3a2e">1</text></g>
+<g class="dg-box"><text class="s" x="350" y="188" style="font-size:10px;fill:#9a9484">TV b/w (1960)</text></g>
+<rect x="447" y="174" width="46" height="20" rx="4" fill="#f1ede3" stroke="#d9ccb0" stroke-dasharray="3 2"/>
+<g class="dg-box"><text class="s" x="470" y="188" text-anchor="middle" style="font-size:9px;fill:#9a9484">1960</text></g>
+<rect x="497" y="174" width="46" height="20" rx="4" fill="#f1ede3" stroke="#d9ccb0" stroke-dasharray="3 2"/>
+<rect x="547" y="174" width="46" height="20" rx="4" fill="#f1ede3" stroke="#d9ccb0" stroke-dasharray="3 2"/>
+<rect x="597" y="174" width="46" height="20" rx="4" fill="#f1ede3" stroke="#d9ccb0" stroke-dasharray="3 2"/>
+<g class="dg-box"><text class="s" x="350" y="214" text-anchor="start" style="font-size:10px">0 = erreicht niemanden … 5 = Hauptkanal · feste Tabelle je Epoche</text></g>
+<g class="dg-box"><text class="s" x="350" y="232" text-anchor="start" style="font-size:10px">1972 kippt es: Fernsehen vorn, Haustür bleibt für Workers</text></g>
+<g class="dg-box">
+<text class="s" x="340" y="298" text-anchor="middle" style="font-size:11px">Was in MGT2 die richtigen Regler je Genre sind, ist hier die Passung Thema × Stimmung × Kanal × Zielgruppe.</text>
+<text class="s" x="340" y="318" text-anchor="middle" style="font-size:11px">Stimmung und Vorlieben sind je Partie anders (Seed); die Kanal-Tabelle ist partieübergreifend lernbar.</text>
+</g></svg>
+</template>
+<template id="dg-laws">
+<svg viewBox="0 0 680 436" role="img" aria-label="Gesetzeskatalog 1950 bis 2030 (Auswahl)">
+<rect x="92" y="34" width="576" height="6" rx="3" fill="#efe7d6" stroke="#d9ccb0"/>
+<circle cx="92" cy="37" r="5" fill="#c9772a"/><text class="h" x="92.0" y="24" text-anchor="middle" style="font-size:11px">1950</text>
+<circle cx="236" cy="37" r="5" fill="#c9772a"/><text class="h" x="236.0" y="24" text-anchor="middle" style="font-size:11px">1970</text>
+<circle cx="380" cy="37" r="5" fill="#c9772a"/><text class="h" x="380.0" y="24" text-anchor="middle" style="font-size:11px">1990</text>
+<circle cx="524" cy="37" r="5" fill="#c9772a"/><text class="h" x="524.0" y="24" text-anchor="middle" style="font-size:11px">2010</text>
+<circle cx="668" cy="37" r="5" fill="#c9772a"/><text class="h" x="662" y="24" text-anchor="middle" style="font-size:11px">2030</text>
+<line x1="10" y1="107" x2="670" y2="107" stroke="#e6ddc9" stroke-width="1"/>
+<g class="dg-box"><text class="s" x="14" y="82" text-anchor="start" style="font-size:10.5px;font-weight:600;fill:#3d3a2e">Bauen, Flächen</text></g>
+<rect x="92" y="56" width="97" height="16" rx="5" fill="#f4e2b5" stroke="#c9772a"/><text x="140.5" y="67.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1950 Reconstruction</text>
+<rect x="121" y="74" width="92" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="166.8" y="85.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1954 Urban renewal</text>
+<rect x="207" y="56" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="255.7" y="67.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1966 Historic pres.</text>
+<rect x="272" y="74" width="87" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="315.5" y="85.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1975 Parking min.</text>
+<rect x="488" y="56" width="87" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="531.5" y="67.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2005 Inclusionary</text>
+<rect x="589" y="56" width="69" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="623.3" y="67.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2019 Upzoning</text>
+<line x1="10" y1="165" x2="670" y2="165" stroke="#e6ddc9" stroke-width="1"/>
+<g class="dg-box"><text class="s" x="14" y="140" text-anchor="start" style="font-size:10.5px;font-weight:600;fill:#3d3a2e">Wohnen</text></g>
+<rect x="92" y="114" width="69" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="126.5" y="125.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1950 Rent cap</text>
+<rect x="128" y="132" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="176.5" y="143.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1955 Public housing</text>
+<rect x="222" y="114" width="87" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="265.1" y="125.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1968 Fair housing</text>
+<rect x="351" y="114" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="399.7" y="125.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1986 Housing credit</text>
+<rect x="561" y="114" width="111" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="616.5" y="125.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2016 Short-term rental</text>
+<rect x="589" y="132" width="83" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="630.5" y="143.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2024 Vacancy tax</text>
+<line x1="10" y1="223" x2="670" y2="223" stroke="#e6ddc9" stroke-width="1"/>
+<g class="dg-box"><text class="s" x="14" y="198" text-anchor="start" style="font-size:10.5px;font-weight:600;fill:#3d3a2e">Verkehr, Umwelt</text></g>
+<rect x="135" y="172" width="64" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="167.2" y="183.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1956 Highway</text>
+<rect x="236" y="172" width="73" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="272.5" y="183.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1970 Clean Air</text>
+<rect x="258" y="190" width="78" height="16" rx="5" fill="#f4e2b5" stroke="#c9772a"/><text x="296.6" y="201.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1973 Energy Act</text>
+<rect x="380" y="172" width="92" height="16" rx="5" fill="#f4e2b5" stroke="#c9772a"/><text x="426.0" y="183.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1990 Privatization</text>
+<rect x="474" y="190" width="78" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="512.6" y="201.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2003 Congestion</text>
+<rect x="524" y="172" width="83" height="16" rx="5" fill="#f4e2b5" stroke="#c9772a"/><text x="565.5" y="183.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2010 Climate Act</text>
+<rect x="575" y="190" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="623.5" y="201.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2018 Coal phase-out</text>
+<line x1="10" y1="281" x2="670" y2="281" stroke="#e6ddc9" stroke-width="1"/>
+<g class="dg-box"><text class="s" x="14" y="256" text-anchor="start" style="font-size:10.5px;font-weight:600;fill:#3d3a2e">Wirtschaft, Steuern</text></g>
+<rect x="99" y="230" width="92" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="145.2" y="241.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1951 Import tariff</text>
+<rect x="178" y="248" width="87" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="221.9" y="259.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1962 Minimum wage</text>
+<rect x="222" y="230" width="102" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="272.6" y="241.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1968 Enterprise zone</text>
+<rect x="315" y="248" width="87" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="358.70000000000005" y="259.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1981 Deregulation</text>
+<rect x="380" y="230" width="59" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="409.5" y="241.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1990 Casino</text>
+<rect x="423" y="248" width="73" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="459.7" y="259.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1996 Free port</text>
+<rect x="517" y="230" width="69" height="16" rx="5" fill="#fbe9e9" stroke="#d94545" stroke-dasharray="3 2"/><text x="551.3" y="241.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2009 Stimulus</text>
+<rect x="589" y="248" width="83" height="16" rx="5" fill="#fbe9e9" stroke="#d94545" stroke-dasharray="3 2"/><text x="630.5" y="259.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2021 Remote work</text>
+<line x1="10" y1="339" x2="670" y2="339" stroke="#e6ddc9" stroke-width="1"/>
+<g class="dg-box"><text class="s" x="14" y="314" text-anchor="start" style="font-size:10.5px;font-weight:600;fill:#3d3a2e">Medien</text></g>
+<rect x="92" y="288" width="92" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="138.0" y="299.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1950 Fairness rule</text>
+<rect x="164" y="306" width="78" height="16" rx="5" fill="#f4e2b5" stroke="#c9772a"/><text x="203.0" y="317.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1960 TV licence</text>
+<rect x="294" y="288" width="55" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="321.1" y="299.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1978 Cable</text>
+<rect x="358" y="288" width="102" height="16" rx="5" fill="#f4e2b5" stroke="#c9772a"/><text x="409.40000000000003" y="299.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1987 Fairness repeal</text>
+<rect x="380" y="306" width="78" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="419.0" y="317.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1990 Private TV</text>
+<rect x="423" y="324" width="111" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="478.7" y="335.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1996 Platform immunity</text>
+<rect x="570" y="288" width="102" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="621.0" y="299.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2018 Data protection</text>
+<rect x="585" y="306" width="87" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="628.5" y="317.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2024 AI labelling</text>
+<line x1="10" y1="397" x2="670" y2="397" stroke="#e6ddc9" stroke-width="1"/>
+<g class="dg-box"><text class="s" x="14" y="372" text-anchor="start" style="font-size:10.5px;font-weight:600;fill:#3d3a2e">Sauberkeit</text></g>
+<rect x="150" y="346" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="198.1" y="357.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1958 Lobby register</text>
+<rect x="236" y="364" width="78" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="275.0" y="375.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1970 Referendum</text>
+<rect x="265" y="346" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="313.3" y="357.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1974 Finance limits</text>
+<rect x="294" y="382" width="78" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="332.6" y="393.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1978 Ethics Act</text>
+<rect x="380" y="346" width="83" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="421.5" y="357.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">1990 Term limits</text>
+<rect x="524" y="346" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="572.5" y="357.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2010 Unlimited PACs</text>
+<rect x="567" y="364" width="97" height="16" rx="5" fill="#f6f1e6" stroke="#b9ad94"/><text x="615.7" y="375.5" text-anchor="middle" style="font:500 8px Geist,sans-serif;fill:#3d3a2e">2016 Revolving door</text>
+<g class="dg-box">
+<text class="s" x="340" y="410" text-anchor="middle" style="font-size:10.5px">Gold = Epochen-Gesetz der Stadt (E) · hell = Katalog ab Jahr (K) · rot gestrichelt = Ereignis (V) · 42 von 94 Einträgen des Kompendiums</text>
+<text class="s" x="340" y="428" text-anchor="middle" style="font-size:10.5px">Vier Quellen: Epoche nach Jahr, Katalog durch jeden Sitz, Ereignis aus der Simulation, Bürgerbegehren ab 1970 – alles umkehrbar.</text>
+</g></svg>
+</template>
+<template id="dg-council">
+<svg viewBox="0 0 680 350" role="img" aria-label="Wer wählt, wer sitzt, wer entscheidet">
+<defs><marker id="ar-co" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box"><text class="h" x="105" y="20" text-anchor="middle" style="font-size:12px">Wer wählt</text><text class="h" x="340" y="20" text-anchor="middle" style="font-size:12px">Ämter · alle 4 Jahre, Nov 1954 …</text><text class="h" x="570" y="20" text-anchor="middle" style="font-size:12px">Entscheidet über</text></g>
+<g class="dg-box t"><rect x="10" y="36" width="200" height="42" rx="9"/><text class="h" x="20" y="54" style="font-size:12px">Wähler je Bezirk</text><text class="s" x="20" y="69" style="font-size:9px">Zufriedenheit, Ansehen, Kampagne</text></g>
+<g class="dg-box t"><rect x="10" y="132" width="200" height="42" rx="9"/><text class="h" x="20" y="150" style="font-size:12px">Alle Wähler der Insel</text><text class="s" x="20" y="165" style="font-size:9px">stadtweite Kampagne, Wahlabend</text></g>
+<g class="dg-box g"><rect x="10" y="276" width="200" height="42" rx="9"/><text class="h" x="20" y="294" style="font-size:12px">Ernennung</text><text class="s" x="20" y="309" style="font-size:9px">Rat (Mehrheit) oder Bürgermeister</text></g>
+<g class="dg-box"><rect x="232" y="36" width="212" height="42" rx="9" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="242" y="54" style="font-size:12px">District seat ×6</text><text class="s" x="242" y="69" style="font-size:9px">selbst antreten oder Puppet</text></g>
+<g class="dg-box"><rect x="232" y="84" width="212" height="42" rx="9" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="242" y="102" style="font-size:12px">At-large seat ×2</text><text class="s" x="242" y="117" style="font-size:9px">neu: statt 2. Stimme des Bürgermeisters</text></g>
+<g class="dg-box"><rect x="232" y="132" width="212" height="42" rx="9" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="242" y="150" style="font-size:12px">Mayor</text><text class="s" x="242" y="165" style="font-size:9px">NPC, Stichentscheid; ab 1990 wählbar?</text></g>
+<g class="dg-box"><rect x="232" y="180" width="212" height="42" rx="9" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="242" y="198" style="font-size:12px">Police chief</text><text class="s" x="242" y="213" style="font-size:9px">Ermittlungstempo, Razzien, Lockangebote</text></g>
+<g class="dg-box"><rect x="232" y="228" width="212" height="42" rx="9" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="242" y="246" style="font-size:12px">Zoning committee ×3</text><text class="s" x="242" y="261" style="font-size:9px">3 gewählt – oder 2 gewählt + 1 ernannt</text></g>
+<g class="dg-box"><rect x="232" y="276" width="212" height="42" rx="9" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="242" y="294" style="font-size:12px">Treasurer · Board · Inspector</text><text class="s" x="242" y="309" style="font-size:9px">ernannt: Rat, Bürgermeister; Ethik 1978</text></g>
+<g class="dg-box"><rect x="466" y="60" width="204" height="66" rx="9" style="fill:#fdeee0;stroke:#f08a3a"/><text class="h" x="476" y="78" style="font-size:12px">Rat: 9 Stimmen, 5 nötig</text><text class="s" x="476" y="93" style="font-size:9px">Gesetze (Dezember, Sondersitzung)</text></g>
+<g class="dg-box"><rect x="466" y="180" width="204" height="42" rx="9"/><text class="h" x="476" y="198" style="font-size:12px">Verdacht-Abbau, Razzien</text><text class="s" x="476" y="213" style="font-size:9px">wohlgesonnener Chef = Schild</text></g>
+<g class="dg-box"><rect x="466" y="228" width="204" height="42" rx="9"/><text class="h" x="476" y="246" style="font-size:12px">Anhörungen: 2 von 3</text><text class="s" x="476" y="261" style="font-size:9px">Felder, Umwidmung, Großbauten</text></g>
+<g class="dg-box"><rect x="466" y="276" width="204" height="42" rx="9"/><text class="h" x="476" y="294" style="font-size:12px">Aufträge · Lizenzen · Ethik</text><text class="s" x="476" y="309" style="font-size:9px">Millionen, Sender-Lizenzen, Ermittler</text></g>
+<line class="dg-arr" x1="212" y1="57" x2="228" y2="57" marker-end="url(#ar-co)"/>
+<line class="dg-arr" x1="212" y1="153" x2="228" y2="105" marker-end="url(#ar-co)"/><line class="dg-arr" x1="212" y1="153" x2="228" y2="153" stroke-dasharray="4 3" marker-end="url(#ar-co)"/><line class="dg-arr" x1="212" y1="153" x2="228" y2="201" marker-end="url(#ar-co)"/><line class="dg-arr" x1="212" y1="153" x2="228" y2="249" marker-end="url(#ar-co)"/>
+<line class="dg-arr" x1="212" y1="297" x2="228" y2="297" marker-end="url(#ar-co)"/><line class="dg-arr" x1="212" y1="297" x2="228" y2="258" stroke-dasharray="4 3" marker-end="url(#ar-co)"/>
+<line class="dg-arr" x1="446" y1="57" x2="462" y2="80" marker-end="url(#ar-co)"/><line class="dg-arr" x1="446" y1="105" x2="462" y2="93" marker-end="url(#ar-co)"/><line class="dg-arr" x1="446" y1="153" x2="462" y2="110" stroke-dasharray="4 3" marker-end="url(#ar-co)"/>
+<line class="dg-arr" x1="446" y1="201" x2="462" y2="201" marker-end="url(#ar-co)"/><line class="dg-arr" x1="446" y1="249" x2="462" y2="249" marker-end="url(#ar-co)"/><line class="dg-arr" x1="446" y1="297" x2="462" y2="297" marker-end="url(#ar-co)"/>
+<g class="dg-box"><text class="s" x="340" y="340" text-anchor="middle" style="font-size:10.5px">Jede Wahl verschiebt alle drei Kräfte zugleich: Ratsmehrheit, freie Felder, Gefahr der Umschläge, Millionen der Ausschreibungen.</text></g>
+</svg>
+</template>
+<template id="dg-staff">
+<svg viewBox="0 0 680 262" role="img" aria-label="Stab und Arbeitsmarkt">
+<g class="dg-box"><text class="h" x="14" y="22" text-anchor="start" style="font-size:12px">Job market · Q3 1958</text><text class="s" x="666" y="22" text-anchor="end" style="font-size:10px">8–12 Bewerber je Quartal</text></g>
+<g class="dg-box"><rect x="10" y="34" width="92" height="92" rx="9"/><text class="h" x="20" y="54" style="font-size:12px">H. Brandt</text><text class="s" x="20" y="70" style="font-size:10px">Campaign manager</text><text x="20" y="92" style="font:600 13px Geist,sans-serif;fill:#c9772a">★★★<tspan style="fill:#d9ccb0">★★</tspan></text><text class="s" x="20" y="112" style="font-size:10px;fill:#3d3a2e">$6k/mo</text></g>
+<g class="dg-box"><rect x="110" y="34" width="92" height="92" rx="9"/><text class="h" x="120" y="54" style="font-size:12px">E. Novak</text><text class="s" x="120" y="70" style="font-size:10px">Pollster</text><text x="120" y="92" style="font:600 13px Geist,sans-serif;fill:#c9772a">★★<tspan style="fill:#d9ccb0">★★★</tspan></text><text class="s" x="120" y="112" style="font-size:10px;fill:#3d3a2e">$4k/mo</text></g>
+<g class="dg-box"><rect x="210" y="34" width="92" height="92" rx="9"/><text class="h" x="220" y="54" style="font-size:12px">R. Kaye</text><text class="s" x="220" y="70" style="font-size:10px">Fixer</text><text x="220" y="92" style="font:600 13px Geist,sans-serif;fill:#c9772a">★★★★<tspan style="fill:#d9ccb0">★</tspan></text><text class="s" x="220" y="112" style="font-size:10px;fill:#3d3a2e">$8k/mo</text></g>
+<g class="dg-box"><rect x="310" y="34" width="92" height="92" rx="9"/><text class="h" x="320" y="54" style="font-size:12px">L. Moreau</text><text class="s" x="320" y="70" style="font-size:10px">Press agent</text><text x="320" y="92" style="font:600 13px Geist,sans-serif;fill:#c9772a">★★★<tspan style="fill:#d9ccb0">★★</tspan></text><text class="s" x="320" y="112" style="font-size:10px;fill:#3d3a2e">$6k/mo</text></g>
+<g class="dg-box"><rect x="410" y="34" width="92" height="92" rx="9" style="fill:#f4e2b5;stroke:#c9772a;stroke-width:1.5"/><text class="h" x="420" y="54" style="font-size:12px">T. Osei</text><text class="s" x="420" y="70" style="font-size:10px">Reporter</text><text x="420" y="92" style="font:600 13px Geist,sans-serif;fill:#c9772a">★★★★★<tspan style="fill:#d9ccb0"></tspan></text><text class="s" x="420" y="112" style="font-size:10px;fill:#3d3a2e">$20k/mo · rare</text></g>
+<g class="dg-box"><rect x="510" y="34" width="92" height="92" rx="9"/><text class="h" x="520" y="54" style="font-size:12px">M. Quint</text><text class="s" x="520" y="70" style="font-size:10px">Lawyer</text><text x="520" y="92" style="font:600 13px Geist,sans-serif;fill:#c9772a">★★<tspan style="fill:#d9ccb0">★★★</tspan></text><text class="s" x="520" y="112" style="font-size:10px;fill:#3d3a2e">$4k/mo</text></g>
+<rect x="612" y="34" width="58" height="40" rx="8" fill="#0e1420" stroke="#d8b05a"/><text x="641" y="59" text-anchor="middle" style="font:600 11px Geist,sans-serif;fill:#d8b05a">HIRE</text>
+<g class="dg-box"><text class="s" x="641" y="92" text-anchor="middle" style="font-size:8px">wer zuerst,</text><text class="s" x="641" y="104" text-anchor="middle" style="font-size:8px">hat ihn</text></g>
+<g class="dg-box">
+<text class="s" x="14" y="152" text-anchor="start" style="font-size:10.5px">Verteilung: 2★ 45 % · 3★ 40 % · 4★ 12 % · 5★ 3 % – ein Spitzenmann alle 2–3 Jahre je Rolle</text>
+<text class="s" x="14" y="170" text-anchor="start" style="font-size:10.5px">Wer zuerst anheuert, hat ihn (Server: erster Befehl) · Abwerben +30 % Gehalt gegen Loyalität · Reporter nehmen ihr Dossier mit</text>
+<text class="s" x="14" y="188" text-anchor="start" style="font-size:10.5px">Je Stern: Mix +6 % · Umfrage-Spanne −10 % · Umschlag-Verdacht −3 · Recherche −0,3 Monate · Forschung +10 RP · Verdacht-Abbau +1</text>
+<text class="s" x="14" y="206" text-anchor="start" style="font-size:10.5px">Rollen: Campaign manager, Pollster, Spin doctor (1980), Fixer, Editor, Reporter, Researcher, Lobbyist, Lawyer, Data analyst (2012)</text>
+<text class="s" x="340" y="240" text-anchor="middle" style="font-size:10.5px">Angestellten-Prinzip für den War Room (User 09.11.): Rollen sind Multiplikatoren, höchstens 6 Plätze – kein Mikromanagement.</text>
+</g></svg>
+</template>
+<template id="dg-acts">
+<svg viewBox="0 0 680 262" role="img" aria-label="Vom kleinen Licht zum Tycoon">
+<defs><marker id="ar-ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box g"><rect x="10" y="14" width="204" height="150" rx="10"/><text class="h" x="20" y="36" style="font-size:12px">Akt 1 · Small light · 1950–54</text><text class="s" x="20" y="58" style="font-size:10.5px">ohne Sitz im Rat, 150 k privat</text><text class="s" x="20" y="78" style="font-size:10.5px">Roll Call nur als Zuschauer</text><text class="s" x="20" y="98" style="font-size:10.5px">Felder beantragen, bauen, Straßen</text><text class="s" x="20" y="118" style="font-size:10.5px">kleine Spende, Wahl 1954 vorbereiten</text><text class="s" x="20" y="138" style="font-size:10.5px">mit dem leben, was der Rat beschließt</text></g>
+<g class="dg-box"><rect x="238" y="14" width="204" height="150" rx="10" style="fill:#fbe9e9;stroke:#d94545"/><text class="h" x="248" y="36" style="font-size:12px">Akt 2 · Player · 1954–70</text><text class="s" x="248" y="58" style="font-size:10.5px">ein Sitz (selbst oder Puppet)</text><text class="s" x="248" y="78" style="font-size:10.5px">War Room: Pass/Block bill, Hearings</text><text class="s" x="248" y="98" style="font-size:10.5px">Zeitung oder Radio gründen</text><text class="s" x="248" y="118" style="font-size:10.5px">erster Stab, erste Recherchen</text><text class="s" x="248" y="138" style="font-size:10.5px">1 von 9 Stimmen – Mehrheiten bauen</text></g>
+<g class="dg-box t"><rect x="466" y="14" width="204" height="150" rx="10"/><text class="h" x="476" y="36" style="font-size:12px">Akt 3 · Tycoon · 1970–2030</text><text class="s" x="476" y="58" style="font-size:10.5px">Privatvermögen in Millionen</text><text class="s" x="476" y="78" style="font-size:10.5px">mehrere Puppets, eigener Sender</text><text class="s" x="476" y="98" style="font-size:10.5px">mehrere Kampagnen zugleich, Stab 5★</text><text class="s" x="476" y="118" style="font-size:10.5px">Bürgermeisterwahl ab 1990</text><text class="s" x="476" y="138" style="font-size:10.5px">die Spitze zieht Blicke an</text></g>
+<line class="dg-arr" x1="216" y1="89" x2="236" y2="89" marker-end="url(#ar-ac)"/><line class="dg-arr" x1="444" y1="89" x2="464" y2="89" marker-end="url(#ar-ac)"/>
+<g class="dg-box"><text class="s" x="226" y="184" text-anchor="middle" style="font-size:9.5px;fill:#6b5a40">Sitz oder Kampagnen-Geld</text><text class="s" x="454" y="184" text-anchor="middle" style="font-size:9.5px;fill:#6b5a40">Millionen, Sender, Puppets</text></g>
+<g class="dg-box">
+<text class="s" x="340" y="216" text-anchor="middle" style="font-size:10.5px">Frühe Entscheidungen sind wichtig, aber umkehrbar – „Repeal the 1955 Smoke ordinance“ ist ein typisches Akt-2-Ziel.</text>
+<text class="s" x="340" y="236" text-anchor="middle" style="font-size:10.5px">Weiche Schwellen statt Freischaltung: nichts ist gesperrt, alles kostet nur. Die Agenda zählt von Anfang an auf die Wahl 1954 hinunter.</text>
+<text class="s" x="340" y="254" text-anchor="middle" style="font-size:10.5px">Richtung des Users (09.11.): als kleines Licht zusehen und mitlernen, später mit Geld drehen.</text>
+</g></svg>
+</template>
+<template id="dg-trade">
+<svg viewBox="0 0 680 330" role="img" aria-label="Kreislauf der Bezirke und Handel">
+<defs><marker id="ar-tr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b5a40" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+<g class="dg-box t"><rect x="20" y="30" width="180" height="54" rx="10"/><text class="h" x="110" y="52" text-anchor="middle">Wohnbezirk</text><text class="s" x="110" y="71" text-anchor="middle" style="font-size:10.5px">Polizei, Klinik, Parks → Arbeiter</text></g>
+<g class="dg-box p"><rect x="250" y="30" width="180" height="54" rx="10"/><text class="h" x="340" y="52" text-anchor="middle">Industriebezirk</text><text class="s" x="340" y="71" text-anchor="middle" style="font-size:10.5px">Fabriken → Güter, Baustoffe</text></g>
+<g class="dg-box p"><rect x="480" y="30" width="180" height="54" rx="10"/><text class="h" x="570" y="52" text-anchor="middle">Handelsbezirk</text><text class="s" x="570" y="71" text-anchor="middle" style="font-size:10.5px">Lkw → Hafen → Terminal</text></g>
+<g class="dg-box p"><rect x="20" y="150" width="180" height="54" rx="10"/><text class="h" x="110" y="172" text-anchor="middle">Finanzen, Dienste</text><text class="s" x="110" y="191" text-anchor="middle" style="font-size:10.5px">Kredit, Versicherung, Medien</text></g>
+<g class="dg-box p"><rect x="250" y="150" width="180" height="54" rx="10"/><text class="h" x="340" y="172" text-anchor="middle">Energiebezirk</text><text class="s" x="340" y="191" text-anchor="middle" style="font-size:10.5px">Kohle → Atom 1975 → Wind 2010</text></g>
+<g class="dg-box g"><rect x="480" y="150" width="180" height="54" rx="10" style="stroke-dasharray:5 4"/><text class="h" x="570" y="172" text-anchor="middle">Festland</text><text class="s" x="570" y="191" text-anchor="middle" style="font-size:10.5px">Nahrung, Importe 2× · Export</text></g>
+<line class="dg-arr" x1="202" y1="57" x2="246" y2="57" marker-end="url(#ar-tr)"/><line class="dg-arr" x1="432" y1="57" x2="476" y2="57" marker-end="url(#ar-tr)"/><line class="dg-arr" x1="570" y1="86" x2="570" y2="146" marker-end="url(#ar-tr)" marker-start="url(#ar-tr)"/><line class="dg-arr" x1="340" y1="146" x2="340" y2="88" marker-end="url(#ar-tr)"/><line class="dg-arr" x1="202" y1="177" x2="246" y2="177" marker-end="url(#ar-tr)"/><line class="dg-arr" x1="110" y1="146" x2="110" y2="88" marker-end="url(#ar-tr)"/>
+<path class="dg-arr" d="M250 165 C 200 120, 160 100, 110 88" stroke-dasharray="4 3"/>
+<path class="dg-arr" d="M430 165 C 480 120, 520 100, 560 88" stroke-dasharray="4 3"/>
+<g class="dg-box">
+<text class="s" x="224" y="50" text-anchor="middle" style="font-size:9px;fill:#6b5a40">Arbeiter</text><text class="s" x="224" y="70" text-anchor="middle" style="font-size:8.5px;fill:#6b5a40">(Labour)</text><text class="s" x="454" y="50" text-anchor="middle" style="font-size:9px;fill:#6b5a40">Güter</text><text class="s" x="454" y="70" text-anchor="middle" style="font-size:8.5px;fill:#6b5a40">(Offtake)</text>
+<text class="s" x="578" y="114" text-anchor="start" style="font-size:9px;fill:#6b5a40">Import/Export</text><text class="s" x="578" y="126" text-anchor="start" style="font-size:8.5px;fill:#6b5a40">(Port access)</text><text class="s" x="350" y="120" text-anchor="start" style="font-size:9px;fill:#6b5a40">Strom an alle (Power supply)</text>
+<text class="s" x="118" y="120" text-anchor="start" style="font-size:9px;fill:#6b5a40">Kredit</text><text class="s" x="224" y="170" text-anchor="middle" style="font-size:9px;fill:#6b5a40">Kredit</text>
+</g>
+<rect x="20" y="236" width="138" height="20" rx="7" fill="#fdeee0" stroke="#f08a3a"/><text x="89.0" y="250" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1950 Lkw über die Brücke</text>
+<line class="dg-arr" x1="158" y1="246" x2="166" y2="246" marker-end="url(#ar-tr)"/>
+<rect x="168" y="236" width="66" height="20" rx="7" fill="#fdeee0" stroke="#f08a3a"/><text x="201.0" y="250" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1958 Depot</text>
+<line class="dg-arr" x1="234" y1="246" x2="242" y2="246" marker-end="url(#ar-tr)"/>
+<rect x="244" y="236" width="66" height="20" rx="7" fill="#fdeee0" stroke="#f08a3a"/><text x="277.0" y="250" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1970 Hafen</text>
+<line class="dg-arr" x1="310" y1="246" x2="318" y2="246" marker-end="url(#ar-tr)"/>
+<rect x="320" y="236" width="81" height="20" rx="7" fill="#fdeee0" stroke="#f08a3a"/><text x="360.5" y="250" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1990 Terminal</text>
+<line class="dg-arr" x1="401" y1="246" x2="409" y2="246" marker-end="url(#ar-tr)"/>
+<rect x="411" y="236" width="86" height="20" rx="7" fill="#fdeee0" stroke="#f08a3a"/><text x="454.0" y="250" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">1996 Freihafen</text>
+<line class="dg-arr" x1="497" y1="246" x2="505" y2="246" marker-end="url(#ar-tr)"/>
+<rect x="507" y="236" width="107" height="20" rx="7" fill="#fdeee0" stroke="#f08a3a"/><text x="560.5" y="250" text-anchor="middle" style="font:500 9px Geist,sans-serif;fill:#3d3a2e">2010 Logistics hub</text>
+<line class="dg-arr" x1="614" y1="246" x2="622" y2="246" marker-end="url(#ar-tr)"/>
+<g class="dg-box"><text class="s" x="14" y="230" text-anchor="start" style="font-size:9.5px;fill:#6b5a40">Handel mit dem Festland – Stufen:</text></g>
+<g class="dg-box">
+<text class="s" x="340" y="290" text-anchor="middle" style="font-size:10.5px">Prinzip des Users (09.11.): kein Bezirk gleicht dem anderen, jeder hängt von jedem ein wenig ab – Verträge sind die Brücken.</text>
+<text class="s" x="340" y="310" text-anchor="middle" style="font-size:10.5px">Handel beginnt per Lkw und endet am Hafen („man muss erst ans Meer kommen“). Umsetzung nach Politik und Medien.</text>
+</g></svg>
+</template>
+
+<script src="journal.js"></script>
+<script src="journal.en.js"></script>
+<script>
+// Sprache: DE = journal.js (Master), EN = journal.en.js (Uebersetzung, Fallback je Eintrag auf Deutsch).
+const DE_DATA = window.JOURNAL, EN_DATA = window.JOURNAL_EN || null;
+const IMG = 'img/';
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+const UI = {
+  de: {
+    brand: 'Projekttagebuch', navLabel: 'Ansichten', search: 'Suchen …', stand: 'Stand', source: 'Quelle',
+    views: { jetzt: ['Jetzt', 'Woran gerade gearbeitet wird'], zeit: ['Zeitleiste', 'Wie wir hierher gekommen sind'],
+      konzepte: ['Konzepte', 'Spielkonzept – entschieden, Vorschlag, offen'], entsch: ['Entscheidungen', 'Was festgelegt wurde – und warum'],
+      galerie: ['Galerie', 'Alle Bilder, neueste zuerst'], ideen: ['Ideenpool', 'Zum Stöbern'] },
+    stats: ['Meilensteine', 'Arbeitstage', 'Konzepte', 'Bilder'], board: 'Board', inProgress: 'In Arbeit', next: 'Als Nächstes', done: 'Zuletzt fertig',
+    newest: 'Neuester Meilenstein', lastImg: 'Zuletzt im Bild', allPhases: 'Alle Phasen', none: 'Nichts gefunden.', concept: 'Konzept',
+    allConcepts: 'Alle Konzepte', withDiagram: 'mit Diagramm', drag: 'Regler ziehen', before: 'Vorher', after: 'Nachher',
+    dgNote: 'Bewohner in der Mitte; Pfeile = wichtigste Flüsse (Güter, Arbeit, Steuern, Ersparnisse, Export/Import).',
+    untr: '', title: 'Shady Tycoon – Projekttagebuch'
+  },
+  en: {
+    brand: 'Project journal', navLabel: 'Views', search: 'Search …', stand: 'Updated', source: 'Source',
+    views: { jetzt: ['Now', 'What is being worked on right now'], zeit: ['Timeline', 'How we got here'],
+      konzepte: ['Concepts', 'Game concept – decided, proposal, open'], entsch: ['Decisions', 'What was settled – and why'],
+      galerie: ['Gallery', 'All images, newest first'], ideen: ['Idea pool', 'For browsing'] },
+    stats: ['Milestones', 'Working days', 'Concepts', 'Images'], board: 'Board', inProgress: 'In progress', next: 'Up next', done: 'Recently done',
+    newest: 'Latest milestone', lastImg: 'Latest pictures', allPhases: 'All phases', none: 'Nothing found.', concept: 'Concept',
+    allConcepts: 'All concepts', withDiagram: 'with diagram', drag: 'drag the slider', before: 'Before', after: 'After',
+    dgNote: 'Residents in the middle; arrows = main flows (goods, labour, taxes, savings, export/import).',
+    untr: 'only in German so far', title: 'Shady Tycoon – Project journal'
+  }
+};
+// Diagramm-Beschriftungen (Vorlage dg-eco ist deutsch)
+const DG_EN = { 'Versorgung': 'Utilities', 'Strom, Wasser, Wärme': 'Power, water, heat', 'Produktion': 'Production', 'Baustoffe, Güter': 'Materials, goods',
+  'Bau &amp; Immobilien': 'Construction &amp; real estate', 'Gebäude, Mieten': 'Buildings, rents', 'Öffentliches': 'Public', 'Schule, Klinik, Park': 'School, clinic, park',
+  'Bewohner': 'Residents', 'Arbeit, Kaufkraft, Steuern': 'Labour, spending, taxes', 'Handel &amp; Logistik': 'Trade &amp; logistics', 'Läden, Hafen': 'Shops, port',
+  'Bezirkskasse': 'District treasury', 'Steuern, Zuschüsse': 'Taxes, subsidies', 'Finanzen &amp; Dienste': 'Finance &amp; services', 'Kredit, Medien': 'Credit, media',
+  'Festland': 'Mainland', 'Export rein, Import raus': 'Exports in, imports out', 'Ökosystem der Inselstadt': 'Ecosystem of the island city',
+  // Machtdreieck (dg-tri)
+  'Das Machtdreieck': 'The triangle of power', 'Politik': 'Politics', 'Rechte und Regeln': 'Rights and rules', 'Wirtschaft': 'Economy', 'Geld: Bezirk und privat': 'Money: district and private',
+  'Medien': 'Media', 'Aufmerksamkeit': 'Attention', 'Verdacht': 'Heat', 'die Bremse': 'the brake', 'Wirtschaft → Politik': 'Economy → Politics', 'Spenden, Lobby, Stimmen': 'Donations, lobbying, votes',
+  'Politik → Wirtschaft': 'Politics → Economy', 'Genehmigungen, Gesetze, Aufträge': 'Permits, bills, contracts', 'Politik → Medien': 'Politics → Media', 'Pressegesetz, Lizenzen, Polizei bremst': 'Press law, licences, police slows down',
+  'Medien → Politik': 'Media → Politics', 'Recherche, Kampagne, Umfrage': 'Investigation, campaign, poll', 'Werbeetats, Sender kaufen, Ereignisse →': 'Ad budgets, buying outlets, events →',
+  '← Nachfrage, Bodenwert, Kredit-Vertrauen': '← Demand, land value, credit trust', 'dämpft': 'dampens', 'verstärkt': 'amplifies', 'bezahlt beides': 'pays for both',
+  // Vier Kapitalien (dg-meter)
+  'Die vier Kapitalien': 'The four capitals', 'Geld': 'Money', 'Bezirkskasse + Privatvermögen': 'District treasury + private wealth', 'Quellen: Steuern, Mieten, Gewinne,': 'Sources: taxes, rents, profits,',
+  'Verträge, Export, Werbeerlöse': 'contracts, exports, ad revenue', 'Senken: Unterhalt, Importe, Zinsen,': 'Sinks: upkeep, imports, interest,', 'Strafen, Spenden, Umschläge': 'fines, donations, envelopes',
+  'Verfall: Gebäude altern, Märkte sättigen': 'Decay: buildings age, markets saturate', 'Einfluss': 'Influence', '0–100 · Rechte durchsetzen': '0–100 · pushing rights through',
+  'Quellen: Ämter je Monat, Spenden,': 'Sources: offices per month, donations,', 'gewonnene Abstimmungen, Gefälligkeiten': 'votes won, favors', 'Senken: Lobby je Vorgang 10–25,': 'Sinks: lobbying 10–25 per case,',
+  'Skandale −10 bis −30': 'scandals −10 to −30', 'Verfall: −2 je Monat ohne Amt': 'Decay: −2 per month without office', 'Ansehen': 'Reputation', '−100 bis +100 · Spieler und Bezirk': '−100 to +100 · player and district',
+  'Quellen: gute Berichte, Kampagnen,': 'Sources: good stories, campaigns,', 'Zufriedenheit, Vorzeigebauten': 'satisfaction, showcase buildings', 'Senken: Skandale −15 bis −40,': 'Sinks: scandals −15 to −40,',
+  'Negativ-Kampagnen': 'smear campaigns', 'Verfall: 10 % je Monat Richtung 0': 'Decay: 10 % per month towards 0', 'Verdacht (Heat) – die Bremse für alles Krumme': 'Heat – the brake on everything crooked',
+  'ruhig': 'quiet', 'Gerüchte': 'rumours', 'Ermittlung': 'investigation', 'Verfahren': 'charges',
+  '+ Umschlag 15–30 · Insider-Deal 15 · Bericht unterdrücken 5 · Vertuschung 10 · wer vorn liegt, sammelt 50 % schneller': '+ envelope 15–30 · insider deal 15 · spiking a story 5 · cover-up 10 · the leader accrues 50 % faster',
+  '− 2 je Monat · Anwälte (Geld) · wohlgesonnene Polizei (Einfluss) · unsichtbar, bis Medien eine Story daraus machen': '− 2 per month · lawyers (money) · friendly police (influence) · invisible until the media make it a story',
+  // Epochen-Index (dg-era)
+  'Epochen-Index der sieben Richtungen': 'Era index of the seven directions', 'Energie': 'Energy', 'Wohnen &amp; Bildung': 'Housing &amp; education', 'Tourismus &amp; Öffentliches': 'Tourism &amp; public',
+  '1 = mager … 5 = Goldgrube · keine Richtung ist immer vorn · das Leitgesetz jeder Epoche verschiebt die Werte, Spieler können es bremsen oder beschleunigen': '1 = meagre … 5 = gold mine · no direction leads forever · each era\'s flagship bill shifts the values, players can slow it down or speed it up',
+  // Radialmenü (dg-menu)
+  'Radialmenü Politik und Medien': 'Radial menu Politics and Media', 'Politik – 6 Punkte (Ring 2) mit Aktionen (Ring 3)': 'Politics – 6 entries (ring 2) with actions (ring 3)', 'Medien – 5 Punkte (Ring 2) mit Aktionen (Ring 3)': 'Media – 5 entries (ring 2) with actions (ring 3)',
+  'Wer um Ämter antritt – Agenda, Bindungen, Leichen im Keller': 'Who runs for office – agenda, ties, skeletons in the closet',
+  'Stadtweite Regeln: Steuern, Zölle, Umwelt, Mietdeckel, Lizenzen, Epochen-Leitgesetz': 'City-wide rules: taxes, tariffs, environment, rent cap, licences, the era\'s flagship bill',
+  'Bauausschuss je Baufeld: Freigabe, Umwidmung, Ausnahmen – der klassische Shady-Zug': 'Zoning committee per field: release, rezoning, variances – the classic shady move',
+  'Kalender: Wahlen alle 4 Jahre, Rat jährlich, Ausschuss im Quartal – Termine geben Rhythmus': 'Calendar: elections every 4 years, council yearly, committee quarterly – deadlines give rhythm',
+  'Umschläge und Gefälligkeiten – zwei- bis dreimal schneller, aber jede Form hinterlässt eine Spur': 'Envelopes and favors – two to three times faster, but every form leaves a trace',
+  'Öffentliche Aufträge: Straßen, Klinik, Stromnetz – Brücke zur Bausäule (Vorschlag, sechster Punkt)': 'Public contracts: roads, clinic, power grid – bridge to the construction pillar (proposal, sixth entry)',
+  'Zeitung, Radio, TV, Online je Epoche – Wirkung = Reichweite × Glaubwürdigkeit': 'Newspaper, radio, TV, online per era – effect = reach × credibility',
+  'Berichte aus Ereignissen der Simulation: groß bringen, unterdrücken, drehen – Ansehen und Nachfrage': 'Stories from simulation events: push, spike, spin – reputation and demand',
+  'Meinung kaufen: für dich, den Bezirk, ein Gesetz oder gegen einen Rivalen – abnehmender Ertrag': 'Buying opinion: for yourself, the district, a bill or against a rival – diminishing returns',
+  'Recherche in beide Richtungen: Gerücht → Hinweis → Beweis → Verfahren; Beweise als Druckmittel': 'Investigation in both directions: rumour → lead → evidence → charges; evidence as leverage',
+  'Nachfrage kaufen; Plakatwände an belebten Ecken verdienen aus echten Passanten- und Verkehrszahlen': 'Buying demand; billboards at busy corners earn from real pedestrian and traffic counts',
+  // Beispielkette (dg-chain)
+  'Beispielkette in acht Zügen': 'Example chain in eight moves', '1 · 1962 · Feld kaufen': '1 · 1962 · buy a field', 'A kauft privat am Rand': 'A buys privately at the edge', 'Bodenwert 100 k': 'land value 100 k', 'Geld −100 k': 'money −100 k',
+  '2 · Arrangement': '2 · arrangement', 'Umschlag an Hale': 'envelope to Hale', '(Ausschuss), 20 k': '(committee), 20 k', 'Verdacht +20': 'heat +20', 'Hale schuldet A': 'Hale owes A',
+  '3 · Anhörung Q3': '3 · hearing Q3', 'Umwidmung 2:1': 'rezoned 2:1', '(A sitzt selbst im Ausschuss)': '(A sits on the committee)', 'Bodenwert ×3 = 300 k': 'land value ×3 = 300 k', 'Verdacht +15 → 35: Gerüchte': 'heat +15 → 35: rumours',
+  '4 · Recherche': '4 · investigation', 'B verlor das Feld, setzt': 'B lost the field, hires', 'Reporter an: 30 k, 2 Monate': 'a reporter: 30 k, 2 months', 'Hinweis → Beweis': 'lead → evidence', '(Chance = Verdacht 35 %)': '(chance = heat 35 %)',
+  '5 · Story': '5 · story', "B's Zeitung, Glaubw. 70,": "B's paper, credibility 70,", 'Reichweite 60 %': 'reach 60 %', 'A Ansehen −25': 'A reputation −25', 'Hale Ansehen −30': 'Hale reputation −30',
+  '6 · Kampagne + Werbung': '6 · campaign + ads', '„A schafft 400 Jobs“,': '“A creates 400 jobs”,', '50 k + 20 k Anzeigen': '50 k + 20 k ads', 'Ansehen +6 (8 × 0,7)': 'reputation +6 (8 × 0.7)', 'Nachfrage +15 %': 'demand +15 %',
+  '7 · Wahl 1966': '7 · election 1966', "A's Kandidat verliert knapp": "A's candidate loses narrowly", '(Ansehen −19 netto)': '(reputation −19 net)', 'Ausschuss neu, A ohne Sitz': 'new committee, A without a seat', 'Einfluss −2 je Monat': 'influence −2 per month',
+  '8 · Die Rechnung': '8 · the bill', 'A: +200 k Wert, −230 k': 'A: +200 k value, −230 k', 'Ausgaben, Ansehen im Keller': 'spent, reputation in the cellar', 'B: −30 k, Ansehen +,': 'B: −30 k, reputation +,', 'nächste Freigabe geht an B': 'next release goes to B',
+  'Farben: Wirtschaft (gold), Politik (rot), Medien (orange) – alle zehn Menüs waren beteiligt': 'Colours: economy (gold), politics (red), media (orange) – all ten menus took part',
+  // Zeitstruktur (dg-takt)
+  'Zeitstruktur 1950 bis 2030': 'Time structure 1950 to 2030', 'Wiederaufbau': 'Reconstruction', 'Energiegesetz': 'Energy Act', 'Privatisierung': 'Privatisation', 'Klimagesetz': 'Climate Act', 'offen': 'open',
+  '| Wahl alle 4 Jahre (1954, 1958 …): Ausschuss, Rat, Polizeichef – ab 1990 Bürgermeister?': '| Election every 4 years (1954, 1958 …): committee, council, police chief – mayor from 1990?',
+  'Epoche: Leitgesetz der Stadt, Sanierungswelle, neue Medientypen, Epochen-Index verschiebt sich': 'Era: the city\'s flagship bill, renovation wave, new media types, era index shifts',
+  'Jahr: Haushalt der Stadt (NPC), Zuschüsse, Ratssitzung über Gesetze, Verbände stellen Forderungen': 'Year: city budget (NPC), subsidies, council session on bills, lobbies make demands',
+  'Quartal: Ausschusssitzung (Anhörungen), Umfragen, Werbekampagnen laufen aus': 'Quarter: committee session (hearings), polls, ad campaigns expire',
+  'Monat: Wirtschaftstick, Ansehen −10 %, Verdacht −2, Einfluss aus Ämtern, 2–5 Stories aus Ereignissen': 'Month: economy tick, reputation −10 %, heat −2, influence from offices, 2–5 stories from events',
+  // Sechs Bezirke (dg-bezirke)
+  'Beispielpartie mit sechs Bezirken': 'Example game with six districts', 'Zentrum': 'Centre', 'Stadt (NPC)': 'City (NPC)', 'alles kaufbar, teurer': 'everything for sale, pricier',
+  'Nord': 'North', 'Berg, Fluss': 'mountain, river', 'Ost': 'East', 'Handel &amp; Hafen': 'Trade &amp; port', 'Küste, Brückenkopf': 'coast, bridgehead', 'Zentrumsnah B': 'Near centre B', 'Bau &amp; Tourismus': 'Construction &amp; tourism',
+  'Zentrumsnähe, Küste': 'near centre, coast', 'Süd': 'South', 'flach, Brückennähe': 'flat, near the bridge', 'West': 'West', 'Wald, Küste': 'forest, coast', 'Zentrumsnah A': 'Near centre A', 'Zentrumsnähe': 'near centre',
+  'Strom': 'Power', 'Importe, Export': 'Imports, exports', 'Baustoffe': 'Materials', 'Arbeiter': 'Workers', 'Akademiker': 'Graduates', 'Kredit': 'Credit',
+  'Jeder braucht mindestens drei andere · zwei Spieler mit derselben Wahl sättigen ihren Markt – die Nische lohnt': 'Everyone needs at least three others · two players with the same choice saturate their market – the niche pays',
+  // Kampagnen-Werkstatt (dg-agenda, dg-warroom, dg-loop, dg-rollcall, dg-mediatech, dg-case, dg-mood)
+  'Agenda-Band im HUD': 'Agenda strip in the HUD',
+  'Pins: Politik rot · Medien orange · Wirtschaft gold': 'Pins: politics red · media orange · economy gold',
+  'Goldring = mein Einsatz (Gesetz, Kandidat, Antrag, Kampagne)': 'Gold ring = my stake (bill, candidate, application, campaign)',
+  'Puls = weniger als ein Monat und offener Ausgang': 'Pulse = less than a month away and still open',
+  'Mausrad: 6 / 12 / 24 Monate · Klick auf einen Pin: War Room': 'Mouse wheel: 6 / 12 / 24 months · click a pin: War Room',
+  'Heute links unter der Bezirks-Karte, die Zukunft kommt von rechts herein und wandert auf Heute zu (Entscheidung des Users 09.11.).': 'Today at the left under the district card, the future comes in from the right and drifts towards today (the user\'s decision, 09 Nov).',
+  'Erreicht ein Pin das linke Ende, findet das Ereignis statt: Roll Call, Wahlabend, Frist.': 'When a pin reaches the left end the event takes place: Roll Call, election night, deadline.',
+  'Die aufgeklappte Uhr-Karte (Kalender) zeigt dieselben Termine als Liste – ein Datenstand, zwei Ansichten.': 'The expanded clock card (calendar) lists the same dates – one data set, two views.',
+  'War Room – die Kampagnen-Werkstatt': 'War Room – the campaign workshop',
+  'Sechs Schritte wie in Mad Games Tycoon 2: Ziel, Vehikel, Botschaft, Mix (40 Punkte), Tricks, Timing – alles auf einem Bildschirm.': 'Six steps as in Mad Games Tycoon 2: goal, vehicle, message, mix (40 points), tricks, timing – all on one screen.',
+  'Rechts: Aussicht als ehrliche Spanne statt Prozent, Entdeckungsrisiko getrennt (Crusader Kings 3), Kosten in Geld, Einfluss, Gefälligkeiten.': 'Right: outlook as an honest range instead of a percentage, exposure risk separate (Crusader Kings 3), cost in money, influence, favors.',
+  'Gesperrte Kanäle stehen grau mit Jahreszahl da (TV 1960) – wie die Features in MGT2.': 'Locked channels are shown in grey with their year (TV 1960) – like the features in MGT2.',
+  'Der Kreislauf einer Kampagne': 'The loop of a campaign',
+  'Agenda': 'Agenda',
+  'Termin mit Goldring, Restzeit, Stand': 'date with gold ring, time left, standing',
+  'MGT2: der Kalender': 'MGT2: the calendar',
+  'War Room': 'War Room',
+  'sechs Schritte, Aussicht als Spanne': 'six steps, outlook as a range',
+  'MGT2: Spiel anlegen': 'MGT2: creating a game',
+  'Monate laufen': 'Months run',
+  'Puls je Monat, einmal umsteuern': 'pulse per month, one pivot',
+  'MGT2: Entwicklung': 'MGT2: development',
+  'Roll Call': 'Roll Call',
+  'Sitz für Sitz, der letzte entscheidet': 'seat by seat, the last one decides',
+  'MGT2: Release': 'MGT2: release',
+  'Debrief': 'Debrief',
+  'was wirkte, wer kippte, warum': 'what worked, who flipped, why',
+  'MGT2: Review-Text': 'MGT2: the review text',
+  'Playbook': 'Playbook',
+  'Lektionen als Karten, die altern': 'lessons as cards that age',
+  'MGT2: gewusste Regler': 'MGT2: sliders you know',
+  'zweiter Anlauf': 'second attempt',
+  'Fünf Begriffe, ein Kreislauf – Scheitern führt zurück in den War Room, nicht aus der Partie.': 'Five words, one loop – failing leads back into the War Room, not out of the game.',
+  'Roll Call – die Abstimmung als Szene': 'Roll Call – the vote as a scene',
+  'Sitz für Sitz wie die Richter in Die Fugger II: sichere Sitze fallen schnell, Wackelkandidaten langsam, der letzte entscheidet mit Pause.': 'Seat by seat like the judges in Die Fugger II: safe seats fall fast, swing seats slowly, the last one decides after a pause.',
+  'Jede Karte trägt einen Satz Begründung aus Haltung, Hot issue, Gefälligkeit oder Umschlag – so lernt man die Leute kennen.': 'Every card carries one sentence of reasoning from alignment, hot issue, favor or envelope – that is how you get to know the people.',
+  'Gleichstand → Stichentscheid des Bürgermeisters (NPC, folgt dem Stadt-Pendel) – unser Los aus Fugger II.': 'Tie → the mayor\'s casting vote (NPC, follows the city pendulum) – our lot from Fugger II.',
+  'Der Wurf ist ehrlich, die Pause nur Inszenierung · Ausschuss 3 Sitze, 2 nötig · Rat 9 Sitze (6 Bezirke + 3 Stadt), 5 nötig.': 'The roll is honest, the pause is only staging · committee 3 seats, 2 needed · council 9 seats (6 districts + 3 city), 5 needed.',
+  'Wahlabend: die Bezirke melden nacheinander, laufende Summe, „projected“ ab 70 %.': 'Election night: the districts report one by one, running total, “projected” from 70 %.',
+  'Medien-Technik 1950 bis 2030': 'Media technology 1950 to 2030',
+  'Kanäle (Lizenz)': 'Channels (licence)',
+  'Methoden (Forschung)': 'Methods (research)',
+  'Kanäle kommen per Lizenz-Gesetz der Stadt (Spieler bremsen oder beschleunigen), Methoden erforscht der Spieler im War Room.': 'Channels arrive through the city\'s licence bills (players slow them down or speed them up); methods are researched by the player in the War Room.',
+  'Die Technik aus MGT2: 1950 Zeitung, Radio, Schwarz-Weiß-Fernsehen – 2030 Feeds und KI. Jahre auf die Spiel-Epochen gerundet.': 'The technology from MGT2: 1950 newspaper, radio, black-and-white TV – 2030 feeds and AI. Years rounded to the game\'s eras.',
+  'Fallbeispiel: High-rise permit in zwei Anläufen': 'Case example: the high-rise permit in two attempts',
+  '1 · Jan 1958 · Ziel': '1 · Jan 1958 · goal',
+  'High-rise permit, Rat,': 'High-rise permit, council,',
+  '5 von 9, Dezember': '5 of 9, December',
+  'Agenda-Pin: 11 Monate,': 'agenda pin: 11 months,',
+  'Aussicht 3–5': 'outlook 3–5',
+  '2 · Anlauf 1 (War Room)': '2 · attempt 1 (War Room)',
+  'Progress + Taxes, sachlich,': 'Progress + Taxes, factual,',
+  'Business owners': 'business owners',
+  'Zeitung 16, Plakate 12,': 'newspaper 16, posters 12,',
+  'Radio 6, Rallies 6': 'radio 6, rallies 6',
+  '48 k$ + 20 Einfluss · 4–6': '48 k$ + 20 influence · 4–6',
+  '3 · Roll Call Dez 1958': '3 · Roll Call Dec 1958',
+  '4:5 verloren': 'lost 4:5',
+  'Okafor (West) kippt:': 'Okafor (West) flips:',
+  'Story „Shadows over': 'story “Shadows over',
+  'Elm Row“ drehte die': 'Elm Row” turned the',
+  'Housing-Angst': 'housing fear',
+  '4 · Debrief': '4 · Debrief',
+  'Progress in West nur Rang 4': 'Progress only 4th in West',
+  'Business war schon dafür': 'business was already for it',
+  'Plakate in Northgate': 'posters in Northgate',
+  'verpufft (eigener Bezirk)': 'wasted (own district)',
+  '3 Lektionen ins Playbook': '3 lessons into the Playbook',
+  '5 · Anlauf 2 (Jun–Nov 1959)': '5 · attempt 2 (Jun–Nov 1959)',
+  'Housing + Jobs, lokal,': 'Housing + Jobs, local,',
+  'Workers + Families': 'workers + families',
+  'Radio 14, Haustür 10': 'radio 14, door-to-door 10',
+  '(Okafors Ward)': '(Okafor\'s ward)',
+  'Versprechen: Rent cap stays': 'promise: rent cap stays',
+  '6 · Nebenzüge': '6 · side moves',
+  'Fund Hale 30 k$ (bringt ein)': 'fund Hale 30 k$ (he proposes)',
+  'Redakteur der Evening Post': 'editor of the Evening Post',
+  'gekauft: Story klein,': 'bought: story runs small,',
+  'Verdacht +5': 'heat +5',
+  'Sondersitzung: 15 Einfluss': 'special session: 15 influence',
+  '7 · Roll Call Nov 1959': '7 · Roll Call Nov 1959',
+  '4:4 nach acht Sitzen': '4:4 after eight seats',
+  'Okafor zuletzt, 3 s Pause:': 'Okafor last, 3 s pause:',
+  '„Two thousand apartments…“': '“Two thousand apartments…”',
+  '5:4 angenommen': 'passed 5:4',
+  '8 · Die Rechnung': '8 · the bill',
+  '2 Anläufe: 146 k$,': '2 attempts: 146 k$,',
+  '35 Einfluss, Verdacht +5': '35 influence, heat +5',
+  'Hochhaus-Lots:': 'high-rise lots:',
+  'Bodenwert ×1,8': 'land value ×1.8',
+  'Versprechen fällig 1963': 'promise due 1963',
+  'Scheitern kostet Zeit und Geld, nicht die Partie: der zweite Anlauf mit umgestellter Botschaft ist der Normalfall (Regel 6).': 'Failing costs time and money, not the game: the second attempt with a changed message is the normal case (rule 6).',
+  'Verborgene Stimmung und Reichweite': 'Hidden mood and reach',
+  'Stimmung Westbrook 1958 (verborgen)': 'Mood of Westbrook 1958 (hidden)',
+  'Pendel −18': 'pendulum −18',
+  'Quellen aus der Simulation: Mieten, Vorfälle, Arbeitslose, Smog, Skandale': 'Sources from the simulation: rents, incidents, unemployment, smog, scandals',
+  'Umfrage: ±8 Punkte (1950) · ±5 (1970) · ±3 (1990) · ±2 (2010)': 'Poll: ±8 points (1950) · ±5 (1970) · ±3 (1990) · ±2 (2010)',
+  'Debrief nennt nach jeder Kampagne die zwei größten Abweichungen': 'The debrief names the two biggest deviations after every campaign',
+  'Reichweite Kanal × Zielgruppe 1958': 'Reach channel × audience 1958',
+  '0 = erreicht niemanden … 5 = Hauptkanal · feste Tabelle je Epoche': '0 = reaches nobody … 5 = main channel · fixed table per era',
+  '1972 kippt es: Fernsehen vorn, Haustür bleibt für Workers': 'In 1972 it flips: TV in front, door-to-door stays for workers',
+  'Was in MGT2 die richtigen Regler je Genre sind, ist hier die Passung Thema × Stimmung × Kanal × Zielgruppe.': 'What the right sliders per genre are in MGT2 is here the fit of theme × mood × channel × audience.',
+  'Stimmung und Vorlieben sind je Partie anders (Seed); die Kanal-Tabelle ist partieübergreifend lernbar.': 'Mood and preferences differ per game (seed); the channel table can be learned across games.',
+  'Gesetzeskatalog 1950 bis 2030 (Auswahl)': 'Law catalogue 1950 to 2030 (selection)',
+  'Bauen, Flächen': 'Zoning',
+  'Wohnen': 'Housing',
+  'Verkehr, Umwelt': 'Transport, environment',
+  'Wirtschaft, Steuern': 'Economy, taxes',
+  'Medien': 'Media',
+  'Sauberkeit': 'Clean hands',
+  'Gold = Epochen-Gesetz der Stadt (E) · hell = Katalog ab Jahr (K) · rot gestrichelt = Ereignis (V) · 42 von 94 Einträgen des Kompendiums': 'Gold = the city\'s era bill (E) · light = catalogue from year (K) · red dashed = event (V) · 42 of the compendium\'s 94 entries',
+  'Vier Quellen: Epoche nach Jahr, Katalog durch jeden Sitz, Ereignis aus der Simulation, Bürgerbegehren ab 1970 – alles umkehrbar.': 'Four sources: era by year, catalogue through any seat, event from the simulation, citizens\' initiative from 1970 – all reversible.',
+  'Wer wählt, wer sitzt, wer entscheidet': 'Who votes, who sits, who decides',
+  'Wer wählt': 'Who votes',
+  'Ämter · alle 4 Jahre, Nov 1954 …': 'Offices · every 4 years, Nov 1954 …',
+  'Entscheidet über': 'Decides on',
+  'Wähler je Bezirk': 'Voters per district',
+  'Zufriedenheit, Ansehen, Kampagne': 'satisfaction, reputation, campaign',
+  'Alle Wähler der Insel': 'All voters of the island',
+  'stadtweite Kampagne, Wahlabend': 'city-wide campaign, election night',
+  'Ernennung': 'Appointment',
+  'Rat (Mehrheit) oder Bürgermeister': 'council (majority) or mayor',
+  'selbst antreten oder Puppet': 'run yourself or a puppet',
+  'neu: statt 2. Stimme des Bürgermeisters': 'new: instead of the mayor\'s 2nd vote',
+  'NPC, Stichentscheid; ab 1990 wählbar?': 'NPC, casting vote; electable from 1990?',
+  'Ermittlungstempo, Razzien, Lockangebote': 'pace of investigations, raids, stings',
+  '3 gewählt – oder 2 gewählt + 1 ernannt': '3 elected – or 2 elected + 1 appointed',
+  'ernannt: Rat, Bürgermeister; Ethik 1978': 'appointed: council, mayor; ethics 1978',
+  'Rat: 9 Stimmen, 5 nötig': 'Council: 9 votes, 5 needed',
+  'Gesetze (Dezember, Sondersitzung)': 'bills (December, special session)',
+  'Verdacht-Abbau, Razzien': 'Heat decay, raids',
+  'wohlgesonnener Chef = Schild': 'a friendly chief = a shield',
+  'Anhörungen: 2 von 3': 'Hearings: 2 of 3',
+  'Felder, Umwidmung, Großbauten': 'fields, rezoning, large projects',
+  'Aufträge · Lizenzen · Ethik': 'Tenders · licences · ethics',
+  'Millionen, Sender-Lizenzen, Ermittler': 'millions, licences, own investigators',
+  'Jede Wahl verschiebt alle drei Kräfte zugleich: Ratsmehrheit, freie Felder, Gefahr der Umschläge, Millionen der Ausschreibungen.': 'Every election shifts all three forces at once: council majority, released fields, the danger of envelopes, the millions of the tenders.',
+  'Stab und Arbeitsmarkt': 'Staff and job market',
+  '8–12 Bewerber je Quartal': '8–12 applicants per quarter',
+  'wer zuerst,': 'first come,',
+  'hat ihn': 'first served',
+  'Verteilung: 2★ 45 % · 3★ 40 % · 4★ 12 % · 5★ 3 % – ein Spitzenmann alle 2–3 Jahre je Rolle': 'Distribution: 2★ 45 % · 3★ 40 % · 4★ 12 % · 5★ 3 % – one top hire every 2–3 years per role',
+  'Wer zuerst anheuert, hat ihn (Server: erster Befehl) · Abwerben +30 % Gehalt gegen Loyalität · Reporter nehmen ihr Dossier mit': 'Whoever hires first has them (server: first command) · poaching +30 % salary against loyalty · reporters take their dossier along',
+  'Je Stern: Mix +6 % · Umfrage-Spanne −10 % · Umschlag-Verdacht −3 · Recherche −0,3 Monate · Forschung +10 RP · Verdacht-Abbau +1': 'Per star: mix +6 % · poll range −10 % · envelope heat −3 · investigation −0.3 months · research +10 RP · heat decay +1',
+  'Rollen: Campaign manager, Pollster, Spin doctor (1980), Fixer, Editor, Reporter, Researcher, Lobbyist, Lawyer, Data analyst (2012)': 'Roles: campaign manager, pollster, spin doctor (1980), fixer, editor, reporter, researcher, lobbyist, lawyer, data analyst (2012)',
+  'Angestellten-Prinzip für den War Room (User 09.11.): Rollen sind Multiplikatoren, höchstens 6 Plätze – kein Mikromanagement.': 'Employee principle for the War Room (user, 09 Nov): roles are multipliers, at most 6 slots – no micromanagement.',
+  'Vom kleinen Licht zum Tycoon': 'From small light to tycoon',
+  'Akt 1 · Small light · 1950–54': 'Act 1 · small light · 1950–54',
+  'ohne Sitz im Rat, 150 k privat': 'no seat on the council, 150 k private',
+  'Roll Call nur als Zuschauer': 'Roll Call only as a spectator',
+  'Felder beantragen, bauen, Straßen': 'apply for fields, build, roads',
+  'kleine Spende, Wahl 1954 vorbereiten': 'small donation, prepare the 1954 election',
+  'mit dem leben, was der Rat beschließt': 'live with what the council decides',
+  'Akt 2 · Player · 1954–70': 'Act 2 · player · 1954–70',
+  'ein Sitz (selbst oder Puppet)': 'one seat (yourself or a puppet)',
+  'War Room: Pass/Block bill, Hearings': 'War Room: pass/block bill, hearings',
+  'Zeitung oder Radio gründen': 'found a newspaper or radio station',
+  'erster Stab, erste Recherchen': 'first staff, first investigations',
+  '1 von 9 Stimmen – Mehrheiten bauen': '1 of 9 votes – build majorities',
+  'Akt 3 · Tycoon · 1970–2030': 'Act 3 · tycoon · 1970–2030',
+  'Privatvermögen in Millionen': 'private wealth in the millions',
+  'mehrere Puppets, eigener Sender': 'several puppets, your own outlet',
+  'mehrere Kampagnen zugleich, Stab 5★': 'several campaigns at once, 5★ staff',
+  'Bürgermeisterwahl ab 1990': 'mayoral election from 1990',
+  'die Spitze zieht Blicke an': 'the leader draws attention',
+  'Sitz oder Kampagnen-Geld': 'a seat or campaign money',
+  'Millionen, Sender, Puppets': 'millions, outlets, puppets',
+  'Frühe Entscheidungen sind wichtig, aber umkehrbar – „Repeal the 1955 Smoke ordinance“ ist ein typisches Akt-2-Ziel.': 'Early decisions matter but are reversible – “Repeal the 1955 Smoke ordinance” is a typical act-2 goal.',
+  'Weiche Schwellen statt Freischaltung: nichts ist gesperrt, alles kostet nur. Die Agenda zählt von Anfang an auf die Wahl 1954 hinunter.': 'Soft thresholds instead of unlocks: nothing is locked, everything only costs. The agenda counts down to the 1954 election from the start.',
+  'Richtung des Users (09.11.): als kleines Licht zusehen und mitlernen, später mit Geld drehen.': 'The user\'s direction (09 Nov): watch and learn as a small light, turn things with money later.',
+  'Kreislauf der Bezirke und Handel': 'Cycle of the districts and trade',
+  'Wohnbezirk': 'Residential district',
+  'Polizei, Klinik, Parks → Arbeiter': 'police, clinic, parks → workers',
+  'Industriebezirk': 'Industrial district',
+  'Fabriken → Güter, Baustoffe': 'factories → goods, materials',
+  'Handelsbezirk': 'Trade district',
+  'Lkw → Hafen → Terminal': 'trucks → harbor → terminal',
+  'Finanzen, Dienste': 'Finance, services',
+  'Kredit, Versicherung, Medien': 'credit, insurance, media',
+  'Energiebezirk': 'Energy district',
+  'Kohle → Atom 1975 → Wind 2010': 'coal → nuclear 1975 → wind 2010',
+  'Festland': 'Mainland',
+  'Nahrung, Importe 2× · Export': 'food, imports 2× · exports',
+  'Arbeiter': 'workers',
+  'Güter': 'goods',
+  'Strom an alle (Power supply)': 'power to all (power supply)',
+  'Kredit': 'credit',
+  '1950 Lkw über die Brücke': '1950 trucks over the bridge',
+  '1970 Hafen': '1970 Harbor',
+  '1996 Freihafen': '1996 Free port',
+  'Handel mit dem Festland – Stufen:': 'Trade with the mainland – stages:',
+  'Prinzip des Users (09.11.): kein Bezirk gleicht dem anderen, jeder hängt von jedem ein wenig ab – Verträge sind die Brücken.': 'The user\'s principle (09 Nov): no district is like another, everyone depends a little on everyone – contracts are the bridges.',
+  'Handel beginnt per Lkw und endet am Hafen („man muss erst ans Meer kommen“). Umsetzung nach Politik und Medien.': 'Trade starts with trucks and ends at the harbor (“you first have to reach the sea”). Built after politics and media.' };
+
+let LANG = 'de';
+try { const s = localStorage.getItem('journal-lang'); if (s) LANG = s; } catch (e) {}
+const qLang = new URLSearchParams(location.search).get('lang'); if (qLang) LANG = qLang;
+if (LANG !== 'en' || !EN_DATA) LANG = 'de';
+const T = () => UI[LANG];
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fmt = d => { const [y,m,t] = d.split('-'); return LANG === 'en' ? `${+t} ${MON[+m-1]} ${y}` : `${t}.${m}.${y}`; };
+const statusTag = s => { const l = (s||'').toLowerCase();
+  if (l.includes('entschieden') || l.includes('decided')) return `<span class="tag green">${esc(s)}</span>`;
+  if (l.startsWith('offen') || l.startsWith('open')) return `<span class="tag warn">${esc(s)}</span>`;
+  return `<span class="tag">${esc(s)}</span>`; };
+const untrTag = x => LANG === 'en' && x.untr ? ` <span class="tag de" title="${esc(T().untr)}">DE</span>` : '';
+
+// Englische Fassung: deutsche Daten + Uebersetzung je Eintrag (fehlt sie, bleibt Deutsch und bekommt das Kennzeichen "DE")
+function toEn(d, e) {
+  const tr = s => (e.terms && e.terms[s]) ?? s;
+  const ms = e.milestones || {}, cs = e.concepts || {}, ds = e.decisions || {}, is = e.ideas || {}, ps = e.phases || {};
+  return { ...d,
+    now: e.now || d.now,
+    phases: d.phases.map(p => ({ ...p, ...(ps[p.id] || {}) })),
+    milestones: d.milestones.map(m => { const o = ms[m.id]; const tags = (m.tags||[]).map(tr);
+      if (!o) return { ...m, tags, untr: true };
+      return { ...m, tags, title: o.title ?? m.title, summary: o.summary ?? m.summary, points: o.points ?? m.points, todo: o.todo ?? m.todo,
+        images: (m.images||[]).map((im, i) => ({ ...im, cap: (o.caps && o.caps[i]) ?? im.cap })),
+        compare: m.compare && { ...m.compare, cap: o.compareCap ?? m.compare.cap } }; }),
+    concepts: d.concepts.map(c => { const o = cs[c.id];
+      const sections = (c.sections || []).map((s, i) => { const os = o && o.sections && o.sections[i];
+        return { ...s, s: tr(s.s), h: os ? os.h : s.h, items: os ? os.items : s.items }; });
+      const diagrams = c.diagrams && c.diagrams.map((g, i) => ({ ...g, note: (o && o.dgNotes && o.dgNotes[i]) ?? g.note }));
+      return { ...c, status: tr(c.status), sections, diagrams, title: o ? o.title : c.title, summary: o ? o.summary : c.summary, untr: !o }; }),
+    decisions: d.decisions.map(x => { const o = ds[x.title]; return { ...x, area: tr(x.area), ...(o || { untr: true }) }; }),
+    ideas: d.ideas.map(x => { const o = is[x.title]; return { ...x, source: tr(x.source), ...(o || { untr: true }) }; })
+  };
+}
+
+let J, allImgs, VIEWS;
+function build() {
+  J = LANG === 'en' ? toEn(DE_DATA, EN_DATA) : DE_DATA;
+  allImgs = [];
+  J.milestones.forEach(m => (m.images||[]).forEach(i => allImgs.push({ ...i, date: m.date, ms: m.title, msid: m.id })));
+  allImgs.sort((a,b) => a.date < b.date ? 1 : -1);
+  const v = T().views;
+  VIEWS = {
+    jetzt:    { label: v.jetzt[0], lead: v.jetzt[1], icon: '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/>' },
+    zeit:     { label: v.zeit[0], lead: v.zeit[1], icon: '<path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/>', count: () => J.milestones.length },
+    konzepte: { label: v.konzepte[0], lead: v.konzepte[1], icon: '<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>', count: () => J.concepts.length },
+    entsch:   { label: v.entsch[0], lead: v.entsch[1], icon: '<path d="m9 12 2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="4"/>', count: () => J.decisions.length },
+    galerie:  { label: v.galerie[0], lead: v.galerie[1], icon: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>', count: () => allImgs.length },
+    ideen:    { label: v.ideen[0], lead: v.ideen[1], icon: '<path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/>', count: () => J.ideas.length }
+  };
+  document.documentElement.lang = LANG;
+  document.title = T().title;
+  document.getElementById('brandsub').textContent = T().brand;
+  document.getElementById('navlabel').textContent = T().navLabel;
+  document.getElementById('q').placeholder = T().search;
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
+}
+function setLang(l) {
+  if (l === LANG || (l === 'en' && !EN_DATA)) return;
+  LANG = l; try { localStorage.setItem('journal-lang', l); } catch (e) {}
+  build(); render();
+}
+
+let state = { view: 'jetzt', concept: null, phase: null, q: '' };
+let lbList = [], lbIdx = 0;
+
+function nav() {
+  document.getElementById('nav').innerHTML = Object.entries(VIEWS).map(([k,v]) =>
+    `<a href="#${k}" class="${state.view===k?'active':''}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${v.icon}</svg>${v.label}${v.count?`<span class="count">${v.count()}</span>`:''}</a>`).join('');
+  document.getElementById('foot').innerHTML = `${T().stand} <span class="mono">${esc(J.updated)}</span><br>${T().source}: <span class="mono">Docs/Journal/${LANG === 'en' ? 'journal.en.js' : 'journal.js'}</span>`;
+}
+
+const match = (...parts) => !state.q || parts.join(' ').toLowerCase().includes(state.q);
+
+function thumbs(list, ctx) {
+  return `<div class="thumbs">${list.map(i => `<figure><img loading="lazy" src="${IMG+i.src}" alt="${esc(i.cap)}" data-lb="${esc(ctx)}" data-src="${esc(i.src)}"><figcaption>${esc(i.cap)}</figcaption></figure>`).join('')}</div>`;
+}
+function compare(c) {
+  return `<div class="cmp-cap">${esc(c.cap)} – ${T().drag}</div><div class="compare">
+    <img src="${IMG+c.after}" alt=""><img class="top" src="${IMG+c.before}" alt="">
+    <span class="lb l">${T().before}</span><span class="lb r">${T().after}</span><div class="bar"></div><div class="knob">⇆</div>
+    <input type="range" min="0" max="100" value="50" aria-label="${T().before}/${T().after}"></div>`;
+}
+
+function vJetzt() {
+  const n = J.now, t = T();
+  const last = J.milestones.find(m => (m.images||[]).length);
+  const days = new Set(J.milestones.map(m => m.date)).size;
+  return `
+  <div class="stats">
+    <div class="stat"><div class="k">${t.stats[0]}</div><div class="v">${J.milestones.length}</div></div>
+    <div class="stat"><div class="k">${t.stats[1]}</div><div class="v">${days}</div></div>
+    <div class="stat"><div class="k">${t.stats[2]}</div><div class="v">${J.concepts.length}</div></div>
+    <div class="stat"><div class="k">${t.stats[3]}</div><div class="v">${allImgs.length}</div></div>
+  </div>
+  <div class="card" style="margin-bottom:22px"><h2>${t.board}</h2>
+    <div class="board">
+      <div class="col"><h3><span class="dot live"></span>${t.inProgress}</h3>${n.inProgress.map(i => `<div class="item live"><div class="t">${esc(i.title)}<span class="tag green">${esc(i.area)}</span></div><div class="d">${esc(i.detail)}</div></div>`).join('')}</div>
+      <div class="col"><h3><span class="dot next"></span>${t.next}</h3>${n.next.map(i => `<div class="item"><div class="t">${esc(i.title)}<span class="tag">${esc(i.area)}</span></div><div class="d">${esc(i.detail)}</div></div>`).join('')}</div>
+      <div class="col"><h3><span class="dot"></span>${t.done}</h3>${n.done.map(i => `<div class="item"><div class="t">${esc(i.title)}</div><div class="d mono">${fmt(i.date)}</div></div>`).join('')}</div>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="card"><h2>${t.newest}</h2>${msBody(J.milestones[0], true)}</div>
+    <div class="card"><h2>${t.lastImg}</h2><div class="muted" style="font-size:13px;margin:-6px 0 12px">${esc(last.title)}</div>
+      <div class="latest">${last.images.slice(0,4).map(i => `<img src="${IMG+i.src}" alt="${esc(i.cap)}" data-lb="ms:${last.id}" data-src="${esc(i.src)}">`).join('')}</div></div>
+  </div>`;
+}
+
+function msBody(m, short) {
+  const concepts = (m.concepts||[]).map(id => J.concepts.find(c => c.id===id)).filter(Boolean);
+  return `<div class="date">${fmt(m.date)}</div><h3>${esc(m.title)}${untrTag(m)}</h3><p>${esc(m.summary)}</p>
+    ${(m.points||[]).length ? `<ul>${m.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}
+    ${!short && m.compare ? compare(m.compare) : ''}
+    ${!short && (m.images||[]).length ? thumbs(m.images, 'ms:'+m.id) : ''}
+    ${m.todo ? `<div class="todo">${esc(m.todo)}</div>` : ''}
+    <div class="meta">${(m.tags||[]).map(t => `<span class="tag grey">${esc(t)}</span>`).join('')}
+      ${concepts.map(c => `<a class="tag green linkchip" href="#konzepte/${c.id}">${T().concept}: ${esc(c.title)}</a>`).join('')}
+      ${(m.commits||[]).map(c => `<span class="commit" title="git show ${c}">${c}</span>`).join('')}</div>`;
+}
+
+function vZeit() {
+  const chips = `<div class="phases"><span class="phase-chip ${!state.phase?'on':''}" data-phase="">${T().allPhases}</span>${J.phases.map(p => `<span class="phase-chip ${state.phase===p.id?'on':''}" data-phase="${p.id}">${esc(p.title)}</span>`).join('')}</div>`;
+  let html = '';
+  [...J.phases].reverse().forEach(p => {
+    if (state.phase && state.phase !== p.id) return;
+    const ms = J.milestones.filter(m => m.phase === p.id && match(m.title, m.summary, (m.points||[]).join(' '), (m.tags||[]).join(' ')));
+    if (!ms.length) return;
+    html += `<div class="phase-head"><span class="pt">${esc(p.title)}</span><span class="pr">${esc(p.range)}</span><div class="px">${esc(p.text)}</div></div>`;
+    html += ms.map(m => `<div class="ms card" id="ms-${m.id}">${msBody(m)}</div>`).join('');
+  });
+  return chips + `<div class="timeline">${html || `<div class="empty">${T().none}</div>`}</div>`;
+}
+
+function diagram(name) {
+  let svg = document.getElementById('dg-'+name).innerHTML;
+  if (LANG === 'en') for (const [k, v] of Object.entries(DG_EN)) svg = svg.split('>'+k+'<').join('>'+v+'<').split('"'+k+'"').join('"'+v+'"');
+  return svg;
+}
+
+function vKonzepte() {
+  if (state.concept) {
+    const c = J.concepts.find(x => x.id === state.concept);
+    if (c) {
+      // Ein Diagramm (`diagram`, Hinweis aus UI.dgNote) oder mehrere (`diagrams: [{ id, note }]`, Hinweis je Diagramm)
+      const dg = c.diagrams ? c.diagrams.map(g => `<div class="diagram">${diagram(g.id)}</div><div class="muted" style="font-size:12px;margin-bottom:14px">${esc(g.note)}</div>`).join('')
+        : c.diagram ? `<div class="diagram">${diagram(c.diagram)}</div><div class="muted" style="font-size:12px">${T().dgNote}</div>` : '';
+      return `<div class="back" onclick="location.hash='#konzepte'">‹ ${T().allConcepts}</div>
+      <div class="card cdetail">${statusTag(c.status)}${untrTag(c)} <span class="mono muted" style="font-size:12px;margin-left:8px">${fmt(c.updated)}${c.file?' · '+esc(c.file):''}</span>
+        <h2 class="big">${esc(c.title)}</h2><p style="color:var(--ink-1);line-height:1.6;margin:0 0 6px">${esc(c.summary)}</p>${dg}
+        ${(c.sections || []).map(s => `<div class="sec"><h4>${esc(s.h)} ${statusTag(s.s)}</h4><ul>${(s.items || []).map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
+      </div>`;
+    }
+  }
+  const list = J.concepts.filter(c => match(c.title, c.summary, (c.sections || []).map(s => (s.items || []).join(' ')).join(' ')));
+  return `<div class="cgrid">${list.map(c => `<div class="card ccard" onclick="location.hash='#konzepte/${c.id}'">${statusTag(c.status)}${untrTag(c)}<h3>${esc(c.title)}</h3><p>${esc(c.summary)}</p>
+    <div class="meta"><span class="mono muted" style="font-size:11px">${fmt(c.updated)}</span>${(c.diagram||c.diagrams)?`<span class="tag grey">${T().withDiagram}${c.diagrams?' ×'+c.diagrams.length:''}</span>`:''}</div></div>`).join('') || `<div class="empty">${T().none}</div>`}</div>`;
+}
+
+function vEntsch() {
+  const list = J.decisions.filter(d => match(d.title, d.why, d.area));
+  return `<div class="card">${list.map(d => `<div class="dec"><span class="mono muted" style="font-size:12px">${fmt(d.date)}</span><span><span class="tag">${esc(d.area)}</span></span><div><div class="t">${esc(d.title)}${untrTag(d)}</div><div class="w">${esc(d.why)}</div></div></div>`).join('') || `<div class="empty">${T().none}</div>`}</div>`;
+}
+
+function vGalerie() {
+  const list = allImgs.filter(i => match(i.cap, i.ms));
+  return `<div class="gal">${list.map(i => `<figure><img loading="lazy" src="${IMG+i.src}" alt="${esc(i.cap)}" data-lb="gal" data-src="${esc(i.src)}"><figcaption>${esc(i.cap)}<span class="mono">${fmt(i.date)} · ${esc(i.ms)}</span></figcaption></figure>`).join('') || `<div class="empty">${T().none}</div>`}</div>`;
+}
+
+function vIdeen() {
+  const list = J.ideas.filter(i => match(i.title, i.text, i.source));
+  return `<div class="igrid">${list.map(i => `<div class="card idea"><h3>${esc(i.title)}${untrTag(i)}</h3><p>${esc(i.text)}</p><span class="tag grey">${esc(i.source)}</span></div>`).join('') || `<div class="empty">${T().none}</div>`}</div>`;
+}
+
+function render() {
+  const v = VIEWS[state.view] || VIEWS.jetzt;
+  document.getElementById('vtitle').textContent = v.label;
+  document.getElementById('vlead').textContent = v.lead;
+  const fn = { jetzt: vJetzt, zeit: vZeit, konzepte: vKonzepte, entsch: vEntsch, galerie: vGalerie, ideen: vIdeen }[state.view] || vJetzt;
+  document.getElementById('view').innerHTML = fn();
+  nav();
+}
+
+function route() {
+  const h = location.hash.replace('#','').split('/');
+  state.view = VIEWS[h[0]] ? h[0] : 'jetzt';
+  state.concept = state.view === 'konzepte' ? (h[1] || null) : null;
+  render(); window.scrollTo(0, 0);
+}
+
+// Lightbox + Interaktionen
+function openLb(ctx, src) {
+  if (ctx === 'gal') lbList = allImgs.filter(i => match(i.cap, i.ms));
+  else { const m = J.milestones.find(x => 'ms:'+x.id === ctx); lbList = (m.images||[]).map(i => ({ ...i, date: m.date, ms: m.title })); }
+  lbIdx = Math.max(0, lbList.findIndex(i => i.src === src)); showLb();
+  document.getElementById('lb').classList.add('on');
+}
+function showLb() { const i = lbList[lbIdx]; document.getElementById('lbimg').src = IMG + i.src;
+  document.getElementById('lbcap').innerHTML = `${esc(i.cap)}<br><span class="mono">${fmt(i.date)} · ${esc(i.ms)} · ${lbIdx+1}/${lbList.length}</span>`; }
+function stepLb(d) { lbIdx = (lbIdx + d + lbList.length) % lbList.length; showLb(); }
+function closeLb() { document.getElementById('lb').classList.remove('on'); }
+
+document.addEventListener('click', e => {
+  const img = e.target.closest('img[data-lb]'); if (img) return openLb(img.dataset.lb, img.dataset.src);
+  const chip = e.target.closest('.phase-chip'); if (chip) { state.phase = chip.dataset.phase || null; render(); }
+  const lb = e.target.closest('.lang button'); if (lb) setLang(lb.dataset.lang);
+  if (e.target.id === 'lb') closeLb();
+});
+document.addEventListener('input', e => {
+  if (e.target.matches('.compare input')) { const v = e.target.value, c = e.target.parentElement;
+    c.querySelector('.top').style.clipPath = `inset(0 ${100-v}% 0 0)`; c.querySelector('.bar').style.left = v+'%'; c.querySelector('.knob').style.left = v+'%'; }
+  if (e.target.id === 'q') { state.q = e.target.value.trim().toLowerCase();
+    if (state.q && state.view === 'jetzt') { location.hash = '#zeit'; return; } render(); }
+});
+document.addEventListener('keydown', e => { if (!document.getElementById('lb').classList.contains('on')) return;
+  if (e.key === 'Escape') closeLb(); if (e.key === 'ArrowRight') stepLb(1); if (e.key === 'ArrowLeft') stepLb(-1); });
+window.addEventListener('hashchange', route);
+build();
+route();
+</script>
+</body>
+</html>
