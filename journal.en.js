@@ -203,6 +203,17 @@ window.JOURNAL_EN = {
   },
 
   milestones: {
+    "live-council-portraits": {
+      title: "Live council portraits: councillors breathe, blink, look around and show their attitude",
+      summary: "User: \"Yes, build live\" - real 3D heads in the council window instead of painted figures, checked in game and approved.",
+      points: ["Two 1950s councillors (about 35 and 55) from MakeHuman/Blender with six face shapes: neutral, pleased, angry, nervous, suspicious, blink.", "Each portrait is a hidden booth in the game with its own camera, warm light and backdrop; the expression follows the councillor's attitude towards the player, the head turns now and then, blinking at a random rhythm.", "Cost measured (-game): 9 live portraits = 0.02 ms per frame on the game thread, ~11 frames/s per portrait; GPU cost not measured yet.", "Default: only the first councillor live (console hud.LivePortraits 9 = all); without the models the painted figure stays.", "Open: small notches in the younger figure's hairline."],
+      caps: ["Live portrait from the game: neutral, angry, pleased (older model)"]
+    },
+    "belegung-nachfrage": {
+      title: "Occupancy and demand per building (#44, steps 1-6)",
+      summary: "Tester ticket #44: every building ran at full capacity no matter how many people lived nearby. Implemented from the concept \"Occupancy and demand\", step by step with the user's OK.",
+      points: ["1: info windows show last month's real revenue and why (staff, customers, power, ads).", "2: every building has its own occupancy; new buildings start at 15 % and fill up over months.", "3: homes fill by location (jobs within commuting reach, park, smoke); only as many people move to the island as there is work.", "4: commuting instead of district quotas - each home sends its workers to jobs up to ~3 km away, staffing per business, unemployment counts where people live.", "5: same-kind businesses share their market (cinema visitors, newspaper readers, office demand, one industrial sales market) - overbuilding lowers revenue.", "6: measuring command shady.Balance + two runs 1950-66: markets scaled down to the real island size, rent $80 -> $95; afterwards no building type loses money (except the coal plant, as before).", "Open: NPC district treasuries drop deep into the red from ~1960 (separate issue)."]
+    },
     "ring-tip-wedge": {
       title: "Ring tip: no more light wedge outside the ring road",
       summary: "User (\"Yes, fix it\"): at the west tip of the ring (seed 2147483647) a ~10 m triangle of light paving lay in the green.",
@@ -2135,6 +2146,35 @@ window.JOURNAL_EN = {
   },
 
   concepts: {
+    "medien-imperium": {
+      title: "Media empire: newsroom, scoops, audiences, scandals – media as PvP",
+      summary: "Request by tester Nohr (Discord, ticket #46) with a design document and two UI sheets: media should be more fun, more meaningful and pit players against each other. Core: owning an outlet is only the start – the game is deciding which story gets investigated, buried, framed and when it runs, and surviving the counterattack. Builds on what exists (stories, probes, War Room, staff, newspaper/TV tower, front page, audiences from #44).",
+      sections: [
+        { h: "Where we are (0.1.305)", items: [
+          "Exists: newspaper/TV tower as buildings with reach, stories (push/spike/spin/rebuttal), probes (rumor → lead → dossier), War Room with 10 channels by era, staff with stars/loyalty/poaching, ads, front page, My bets.",
+          "Missing is the decision layer: the player never writes or frames a story, outlets have no name/reputation, advertisers demand nothing, staff have no face, counterattacks are not a flow of their own."
+        ]},
+        { h: "Loop and core systems", items: [
+          "Loop: discover → shape (story, frame, placement, timing) → capture the audience → convert into power (ad money, pressure on votes, elections, demand) → survive the counterattack. One edition = one month.",
+          "Outlets as characters (`FOutletRec`): name, editorial line, four meters credibility / reach / influence / exposure – tabloid and quality paper both viable.",
+          "Leads as an information market (`FLeadRec`): from real events (steered tenders, envelopes, votes against the mood, factories, skeletons in the closet); evidence 0–100, exclusivity, expiry. Choice: investigate further, publish now, sell, hold, bury.",
+          "Monthly newsroom: frame (investigative, balanced, critical, supportive, sensational) and placement (front page, inside, buried, hold), forecast like the War Room; the front page you build IS the one others see.",
+          "Finite audience per district/segment (from #44), advertisers with conditions, staff with faces (persons system), cross-media ownership with diminishing returns."
+        ]},
+        { h: "Scandal chain and PvP", items: [
+          "Five stages: discovery → choice → publication battle (first gets the scoop bonus) → consequences (council, election, land value, contracts, suspicion) → retaliation (advertiser pulls out, lawsuit, counter-exposé). Each stage a card in My bets, big ones a front page.",
+          "PvP: scoop races, poaching anchors, ad wars, two frames for the same event, alliances of convenience. Rule: an attack creates a problem but never removes a player's ability to play."
+        ]},
+        { h: "Screens (from the UI sheets)", items: [
+          "All in the big main window with portraits: newsroom, investigation desk, programme planner (1960+), audience analytics, talent, competitors, acquisition, crisis, write article.",
+          "First newsroom + investigation desk + crisis (they carry the scandal chain)."
+        ]},
+        { h: "Stages and open questions", items: [
+          "1 one outlet is fun · 2 two outlets compete · 3 pillars connected (scandal chain, crisis screen, NPC press barons) · 4 empire (programme planner, acquisitions, cable/web/social).",
+          "Open: which buildings become outlets, mid-month interrupts, portraits now or after the persons pilot, stage 1 or scandal chain first."
+        ]}
+      ]
+    },
     hierarchie: {
       title: "Hierarchy & persons: politicians with a face, a character and a career",
       summary: "The user's wish after the council main window: the whole political hierarchy with real people. Every figure becomes a persistent person (face, archetype, traits, opinion per player, career over decades); district primaries where you can back candidates early; faces as MetaHuman portraits rendered once, with 5 expressions and 2–3 age stages.",

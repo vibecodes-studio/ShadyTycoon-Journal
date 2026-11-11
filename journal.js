@@ -1,5 +1,5 @@
 window.JOURNAL = {
-  updated: "2026-11-11 14:00",
+  updated: "2026-11-11 17:00",
 
   // ---------- Jetzt: woran gerade gearbeitet wird ----------
   now: {
@@ -207,6 +207,18 @@ window.JOURNAL = {
 
   // ---------- Meilensteine (neueste zuerst) ----------
   milestones: [
+    {
+      id: "live-council-portraits", date: "2026-11-11", phase: "p7", title: "Live-Portraets im Stadtrat: Ratsmitglieder atmen, blinzeln, schauen und zeigen ihre Haltung",
+      summary: "User: „Yes, build live“ – statt gemalter Figuren echte 3D-Koepfe im Stadtrat-Fenster, im Spiel geprueft und freigegeben.",
+      points: ["Zwei Ratsherren der 1950er (ca. 35 und 55 Jahre) aus MakeHuman/Blender mit sechs Gesichtsformen: Neutral, Erfreut, Wuetend, Nervoes, Misstrauisch, Blinzeln.", "Je Portraet eine unsichtbare Kabine im Spiel mit eigener Kamera, warmem Licht und Hintergrund; Ausdruck folgt der Haltung des Ratsmitglieds zum Spieler, Kopf dreht sich gelegentlich, Blinzeln in zufaelligem Takt.", "Kosten gemessen (-game): 9 Portraets live = 0,02 ms je Bild im Game-Thread, ~11 Bilder/s je Portraet; Grafikkarten-Kosten noch nicht gemessen.", "Standard: nur das erste Ratsmitglied live (Konsole hud.LivePortraits 9 = alle); fehlen die Modelle, bleibt die gemalte Figur.", "Offen: kleine Zacken am Haaransatz der juengeren Figur."],
+      concepts: [], images: [{src: "img/2026-11-11_live_council_portraits.jpg", cap: "Live-Portraet aus dem Spiel: neutral, wuetend, erfreut (aelteres Modell)"}], commits: [], tags: ["UI", "Politik"]
+    },
+    {
+      id: "belegung-nachfrage", date: "2026-11-11", phase: "p7", title: "Belegung und Nachfrage je Gebaeude (#44, Schritte 1-6)",
+      summary: "Tester-Ticket #44: alle Gebaeude liefen voll, egal wie viele Leute in der Naehe wohnten. Umgesetzt nach dem Konzept „Belegung und Nachfrage“, Schritt fuer Schritt mit OK des Users.",
+      points: ["1: Infofenster zeigen den echten Umsatz des letzten Monats und warum (Personal, Kundschaft, Strom, Werbung).", "2: jedes Gebaeude hat eine eigene Belegung; Neubauten starten bei 15 % und fuellen sich ueber Monate.", "3: Wohnhaeuser fuellen sich nach Lage (Jobs in Pendelreichweite, Park, Rauch); auf die Insel ziehen nur so viele, wie es Arbeit gibt.", "4: Pendler statt Bezirksquote - jedes Haus schickt seine Arbeitskraefte zu Jobs bis ~3 km, Besetzung je Betrieb, Arbeitslose zaehlen im Wohnbezirk.", "5: gleichartige Betriebe teilen sich ihren Markt (Kino-Besucher, Zeitungsleser, Buerobedarf, ein Industrie-Absatzmarkt) - Ueberbau senkt den Erloes.", "6: Messbefehl shady.Balance + zwei Laeufe 1950-66: Maerkte auf die echte Inselgroesse verkleinert, Miete 80 -> 95 $; danach verliert keine Gebaeudeart mehr Geld (ausser Kohlekraftwerk wie bisher).", "Offen: NPC-Bezirkskassen rutschen ab ~1960 tief ins Minus (eigenes Thema)."],
+      concepts: ["belegung"], images: [], commits: [], tags: ["Wirtschaft"]
+    },
     {
       id: "ring-tip-wedge", date: "2026-11-11", phase: "p7", title: "Ring-Spitze: kein heller Keil mehr ausserhalb der Ringstrasse",
       summary: "User („Yes, fix it“): an der West-Spitze des Rings (Seed 2147483647) lag ein ~10-m-Dreieck heller Platten im Gruenen.",
@@ -2913,6 +2925,35 @@ window.JOURNAL = {
 
   // ---------- Konzepte ----------
   concepts: [
+    {
+      id: "medien-imperium", title: "Medien-Imperium: Redaktion, Exklusivmeldungen, Publikum, Skandale – Medien als PvP", file: "", status: "Vorschlag", updated: "2026-11-11",
+      summary: "Wunsch von Tester Nohr (Discord, Ticket #46) mit Design-Dokument und zwei UI-Bogen: Medien sollen mehr Spass machen, mehr bedeuten und Spieler gegeneinander antreten lassen. Kern: einen Sender zu besitzen ist erst der Anfang – das Spiel ist die Entscheidung, welche Geschichte recherchiert, begraben, gerahmt und wann gebracht wird, und den Gegenschlag zu ueberstehen. Baut auf dem auf, was es schon gibt (Meldungen, Recherchen, War Room, Stab, Zeitung/Fernsehturm, Titelseite, Publikum aus #44).",
+      sections: [
+        { h: "Stand heute (0.1.305)", s: "Offen", items: [
+          "Vorhanden: Zeitung/Fernsehturm als Gebaeude mit Reichweite, Meldungen (Push/Spike/Spin/Gegendarstellung), Recherchen (Geruecht → Spur → Dossier), War Room mit 10 Kanaelen je Epoche, Stab mit Sternen/Loyalitaet/Abwerben, Werbung, Titelseite, My bets.",
+          "Es fehlt die Entscheidungsebene: der Spieler schreibt und rahmt keine Geschichte, Sender haben keinen Namen/Ruf, Werbekunden verlangen nichts, Stab hat kein Gesicht, Gegenschlaege sind kein eigener Ablauf."
+        ]},
+        { h: "Kreislauf und Kernsysteme", s: "Vorschlag", items: [
+          "Kreislauf: Entdecken → Formen (Geschichte, Rahmen, Platz, Zeitpunkt) → Publikum gewinnen → in Macht umwandeln (Werbegeld, Druck auf Abstimmungen, Wahlen, Nachfrage) → Gegenschlag ueberstehen. Eine Ausgabe = ein Monat.",
+          "Sender als Figuren (`FOutletRec`): Name, Blattlinie, vier Werte Glaubwuerdigkeit / Reichweite / Einfluss / Angreifbarkeit – Boulevard und Qualitaetsblatt beide spielbar.",
+          "Spuren als Informationsmarkt (`FLeadRec`): aus echten Ereignissen (gelenkte Ausschreibungen, Umschlaege, Abstimmungen gegen die Stimmung, Fabriken, Leichen im Keller); Beweislage 0–100, Exklusivitaet, Ablauf. Wahl: weiter recherchieren, jetzt bringen, verkaufen, zurueckhalten, begraben.",
+          "Redaktion je Monat: Rahmen (investigativ, ausgewogen, kritisch, wohlwollend, reisserisch) und Platz (Titelseite, innen, versteckt, zurueckhalten), Prognose wie im War Room; die gebaute Titelseite IST die, die andere sehen.",
+          "Begrenztes Publikum je Bezirk/Zielgruppe (aus #44), Werbekunden mit Bedingungen, Stab mit Gesicht (Personen-System), Medienverbund mit abnehmendem Zusatznutzen."
+        ]},
+        { h: "Skandal-Kette und PvP", s: "Vorschlag", items: [
+          "Fuenf Stufen: Entdeckung → Entscheidung → Kampf um die Veroeffentlichung (Erster bekommt den Exklusiv-Bonus) → Folgen (Rat, Wahl, Bodenwert, Vertraege, Verdacht) → Vergeltung (Werbekunde springt ab, Klage, Gegen-Enthuellung). Jede Stufe als Karte in My bets, grosse als Titelseite.",
+          "PvP: Wettlauf um Exklusivmeldungen, Abwerben von Moderatoren, Werbekriege, zwei Rahmen fuer dasselbe Ereignis, Zweckbuendnisse. Regel: ein Angriff schafft ein Problem, nimmt aber nie die Spielfaehigkeit."
+        ]},
+        { h: "Fenster (aus den UI-Bogen)", s: "Vorschlag", items: [
+          "Alle im grossen Hauptfenster mit Portraets: Redaktion, Recherche-Tisch, Programmplaner (ab 1960), Publikumsanalyse, Talente, Konkurrenz, Uebernahme, Krise, Artikel schreiben.",
+          "Zuerst Redaktion + Recherche-Tisch + Krise (tragen die Skandal-Kette)."
+        ]},
+        { h: "Stufen und offene Fragen", s: "Offen", items: [
+          "1 ein Sender macht Spass · 2 zwei Sender konkurrieren · 3 Saeulen verbunden (Skandal-Kette, Krisenfenster, NPC-Pressebarone) · 4 Imperium (Programmplaner, Uebernahmen, Kabel/Web/Social).",
+          "Offen: welche Gebaeude werden Sender, Unterbrechung mitten im Monat, Portraets jetzt oder nach dem Personen-Piloten, Stufe 1 oder Skandal-Kette zuerst."
+        ]}
+      ]
+    },
     {
       id: "hierarchie", title: "Hierarchie & Personen: Politiker mit Gesicht, Charakter und Karriere", file: "", status: "Vorschlag", updated: "2026-11-11",
       summary: "Wunsch des Users nach dem Stadtrat-Hauptfenster: die ganze politische Hierarchie mit echten Menschen. Jede Figur wird eine dauerhafte Person (Gesicht, Archetyp, Eigenschaften, Meinung je Spieler, Karriere über Jahrzehnte); Vorwahlen auf Bezirksebene, in denen man früh Kandidaten unterstützt; Gesichter als einmal gerenderte MetaHuman-Porträts mit 5 Ausdrücken und 2–3 Altersstufen.",
