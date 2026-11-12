@@ -1,6 +1,8 @@
 window.JOURNAL_EN = {
   now: {
     inProgress: [
+      { title: "District councils (#47): data, election with rivals, motions, city treasury", area: "Game", date: "2026-11-11", detail: "Kanban #1 builds it after the user's six decisions (11 Nov): one council with 5 seats per district (leader = the district's city council seat), 3 permanent computer rivals, motions A–F, field releases by the district council instead of the building committee, a city treasury. Code for stages 1–3 is written and waits for the full build." },
+      { title: "Preparing the next update", area: "Game", date: "2026-11-11", detail: "Patch notes drafted (English, for players); the committed state without other sessions' open work builds cleanly on its own. Main publishes after asking the user." },
       { title: "Front page + \"My bets\": politics and media you cannot miss", area: "Game", detail: "10 Nov, night (user: elections, scandals and votes must not be a footnote). Built and tested in play (hands-off test instance: the election-night front page pauses the solo game, \"My bets\" shows your own bill at 64 %, edge card below the FPS box): (1) Front page – big stories (charges, an envelope handed to the prosecutor, an exposed campaign, a dossier, a skeleton in the closet, an economic event, election night) appear as a newspaper over the game with headline, what it means for you, more stories and a button to the matching action; in a solo game time pauses. (2) \"My bets\" – every stake in one list (bills with forecast, hearings, candidacies, campaigns, attacks on you, bids, envelopes, suspicion, reputation), in the radial menu under Agenda. (3) Edge cards on the right when a forecast tips, suspicion rises, reputation falls, an attack starts or a story is about you." },
       { title: "Working through tester feedback (Discord + board)", area: "Game", detail: "9 Nov evening, user away: published 0.1.218 (nine fixes) and 0.1.220 (politics playable earlier, reasons on grey buttons, roads stay in your own district) as updates, tickets moved to Test Fix. Open: #8 flickering vent grilles (new model revision of the 1970s towers), #13 finances, #15 roads follow the terrain, wishes #17/#20/#24, a plan for candidate stats (#25)." },
       { title: "Online multiplayer without port forwarding (Epic Online Services)", area: "Game", detail: "The last playtest failed on port forwarding in the router (user, 09 Nov). Now the host picks \"Online (room code)\" for a new game; the game logs in to Epic Online Services silently and anonymously (no Epic account for the players) and shows a 6-character room code with a copy button in the lobby. Friends type the code under JOIN; the connection uses NAT punch-through, or Epic's relay if that fails, with no router settings. \"LAN only (IP address)\" stays for the home network. Built for editor, Windows and Linux; LAN join and the case without credentials tested. Still missing: the user's EOS credentials (Developer Portal) and a test across two households." },
@@ -22,6 +24,9 @@ window.JOURNAL_EN = {
       { title: "Game concept: the city as an ecosystem", area: "Concept", detail: "Basics: who supplies what, who needs what, how money flows. Concept first, then build." }
     ],
     next: [
+      { title: "Media empire stage 4c (#46): eras", area: "Game", date: "2026-11-11", detail: "4a (media chain, buying outlets, distress sales) and 4b (TV programme) are built and tested in game; next 4c: media per era." },
+      { title: "Answers on transit (#41), services (#42) and water (#43)", area: "Concept", date: "2026-11-11", detail: "Three concept proposals with recommendations; once the user has answered them one by one, building starts (services first, with stand-in buildings)." },
+      { title: "Scandals also hit the district council", area: "Game", date: "2026-11-11", detail: "Once the district councils are in: a printed scandal also lowers the district politicians' favour and unsettles councils where the subject holds a seat." },
       { title: "Enter EOS credentials and test across two households", area: "Game", detail: "Create a product in the Epic Developer Portal with a client using the Peer2Peer policy, put the five values into (template.example). Then build a package and connect with a friend through the room code; two instances on one PC cannot test EOS P2P." },
       { title: "Build the political timeline", area: "Game", detail: "After the review of the compendium: law catalogue as a data table (year, source, levels, effects as multipliers), council with 9 votes (6 districts + 2 city seats + casting vote), elections for all offices every four years, event bills from the simulation; then the agenda strip (today at the left) and the Roll Call." },
       { title: "Click test politics/media/economy and tune the numbers", area: "Game", detail: "The user plays the new loop (agenda → War Room → Roll Call → debrief) in Play: panels Laws, Council, Staff, Research, Contracts, Economy, Mood; the 1954 election with a candidacy. Then adjust the rates: envelope prices, campaign cost per channel, seat leaning, salaries, research points, contract prices, the effect of laws." },
@@ -33,6 +38,17 @@ window.JOURNAL_EN = {
       { title: "Surface patterns for buildings", area: "Buildings", detail: "1950s done (tower approved in Play, then rolled out to department store, hospital, café, house): ashlar stone with joints, granite slabs, brick, tiles, clapboard, shingles, render, glass different per window, grained metal – all procedural. Then 1970s (precast concrete, exposed aggregate, fibre cement, concrete roof tiles, brick) and 1990s (granite slabs 1.2 × 0.8 m, flat glass) built – waiting for the user's play test." }
     ],
     done: [
+      { title: "New base version 0.1.407 built for Windows and Linux (after the engine update to 5.8.4; updates no longer build on 0.1.210)", area: "Game", date: "2026-11-12" },
+      { title: "Second interface \"Classic\" after the user's mockup (switch in the gear window, Radial stays)", area: "UI", date: "2026-11-12" },
+      { title: "Coast roads of computer players (#32) and visible traffic by congestion (#41, stage T2)", area: "Game", date: "2026-11-12" },
+      { title: "Politics windows with 45 councillor faces and your own vote in the district council (#47)", area: "Game", date: "2026-11-12" },
+      { title: "More public services: clinic, district office, parks & rec, public works (#42)", area: "Game", date: "2026-11-12" },
+      { title: "Media empire stage 3 (#46): scandal chain with consequences, crisis room with seven answers, selling leads (also \"catch and kill\"), computer media barons", area: "Game", date: "2026-11-11" },
+      { title: "Media empire stage 2 (#46): every paper/TV tower competes for the audience, advertisers with conditions, counterstories", area: "Game", date: "2026-11-11" },
+      { title: "District councils (#47) decided: the user answered all six questions", area: "Concept", date: "2026-11-11" },
+      { title: "Computer districts no longer go bankrupt (#45): the cost of city programmes follows the number of residents", area: "Game", date: "2026-11-11" },
+      { title: "Occupancy and demand per building (#44, steps 1–6): gradual move-in, location, commuting, saturated markets, balancing", area: "Game", date: "2026-11-11" },
+      { title: "Concepts for transit (#41), five new services (#42, with an addendum on eras, stand-ins and the district council) and water/sewage (#43) as proposals", area: "Concept", date: "2026-11-11" },
       { title: "Ring tip: no more light concrete wedge outside the ring road (seed 2147483647); a slightly darker grass patch remains there - visual check pending", area: "Cityscape", date: "2026-11-11" },
       { title: "Renovation from 1965 (feedback #40): 1970 office towers and shopping center from 1965, 1990 towers from 1985; info window names the year or says \"No newer version of this building yet\"", area: "Game", date: "2026-11-11" },
       { title: "State of all sessions saved, and updated; continuing with a new Main + Kanban #1-#3", area: "Docs", date: "2026-11-11" },
@@ -203,6 +219,59 @@ window.JOURNAL_EN = {
   },
 
   milestones: {
+    "classic-hud": {
+      title: "Second interface \"Classic\": calm bars top and bottom, main window, profile card on the left",
+      summary: "Following the user's mockup there are now two interfaces, switchable in the gear window. \"Radial\" (the existing HUD) stays unchanged.",
+      points: ["Top: a dark bar with city, district, date, a timeline of the next twelve months, city treasury/private account and speed.", "Bottom: six tabs (Build, Politics, Media, Economy, Population, Administration); each opens a calm column menu upwards, public buildings in blue under \"Public - city treasury\".", "Large views (e.g. the city council) fill the frame between the bars; a councillor's profile card sits on the left in the info window's place instead of over the main window.", "Clicking a bottom tab closes the main window and opens that menu directly.", "Buttons no longer wobble when clicked (pressed = same size). Graphics generated as sheets and cut up.", "Approved by the user in Play (12.11.)."],
+      caps: ["Classic: top bar, bottom tabs, Build menu", "Classic: city council as the main window with all nine seats"]
+    },
+    "kueste-verkehr-12": {
+      title: "Coast roads of computer players (#32) and visible traffic by congestion (#41)",
+      summary: "More waterfront lots, and cars that follow the amount of traffic.",
+      points: ["Computer players build short roads along the coast (in 25 m steps, about 40 m from the water) so waterfront lots appear; tested in game: 2 shore roads, 4 buildings on the water (cafes x1.20, apartment block x1.25).", "Still to improve: on a ragged shore the walk often stops after one step, long curves fail the bend rule.", "Traffic stage T2: the number of visible cars follows road congestion (test: 18 normally, 56 in heavy congestion); in the hearings overlay roads are coloured by congestion.", "Open: the user's visual check of the overlay colours and of slowing down in congestion."],
+      caps: []
+    },
+    "ratsgesichter-47": {
+      title: "Politics windows: 45 councillor faces, your own vote in the district council, crash fixed (#47)",
+      summary: "City council, hierarchy and district council share one frame; every councillor has their own live portrait.",
+      points: ["45 councillor figures (MakeHuman, Blender headless): different faces, ages, weights, skin tones, hairstyles, beards, glasses and hats, plus per-person suit/tie/hair colours.", "Models load only when a portrait shows them and are released after 30 s unseen.", "Hair after the user's contact sheet: soft fringe swept to one side instead of a straight edge; the side part keeps the eye free.", "Players with a district council seat vote themselves: Yes / No / Abstain on open motions and field releases, current vote in gold, changeable until the session.", "Crash in the district council fixed: the growing booth list invalidated the portraits' image pointers.", "Duplicate faces in the district council fixed: every district politician had seed 0 (random range overflowed) - the name is now the fallback.", "Approved by the user in Play (12.11.)."],
+      caps: []
+    },
+    "dienste-42": {
+      title: "More public services: clinic, district office, parks & rec, public works, condition of parks and roads (#42)",
+      summary: "The user's decisions of 11.11. built in, first with stand-in models; the autopilot builds the real buildings later.",
+      points: ["Doctor's clinic (public, 1,500 residents) and private clinic (user: a loss-maker - only costs from the private account, no income, makes the district happier).", "District office (one per district): the district council meets monthly instead of quarterly, hearings/objections cost 30 % less influence, the district leader (user: the seat holder, not the owner) gets +2 influence a month.", "Parks and plazas wear out; a parks & rec office looks after ~6 ha, park upkeep -20 %, summer concert in July; 'Renovate' in the info window (district treasury, by area x era).", "Roads wear with age and traffic (~15 years to 'poor'); a public works yard resurfaces 3 km a month; list Public > Transit > Road care with 'Renovate road' (without a yard city crews x3); below 50 % average -1 happiness.", "The new services are now in the radial menu (Services, Utility, Private > Health) - before they could not be reached.", "Tested in game (-game, seed 641163): building at the right price, park care, wear of NPC roads, panel. Still open: renovating your own road, visible cracks, tenders."],
+      caps: []
+    },
+    "medien-stufe4c": {
+      title: "Media empire stage 4c: cable, A/B headlines, viral stories (#46)",
+      summary: "Media change with the eras.",
+      points: ["Cable from 1978: small channels take 15-35 % of viewers, your own viewers stay loyal longer.", "A/B headlines from 1996: a second headline, the one with the better click forecast runs; if they contradict each other it costs credibility.", "Viral from 2008: strong front-page stories hit reputation much harder and sell more, part of it is forgotten the next month.", "Also: 10 % deposit on offers to humans; fix: withdrawing an offer did not work."],
+      caps: []
+    },
+    "medien-stufe4ab": {
+      title: "Media empire stages 4a + 4b: media chain, buying outlets, distress sales, TV programme (#46)",
+      summary: "Single outlets become an empire: stories run across all your channels, rivals can be bought, and every station has a simple programme.",
+      points: ["Media chain: a front-page story is followed up the next month by your other papers/stations (stations as an interview); a correction stops the chain.", "Buying outlets: computers sell at an asking price, humans get an offer; keep the line or merge it (some readers leave); the building stays with its owner; 12-month resale lock.", "Distress sales (user decision: option 2, provisional numbers): after a lost libel case or a confirmed scandal, outlets can be bought without consent for 6 months (-20 %); 3 months deep in debt = even the last outlet (-30 %).", "TV programme (user: no TV tycoon inside the tycoon): one direction per station fills daytime, prime time and late night, single slots by hand; keeps running unchanged, mild fatigue; drives audience, ads, credibility and votes.", "Holdings and shell companies come later with the finance pillar (user: \"Yes, later\").", "Tested in game (-game, 5 runs): programme, buying, refusals, forced sale of a last outlet, chain with its follow-up the next month, no errors."],
+      caps: []
+    },
+    "redaktion-stufe3": {
+      title: "Media empire stage 3: scandal chain with consequences, crisis room, selling leads, computer media barons (#46)",
+      summary: "The three pillars are connected: a printed scandal costs support in the council, campaign strength and contracts, and the subject has to answer.",
+      points: ["Fallout of every scandal: every council seat's favour drops (2-8, more on solid evidence and with honest councillors), running candidacies lose strength, computer contract partners may cancel; land value follows reputation.", "A loss of 3 reputation or more starts a crisis: 2 months to answer in the new crisis room (main window, radial menu Media > Crisis, red tab in the newsroom).", "Seven answers with a forecast before choosing: deny, apologise, spin (needs a spin doctor, may be exposed), sue (verdict after 3 months, damages from the publisher), hit back (print your own scandal lead about the publisher), ads, silence.", "Selling leads: to another newsroom or to the subject at 1.5x the price (catch and kill). Offers to you show up in the newsroom and the crisis room.", "Computer media barons use the same commands: they answer crises by evidence and profile and sell leads.", "Newsroom staff with live portraits from the portrait booth (initials until the booth slots reach the newsroom).", "Tested in game (-game, log): a crisis starts, computers apologise or sue, verdicts after 3 months (won and lost), catch and kill, crisis room and newsroom open, no errors."],
+      caps: []
+    },
+    "redaktion-stufe2": {
+      title: "Media empire stage 2: several outlets competing - audience, advertisers, counterstories (#46)",
+      summary: "User: stages 2 and 3, one commit per stage. Every media building is now its own outlet with a name and an editorial line; all outlets fight for the same audience.",
+      points: ["Every finished newspaper or TV tower becomes its own outlet (name, editorial line, credibility); the Island Gazette stays. Tabs at the top of the newsroom pick the outlet.", "Shared audience per kind (newspaper/TV): credibility, line, scoops and staff pull readers away from rivals, corrections cost some. A strip shows every outlet's share.", "Advertisers: offers with a monthly payment, some with a condition (nothing bad about a certain player). Print anyway and the contract ends; sit on a scandal too long and the others get a 'conflict of interest' lead.", "Big scandals can break mid-month as an extra edition when another newsroom knows them too (race for the scoop).", "Counterstory: answer a story about you within 3 months - on thin evidence it wins back reputation and costs the other outlet credibility, on solid evidence it hurts you. Computers answer by themselves.", "Tested in play (-game, log): outlets appear, shares move, a contract breaks on printing, computers accept offers, mid-month extra, counterstory."]
+    },
+    "redaktion-stufe1": {
+      title: "Media empire stage 1: one newsroom with leads, frames and a front page (#46)",
+      summary: "User: \"Stage 1: one outlet\" - the newsroom from the \"Media empire\" concept, playable in the big main window; laid out like tester Nohr's reference image (leads left, newspaper centre, frame + placement right).",
+      points: ["Leads come from the game: envelopes, rigged tenders, staff skeletons, investigators' dossiers, high heat, pollution, good news (openings, prosperity). Each has evidence, impact, an expiry and knows which newsrooms have it.", "A newsroom = your own newspaper/TV tower or 51 % of the Island Gazette; editorial line (balanced, investigative, partisan, sensational) changeable once a year.", "Per story a frame (investigative, balanced, critical, supportive, sensational) and a placement (front page, inside, buried) with a forecast before printing: subject's reputation and heat, own credibility, risk of a correction, extra sales.", "Investigate (evidence +12..+38 in a month), extra edition right away, bury your own scandals (may leak), edition at the end of the month; whoever prints first has the scoop.", "Computer newsrooms (Gazette, districts) work on their own by profile; big front pages go to the front-page scene.", "Tested in game (-game, log): printing, corrections, burying with a leak, extra edition, investigation, editorial line."],
+      caps: []
+    },
     "live-council-portraits": {
       title: "Live council portraits: councillors breathe, blink, look around and show their attitude",
       summary: "User: \"Yes, build live\" - real 3D heads in the council window instead of painted figures, checked in game and approved.",
@@ -2146,6 +2215,36 @@ window.JOURNAL_EN = {
   },
 
   concepts: {
+    "bezirksraete": {
+      title: "District councils: politics below the city council",
+      summary: "Ticket #47: every district gets its own council with five seats. The leader is the same person as the district's seat on the city council. The council decides programmes and exceptions, not every building project. The user answered all six open questions on 11 Nov.",
+      sections: [
+        { h: "Structure", items: [
+          "5 seats per district: the leader (= the district's city council seat, no second record) and 4 members; majority 3 of 5.",
+          "Politicians with several priorities (business, residents, by the book, environment, infrastructure, fiscal, social), honesty, price, fear, loyalty to the leader, credibility, support, favour per player and a memory of their last votes.",
+          "Election every 4 years in November as today; losers stay in the game as politicians."
+        ]},
+        { h: "The user's six decisions (11 Nov)", items: [
+          "Q1 District treasury: the council only votes on programmes and special projects; the district player keeps building public buildings themselves.",
+          "Q2 Rivals: 3 permanent computer rivals per district for the leader post, the player runs as the fourth.",
+          "Q3 Field releases are decided by the district council (3 of 5); the island-wide building committee goes away.",
+          "Q4 A city treasury comes now: fed from a share of district taxes, the city council grants money from it to district programmes.",
+          "Q5 Players can also win one of the 4 ordinary seats in the same election.",
+          "Q6 Only two exceptions need a vote when building: a tower above the district's height limit and industry closer than 150 m to houses; everything else builds as today."
+        ]},
+        { h: "Motions", items: [
+          "Areas A planning, B infrastructure, C services, D budget, E economy, F environment; flow motion → agenda → early positions → lobby/compromise/campaign/envelope → vote → carried out exactly once → news story.",
+          "After a rejection the same motion is locked for 12 months; if the treasury cannot pay, it fails with a news story."
+        ]},
+        { h: "Provisional values (until the user confirms them)", items: [
+          "Height limit 6 / 12 / 20 floors (until 1969 / until 1989 / after), motion 5 influence, programmes 50–80 k$ × era with 24 months of effect, envelope 10 k$ × era × price, city funds request 10 influence."
+        ]},
+        { h: "Links to media and services", items: [
+          "A printed scandal (#46) will also lower the district politicians' favour and unsettle councils where the subject holds a seat.",
+          "The planned district office (#42) becomes the seat of the district council."
+        ]}
+      ]
+    },
     "medien-imperium": {
       title: "Media empire: newsroom, scoops, audiences, scandals – media as PvP",
       summary: "Request by tester Nohr (Discord, ticket #46) with a design document and two UI sheets: media should be more fun, more meaningful and pit players against each other. Core: owning an outlet is only the start – the game is deciding which story gets investigated, buried, framed and when it runs, and surviving the counterattack. Builds on what exists (stories, probes, War Room, staff, newspaper/TV tower, front page, audiences from #44).",
@@ -2169,9 +2268,13 @@ window.JOURNAL_EN = {
           "All in the big main window with portraits: newsroom, investigation desk, programme planner (1960+), audience analytics, talent, competitors, acquisition, crisis, write article.",
           "First newsroom + investigation desk + crisis (they carry the scandal chain)."
         ]},
-        { h: "Stages and open questions", items: [
+        { h: "Stages and decisions", items: [
           "1 one outlet is fun · 2 two outlets compete · 3 pillars connected (scandal chain, crisis screen, NPC press barons) · 4 empire (programme planner, acquisitions, cable/web/social).",
-          "Open: which buildings become outlets, mid-month interrupts, portraits now or after the persons pilot, stage 1 or scandal chain first."
+          "Decided (user, 11 Nov): every media building is its own outlet with name and line · big scoops may break mid-month · journalist portraits from the MPFB portrait pilot · after stage 1 now stages 2 and 3."
+        ]},
+        { h: "Built: stages 1–3 (11 Nov), plan for stage 4", items: [
+          "Stage 1: one newsroom with leads from game events, frame, placement and front page. Stage 2: every paper/TV tower its own title competing for the audience, advertisers with conditions, counterstories. Stage 3: scandal chain with consequences (council, campaigns, contracts, land value), crisis room with seven answers, selling leads, computer media barons.",
+          "Stage 4 (proposal, waiting for the user): 4a investigation desk, 4b media staff with faces and poaching, 4c outlet profiles and takeovers."
         ]}
       ]
     },
@@ -2255,6 +2358,12 @@ window.JOURNAL_EN = {
           "District office bonus to the seat holder or to the district owner?",
           "Introduce road and park condition (wear) at all?",
           "Private clinics yes/no? University as lots or a painted area?"
+        ]},
+        { h: "Addendum ", items: [
+          "Era chain per service 1950–2030 (e.g. public works: brick depot → salt dome → recycling yard → e-fleet → robotics depot); renovation like every family.",
+          "Stand-ins from existing buildings first (post office, warehouse, school) so the rules can be tested within a week; the 25 real families afterwards through the building autopilot.",
+          "District office = seat of the district council (#47): with an office, monthly sessions and cheaper motions. Media (#46): new leads like \"potholes back after six months\" or \"park left to rot\", good stories like the summer concert, a journalism faculty brings better reporters.",
+          "Recommendations (provisional until the user answers): bonus to the seat holder, mild wear in two steps (parks first, then roads), private clinics yes, university as a fixed multi-lot building, order clinic → district office → parks & rec → public works → university."
         ]}
       ]
     },
@@ -2277,10 +2386,19 @@ window.JOURNAL_EN = {
           "Treatment plant with round basins and a slowly turning bridge arm, 1990 silver digesters; outfall with a brown plume in the water.",
           "Visible water quality: clean turquoise, poor greenish and murky, grey foam, litter on the shore, a “No swimming” sign."
         ]},
-        { h: "Open", items: [
-          "A real system (demand, outages) or only buildings with a bonus?",
-          "Water private like power, or always public?",
-          "Water quality now, or only with the waterfront lots?"
+        { h: "Numbers (draft)", items: [
+          "Unit WU = 1000 m³ per month (like MW for power): house 0.03, apartment block 0.24, factory 2.0; demand per head ×1.0 (1950) / 1.4 (1970) / 1.2 (1990).",
+          "Pumping station at a lake 120 k$ (−40 WU, 1.5 MW), well field 60 k$ (−12), water tower 45 k$ (buffer against a “dry summer”), desalination 1990 900 k$ (−80, 6 MW).",
+          "Sewer pumping station 25 k$, outfall 5 k$, treatment plant 1950 150 k$ (cleans 30 WU), 1970 280 k$ (60 WU).",
+          "Network like power: contract → own pumping stations → surplus of other districts → the city buys expensive water (400 $/WU). Shortage −6 satisfaction, no new residents, fire service at 60 %.",
+          "Water quality per shore: −0.1 per untreated WU within 600 m of an outfall, below 0.6 = “spoiled” like industry (no waterfront bonus)."
+        ]},
+        { h: "Decisions (each with a recommendation)", items: [
+          "1. A real system or only buildings with a bonus? – decided (user, 11.11.): a real system as a copy of the power grid.",
+          "2. Private or public? – decided (user, 11.11.): water supply AND sewage are public (the treasury builds and pays, no private waterworks, no water sales for profit); districts balance through their treasuries.",
+          "3. How exact is water quality? – decided (user, 11.11.): per outfall with a 600 m radius, the same rule as industry for waterfront lots (no waterfront bonus there).",
+          "4. The shady side (Clean Water Act, dumping, water contracts) right away? – decided (user, 11.11.): NOW, in the first water build – Clean Water Act, night dumping (saves money, scandal risk), tenders for waterworks/sewage plants (envelopes, favouritism); private builders/operators bid on the public contracts.",
+          "5. Placeholders first or real 1950 buildings first? – decided (user, 11.11.): real models FIRST, no stand-ins – water tower, pumping station, treatment plant + outfall through the building pipeline (1950, Nanite, catalog), then the rules and the shady side."
         ]}
       ]
     },
@@ -2736,6 +2854,13 @@ window.JOURNAL_EN = {
   },
 
   decisions: {
+    "Bezirksrat stimmt nur über Programme und Sonderprojekte ab (#47 Q1)": { title: "District council votes only on programmes and special projects (#47 Q1)", why: "User 11 Nov: otherwise every building would get slow. The district player keeps paying for public buildings from the district treasury." },
+    "Drei dauerhafte Computer-Rivalen je Bezirk (#47 Q2)": { title: "Three permanent computer rivals per district (#47 Q2)", why: "User 11 Nov: 3 rivals run for the leader post, the player as the fourth; losers keep support, favour and memory – opponents with a history instead of names on a ballot." },
+    "Feldfreigaben entscheidet der Bezirksrat statt des Bauausschusses (#47 Q3)": { title: "Field releases are decided by the district council instead of the building committee (#47 Q3)", why: "User 11 Nov: 3 of 5 district councillors; the island-wide three-member building committee goes away." },
+    "Stadtkasse jetzt einbauen (#47 Q4)": { title: "Build the city treasury now (#47 Q4)", why: "User 11 Nov: an island treasury from a share of district taxes; the city council grants money from it to district programmes. What the game called \"city treasury\" so far becomes \"district treasury\"." },
+    "Spieler können auch normale Bezirksratssitze gewinnen (#47 Q5)": { title: "Players can also win ordinary district council seats (#47 Q5)", why: "User 11 Nov: in the same election, not only the leader post." },
+    "Nur zwei Bau-Ausnahmen brauchen eine Abstimmung (#47 Q6)": { title: "Only two building exceptions need a vote (#47 Q6)", why: "User 11 Nov: a tower above the district's height limit and industry closer than 150 m to houses; everything else builds as today without a vote." },
+    "Kosten der Stadtprogramme richten sich nach den Einwohnern (#45)": { title: "City programme costs follow the number of residents (#45)", why: "User 11 Nov (\"Scale by population\"): before, every district paid the full amount and computer districts went bankrupt from ~1960. Now a factor by residents (0.1 to 3)." },
     "Eine Main-Session orchestriert, drei Kanban-Sessions arbeiten das Board ab": { title: "One Main session orchestrates, three Kanban sessions work the board", why: "User 10 Nov: Main grants EDITOR/GAME slots (at most one host+client pair on the PC, GPU crash with four instances), forwards bugs to the owning session and builds/publishes patches only after asking; Kanban sessions commit only their own files and report \"ready for patch\"." },
     "Online über Epic Online Services mit Raumcode statt Portfreigabe oder eigenem fly.io-Relay": { title: "Online through Epic Online Services with a room code instead of port forwarding or an own fly.io relay", why: "User 09 Nov: friends should join without anything technical. An own relay (like fly.io in Starhunter) would have to carry all game traffic and costs upkeep; EOS is free, already in Unreal as a net driver and handles NAT punch-through and relay. Steam stays possible later by config, LAN/IP stays for the home network." },
     "Ratsabstimmung jedes Quartal statt nur im Dezember; Antrag braucht zwei Monate Vorlauf": { title: "Council vote every quarter instead of only in December; a proposal needs two months' notice", why: "Claude on the night shift: a year of waiting per vote would have run the loop agenda → War Room → Roll Call → debrief too rarely. Four sessions a year give four moments of tension, the two months' notice give every campaign time to work. Crisis laws come up at the next session." },
@@ -2776,6 +2901,8 @@ window.JOURNAL_EN = {
   },
 
   ideas: {
+    "Pressekonferenz im eigenen Bezirksamt": { title: "Press conference in your own district office", text: "Answering a crisis with an apology or a denial while you hold the seat and the district office is built counts as a press conference: a bit more reputation back. Ties services (#42) to the crisis room (#46)." },
+    "Journalismus-Fakultät an der Universität": { title: "Journalism faculty at the university", text: "A university in the district brings one better applicant per quarter for reporters, editors and researchers – media districts get a reason to build one." },
     "Titelseite für Wendepunkte": { title: "Front page for turning points", text: "When a bill with your stake falls, a crisis begins or a rival wins a seat, a big newspaper front page appears instead of the toast line – headline, picture of the council and a button into the War Room – the third alert level from the campaign concept.", source: "Night shift 09 Nov" },
     "Wahlnacht Bezirk für Bezirk mit Hochrechnung": { title: "Election night district by district with projections", text: "Election night today shows the winner per office. More exciting: first projections with a range, then the count district by district, your own district last – like the Roll Call, only with percentages.", source: "Night shift 09 Nov" },
     "Gesetze zurücknehmen als Kampagnenziel": { title: "Repealing laws as a campaign goal", text: "Every law of the early years can come back onto the agenda for repeal later – “Repeal the 1955 Smoke ordinance” as a typical goal once you have money and a seat. That turns the opening into a tutorial without tutorial texts." },
@@ -2812,6 +2939,6 @@ window.JOURNAL_EN = {
     "Vorschlag": "Proposal", "Entschieden": "Decided", "entschieden": "decided", "Offen": "Open", "Recherche": "Research",
     "teils entschieden": "partly decided", "Layout entschieden": "layout decided",
     "User, 03.11.": "User, 03 Nov", "Ökosystem-Konzept": "Ecosystem concept", "Machtdreieck-Konzept": "Triangle-of-power concept",
-    "Spielbare Fassung V1": "Playable version V1", "Kampagnen-Konzept": "Campaign concept", "Kompendium 1950–2030": "Compendium 1950–2030"
+    "Spielbare Fassung V1": "Playable version V1", "Kampagnen-Konzept": "Campaign concept", "Kompendium 1950–2030": "Compendium 1950–2030", "Konzepte 11.11.": "Concepts 11 Nov"
   }
 };

@@ -1,9 +1,11 @@
 window.JOURNAL = {
-  updated: "2026-11-11 17:00",
+  updated: "2026-11-12 10:30",
 
   // ---------- Jetzt: woran gerade gearbeitet wird ----------
   now: {
     inProgress: [
+      { title: "Bezirksräte (#47): Daten, Wahl mit Rivalen, Anträge, Stadtkasse", area: "Spiel", date: "2026-11-11", detail: "Kanban #1 baut nach den sechs Entscheidungen des Users (11.11.): je Bezirk ein Rat mit 5 Sitzen (Leader = Bezirkssitz im Stadtrat), 3 dauerhafte Computer-Rivalen, Anträge A–F, Feldfreigabe durch den Bezirksrat statt Bauausschuss, Stadtkasse. Code der Stufen 1–3 steht, wartet auf den Vollbuild." },
+      { title: "Nächstes Update vorbereiten", area: "Spiel", date: "2026-11-11", detail: "Patch-Notizen (englisch, für Spieler) entworfen; der committete Stand ohne offene Arbeiten anderer Sessions baut allein fehlerfrei. Veröffentlichen macht Main nach Rückfrage beim User." },
       { title: "Titelseite + „My bets“: Politik und Medien unübersehbar", area: "Spiel", detail: "10.11. nachts (User: Wahlen, Skandale, Abstimmungen dürfen keine Randnotiz sein). Gebaut und im Spiel getestet (Testinstanz ohne Maus: Titelseite der Wahlnacht pausiert das Solo-Spiel, „My bets“ zeigt das eigene Gesetz mit 64 %, Randkarte unter der FPS-Anzeige): (1) Titelseite – große Meldungen (Anklage, Umschlag beim Staatsanwalt, aufgeflogene Kampagne, Dossier, Leiche im Keller, Wirtschaftsereignis, Wahlnacht) erscheinen als Zeitung über dem Spiel mit Schlagzeile, „was das für dich heißt“, weiteren Meldungen und Knopf zur passenden Aktion; im Solo-Spiel pausiert die Zeit. (2) „My bets“ – Liste aller Einsätze (Gesetze mit Prognose, Anhörungen, Kandidaturen, Kampagnen, Angriffe gegen dich, Gebote, Umschläge, Verdacht, Ruf) im Radialmenü unter Agenda. (3) Randkarten rechts, wenn eine Prognose kippt, der Verdacht steigt, der Ruf fällt, ein Angriff beginnt oder eine Meldung dich betrifft." },
       { title: "Tester-Feedback abarbeiten (Discord + Board)", area: "Spiel", detail: "09.11. abends, User unterwegs: 0.1.218 (neun Fixes) und 0.1.220 (Politik früher spielbar, Gründe an grauen Knöpfen, Straßen bleiben im eigenen Bezirk) als Updates veröffentlicht, Tickets auf Test Fix. Offen: #8 Lüftungsgitter flimmern (neue Modell-Revision der 1970er-Hochhäuser), #13 Finanzen, #15 Straßen folgen dem Gelände, Wünsche #17/#20/#24, Plan für Kandidaten-Werte (#25)." },
       { title: "Online-Multiplayer ohne Portfreigabe (Epic Online Services)", area: "Spiel", detail: "Der letzte Playtest scheiterte an der Portfreigabe im Router (User 09.11.). Jetzt: Der Host wählt beim neuen Spiel „Online (room code)“, das Spiel loggt sich still und anonym bei Epic Online Services ein (kein Epic-Konto für die Spieler) und zeigt in der Lobby einen 6-stelligen Raumcode mit Copy-Knopf. Freunde tippen den Code unter JOIN ein; die Verbindung läuft per NAT-Durchstich, notfalls über Epics Relay – ohne Router-Einstellung. „LAN only (IP address)“ bleibt für das Heimnetz. Gebaut für Editor, Windows und Linux; LAN-Beitritt und der Fall ohne Zugangsdaten getestet. Es fehlen noch die EOS-Zugangsdaten des Users (Developer Portal) und ein Test über zwei Haushalte." },
@@ -25,6 +27,9 @@ window.JOURNAL = {
       { title: "Spielkonzept: Ökosystem der Stadt", area: "Konzept", detail: "Grundlagen: wer liefert was, wer braucht was, wie fließt Geld. Erst Konzept, dann bauen." }
     ],
     next: [
+      { title: "Medien-Imperium Stufe 4c (#46): Epochen", area: "Spiel", date: "2026-11-11", detail: "4a (Medienkette, Blätter kaufen, Notverkauf) und 4b (TV-Programmplan) sind gebaut und im Spiel geprüft; als Nächstes 4c: Medien je Epoche." },
+      { title: "Antworten zu Nahverkehr (#41), Diensten (#42) und Wasser (#43)", area: "Konzept", date: "2026-11-11", detail: "Drei Konzept-Vorschläge mit Empfehlungen; sobald der User sie einzeln beantwortet hat, wird gebaut (Dienste zuerst mit Platzhalter-Gebäuden)." },
+      { title: "Skandale treffen auch den Bezirksrat", area: "Spiel", date: "2026-11-11", detail: "Sobald die Bezirksräte da sind: ein gedruckter Skandal senkt zusätzlich die Gunst der Bezirkspolitiker und macht Räte unruhig, in denen der Betroffene sitzt." },
       { title: "EOS-Zugangsdaten eintragen und über zwei Haushalte testen", area: "Spiel", detail: "Im Epic Developer Portal ein Produkt anlegen, Client mit Richtlinie Peer2Peer, die fünf Werte in (Vorlage.example). Danach Paket bauen und mit einem Freund über den Raumcode verbinden – zwei Instanzen auf einem PC können EOS-P2P nicht prüfen." },
       { title: "Klicktest Politik/Medien/Wirtschaft und Zahlen abstimmen", area: "Spiel", detail: "Der User spielt die neue Schleife (Agenda → War Room → Roll Call → Debrief) im Play: Panels Laws, Council, Staff, Research, Contracts, Economy, Mood; Wahl 1954 mit Kandidatur. Danach Kurse nachziehen: Umschlag-Preise, Kampagnenkosten je Kanal, Sitz-Neigung, Gehälter, Forschungspunkte, Vertragspreise, Wirkung der Gesetze." },
       { title: "Titelseite für Wendepunkte, Medien-Kampagnen mit Dossier, Referendum", area: "Spiel", detail: "Große Karte statt Toast, wenn ein Gesetz mit eigenem Einsatz fällt oder ein Ereignis beginnt; Dossier-Trick im War Room an echte Recherchen koppeln (angelegt); Bürgerbegehren ab Referendum Act laufen, brauchen Feinschliff." },
@@ -35,6 +40,17 @@ window.JOURNAL = {
       { title: "Oberflächenmuster für Gebäude", area: "Gebäude", detail: "1950er fertig (Hochhaus im Play freigegeben, dann auf Kaufhaus, Krankenhaus, Café, Wohnhaus ausgerollt): Natursteinquader mit Fugen, Granitplatten, Klinker, Fliesen, Stulpschalung, Schindeln, Putz, Glas je Fenster verschieden, Metall mit Körnung – alles prozedural. Danach 1970er (Betonfertigteile, Waschbeton, Faserzement, Betondachsteine, Klinker) und 1990er (Granitplatten 1,2 × 0,8 m, planes Glas) gebaut – wartet auf den Play-Test des Users." }
     ],
     done: [
+      { title: "Neue Basis-Fassung 0.1.407 fuer Windows und Linux gebaut (nach dem Engine-Update auf 5.8.4; alte Updates bauen nicht mehr auf 0.1.210 auf)", area: "Spiel", date: "2026-11-12" },
+      { title: "Zweite Oberflaeche „Classic“ nach dem Mockup des Users (im Zahnrad umschaltbar, Radial bleibt)", area: "UI", date: "2026-11-12" },
+      { title: "Kuestenstrassen der Computer-Spieler (#32) und sichtbarer Verkehr nach Auslastung (#41, Stufe T2)", area: "Spiel", date: "2026-11-12" },
+      { title: "Politik-Fenster mit 45 Ratsgesichtern und eigener Stimme im Bezirksrat (#47)", area: "Spiel", date: "2026-11-12" },
+      { title: "Mehr oeffentliche Dienste: Praxis, Bezirksamt, Gruenflaechenamt, Bauhof (#42)", area: "Spiel", date: "2026-11-12" },
+      { title: "Medien-Imperium Stufe 3 (#46): Skandalkette mit Folgen, Krisenraum mit sieben Antworten, Spuren verkaufen (auch „catch and kill“), Computer-Medienbarone", area: "Spiel", date: "2026-11-11" },
+      { title: "Medien-Imperium Stufe 2 (#46): jedes Blatt/jeder Sender im Wettbewerb ums Publikum, Werbekunden mit Bedingungen, Gegendarstellung", area: "Spiel", date: "2026-11-11" },
+      { title: "Bezirksräte (#47) entschieden: alle sechs Fragen vom User beantwortet", area: "Konzept", date: "2026-11-11" },
+      { title: "Computer-Bezirke gehen nicht mehr pleite (#45): Kosten der Stadtprogramme richten sich nach den Einwohnern", area: "Spiel", date: "2026-11-11" },
+      { title: "Belegung und Nachfrage je Gebäude (#44, Schritte 1–6): Einzug nach und nach, Lage, Pendeln, gesättigte Märkte, Balance", area: "Spiel", date: "2026-11-11" },
+      { title: "Konzepte Nahverkehr (#41), fünf neue Dienste (#42, mit Ergänzung zu Epochen, Platzhaltern und Bezirksrat) und Wasser/Abwasser (#43) als Vorschlag", area: "Konzept", date: "2026-11-11" },
       { title: "Ring-Spitze: kein heller Betonkeil mehr ausserhalb der Ringstrasse (Seed 2147483647); an der Stelle bleibt ein leicht dunklerer Grasfleck - Sichtpruefung offen", area: "Stadtbild", date: "2026-11-11" },
       { title: "Sanierung schon ab 1965 (Feedback #40): 1970er-Buerotuerme und -Kaufhaus ab 1965, 1990er-Tuerme ab 1985; Infofenster nennt das Jahr bzw. „No newer version of this building yet“", area: "Spiel", date: "2026-11-11" },
       { title: "Arbeitsstand aller Sessions gesichert, und ergaenzt; weiter mit neuer Main + Kanban #1-#3", area: "Doku", date: "2026-11-11" },
@@ -207,6 +223,60 @@ window.JOURNAL = {
 
   // ---------- Meilensteine (neueste zuerst) ----------
   milestones: [
+    {
+      id: "classic-hud", date: "2026-11-12", phase: "p7", title: "Zweite Oberflaeche „Classic“: ruhige Leisten oben und unten, Hauptfenster, Profilkarte links",
+      summary: "Nach dem Mockup des Users gibt es jetzt zwei Oberflaechen; im Zahnrad-Fenster umschaltbar. „Radial“ (das bisherige HUD) bleibt unveraendert.",
+      points: ["Oben eine dunkle Leiste mit Stadt, Bezirk, Datum, Zeitleiste der naechsten zwoelf Monate, Stadtkasse/Privatkonto und Tempo.", "Unten sechs Reiter (Build, Politics, Media, Economy, Population, Administration); jeder oeffnet ein ruhiges Spaltenmenue nach oben, oeffentliche Gebaeude in Blau unter „Public - city treasury“.", "Grosse Ansichten (z. B. Stadtrat) fuellen den Rahmen zwischen den Leisten; die Profilkarte eines Ratsmitglieds steht links im Platz des Infofensters statt ueber dem Hauptfenster.", "Ein Klick auf einen unteren Reiter schliesst das Hauptfenster und oeffnet direkt das Menue.", "Knoepfe wackeln beim Klicken nicht mehr (gedrueckt = gleiche Groesse). Grafiken als Bogen erzeugt und zugeschnitten.", "Im Play vom User freigegeben (12.11.)."],
+      concepts: [], images: [{ src: "img/2026-11-12_classic_hud_build.jpg", cap: "Classic: Leiste oben, Reiter unten, Baumenue Build" }, { src: "img/2026-11-12_classic_hud_council.jpg", cap: "Classic: Stadtrat als Hauptfenster mit allen neun Sitzen" }], commits: [], tags: ["UI"]
+    },
+    {
+      id: "kueste-verkehr-12", date: "2026-11-12", phase: "p7", title: "Kuestenstrassen der Computer-Spieler (#32) und sichtbarer Verkehr nach Auslastung (#41)",
+      summary: "Mehr Grundstuecke am Wasser und Autos, die dem Verkehrsaufkommen folgen.",
+      points: ["Computer-Spieler bauen kurze Strassen entlang der Kueste (in 25-m-Schritten, rund 40 m vom Wasser), damit Grundstuecke am Wasser entstehen; im Spiel geprueft: 2 Uferstrassen, 4 Gebaeude am Wasser (Cafes x1,20, Wohnblock x1,25).", "Noch zu verbessern: an zerklueftetem Ufer endet der Weg oft nach einem Schritt, lange Kurven scheitern an der Knickregel.", "Verkehr Stufe T2: die Zahl der sichtbaren Autos folgt der Auslastung der Strassen (Test: 18 normal, 56 bei starkem Stau); im Anhoerungs-Overlay faerben sich die Strassen nach Auslastung.", "Offen: Sichtpruefung der Overlay-Farben und des Abbremsens im Stau durch den User."],
+      concepts: ["waterfront", "transit"], images: [], commits: [], tags: ["Verkehr", "Insel"]
+    },
+    {
+      id: "ratsgesichter-47", date: "2026-11-12", phase: "p7", title: "Politik-Fenster: 45 Ratsgesichter, eigene Stimme im Bezirksrat, Absturz behoben (#47)",
+      summary: "Stadtrat, Hierarchie und Bezirksrat teilen einen Rahmen; jedes Ratsmitglied hat ein eigenes Live-Portraet.",
+      points: ["45 Ratsfiguren (MakeHuman, Blender headless): Gesichter, Alter, Gewicht, Hauttoene, Frisuren, Baerte, Brillen, Huete verschieden, dazu je Person Farbe von Anzug/Krawatte/Haar.", "Modelle werden erst geladen, wenn ein Portraet sie zeigt, und nach 30 s ohne Anzeige wieder freigegeben.", "Frisuren nach Kontaktbogen des Users: weicher, seitlich gestrichener Pony statt gerader Kante; Seitenscheitel laesst das Auge frei.", "Spieler mit Sitz im Bezirksrat stimmen selbst ab: Yes / No / Abstain bei offenen Antraegen und Feldfreigaben, aktuelle Stimme gold, bis zur Sitzung aenderbar.", "Absturz im Bezirksrat behoben: wachsende Kabinen-Liste machte die Bild-Zeiger der Portraets ungueltig.", "Doppelte Gesichter im Bezirksrat behoben: alle Bezirkspolitiker hatten Seed 0 (Zufallsbereich lief ueber) - jetzt Name als Rueckfall.", "Im Play vom User freigegeben (12.11.)."],
+      concepts: ["bezirksraete"], images: [], commits: [], tags: ["Politik", "UI", "Figuren"]
+    },
+    {
+      id: "dienste-42", date: "2026-11-12", phase: "p7", title: "Mehr oeffentliche Dienste: Praxis, Bezirksamt, Gruenflaechenamt, Bauhof, Zustand von Parks und Strassen (#42)",
+      summary: "Die Entscheidungen des Users vom 11.11. umgesetzt, erst mit Platzhalter-Modellen; die eigenen Gebaeude baut spaeter der Autopilot.",
+      points: ["Arztpraxis (oeffentlich, 1500 Einwohner) und private Praxis (User: Verlustgeschaeft - nur Kosten aus dem Privatkonto, keine Einnahmen, macht den Bezirk zufriedener).", "Bezirksamt (eins je Bezirk): Bezirksrat tagt monatlich statt im Quartal, Anhoerungen/Einsprueche kosten 30 % weniger Einfluss, der Bezirkschef (User: Sitzinhaber, nicht der Besitzer) bekommt +2 Einfluss im Monat.", "Parks und Plaetze nutzen sich ab; ein Gruenflaechenamt pflegt ~6 ha, Park-Unterhalt -20 %, Sommerkonzert im Juli; 'Renovate' im Infofenster (Bezirkskasse, nach Flaeche x Epoche).", "Strassen nutzen sich nach Alter und Verkehr ab (~15 Jahre bis 'schlecht'); ein Bauhof erneuert 3 km im Monat; Liste Public > Transit > Road care mit 'Renovate road' (ohne Bauhof Stadttrupps x3); unter 50 % Durchschnitt -1 Zufriedenheit.", "Die neuen Dienste stehen jetzt im Radialmenue (Services, Utility, Private > Health) - vorher waren sie nicht erreichbar.", "Im Spiel geprueft (-game, Seed 641163): Bauen mit richtigem Preis, Parkpflege, Abnutzung von NPC-Strassen, Panel. Noch offen: eigene Strasse erneuern, sichtbare Risse, Ausschreibungen."],
+      concepts: ["services"], images: [], commits: [], tags: ["Wirtschaft", "Politik", "UI"]
+    },
+    {
+      id: "medien-stufe4c", date: "2026-11-11", phase: "p7", title: "Medien-Imperium Stufe 4c: Kabel, A/B-Schlagzeilen, virale Geschichten (#46)",
+      summary: "Medien veraendern sich mit den Epochen.",
+      points: ["Kabel ab 1978: kleine Sender nehmen 15-35 % der Zuschauer, die eigenen Zuschauer bleiben laenger treu.", "A/B-Schlagzeilen ab 1996: zweite Schlagzeile, die mit der besseren Klickprognose laeuft; widersprechen sie sich, kostet es Glaubwuerdigkeit.", "Viral ab 2008: starke Titelgeschichten wirken viel staerker auf den Ruf und verkaufen mehr, ein Teil ist im Folgemonat vergessen.", "Dazu: Anzahlung 10 % bei Angeboten an Menschen; Fix: Angebot zurueckziehen ging nicht."],
+      concepts: ["medien-imperium"], images: [], commits: [], tags: ["Medien"]
+    },
+    {
+      id: "medien-stufe4ab", date: "2026-11-11", phase: "p7", title: "Medien-Imperium Stufe 4a + 4b: Medienkette, Blaetter kaufen, Notverkauf, TV-Programmplan (#46)",
+      summary: "Aus einzelnen Blaettern wird ein Imperium: Geschichten laufen ueber alle eigenen Kanaele, Konkurrenten lassen sich kaufen, und jeder Sender hat einen einfachen Programmplan.",
+      points: ["Medienkette: eine Titelgeschichte wird im Folgemonat von den anderen eigenen Blaettern/Sendern nachgezogen (Sender als Interview); eine Richtigstellung stoppt die Kette.", "Blaetter kaufen: Computer verkaufen zum Angebotspreis, Menschen bekommen ein Angebot; Linie behalten oder eingliedern (Leser springen ab); das Gebaeude bleibt beim Besitzer; 12 Monate Sperre fuer den Weiterverkauf.", "Notverkauf (Entscheidung des Users: Option 2, vorlaeufige Werte): nach verlorener Verleumdungsklage oder bestaetigtem Skandal 6 Monate ohne Zustimmung kaufbar (-20 %); 3 Monate tief im Minus = auch das letzte Blatt (-30 %).", "TV-Programmplan (User: kein TV-Tycoon im Tycoon): eine Ausrichtung je Sender fuellt Tagsueber, Hauptsendezeit und Spaet, einzelne Plaetze von Hand; laeuft unveraendert weiter, leichte Ermuedung; wirkt auf Publikum, Werbung, Glaubwuerdigkeit und Abstimmungen.", "Holdings und Strohfirmen kommen spaeter mit der Finanz-Saeule (User: „Ja, spaeter“).", "Im Spiel geprueft (-game, 5 Laeufe): Programm, Kauf, Ablehnungen, Notverkauf des letzten Blatts, Kette mit Nachzug im Folgemonat, keine Fehler."],
+      concepts: ["medien-imperium"], images: [], commits: [], tags: ["Medien", "Wirtschaft"]
+    },
+    {
+      id: "redaktion-stufe3", date: "2026-11-11", phase: "p7", title: "Medien-Imperium Stufe 3: Skandalkette mit Folgen, Krisenraum, Spuren verkaufen, Computer-Medienbarone (#46)",
+      summary: "Die drei Saeulen sind verbunden: ein gedruckter Skandal kostet Rueckhalt im Rat, Wahlkampfkraft und Vertraege, und der Betroffene muss antworten.",
+      points: ["Folgen jedes Skandals: Gunst aller Ratssitze sinkt (2-8, mehr bei guter Beweislage und ehrlichen Raeten), laufende Kandidaturen verlieren Kraft, Computer-Vertragspartner koennen kuendigen; der Bodenwert folgt dem Ruf.", "Ab 3 Punkten Rufverlust beginnt eine Krise: 2 Monate Zeit fuer eine Antwort im neuen Krisenraum (Hauptfenster, Radialmenue Media > Crisis, roter Reiter in der Redaktion).", "Sieben Antworten mit Prognose vor der Wahl: Dementi, Entschuldigung, Spin (braucht Spin Doctor, kann auffliegen), Klage (Urteil nach 3 Monaten, Schadenersatz vom Herausgeber), Gegenangriff (eigene Skandal-Spur ueber den Herausgeber drucken), Anzeigen, Schweigen.", "Spuren verkaufen: an eine andere Redaktion oder an den Betroffenen zum 1,5-fachen Preis (catch and kill). Angebote an einen selbst erscheinen in Redaktion und Krisenraum.", "Computer-Medienbarone nutzen dieselben Befehle: sie beantworten Krisen nach Beweislage und Profil und verkaufen Spuren.", "Stab der Redaktion mit Live-Portraets aus der Portraet-Kabine (bis die Kabinen-Plaetze reichen: Initialen).", "Im Spiel geprueft (-game, Log): Krise entsteht, Computer entschuldigt sich bzw. klagt, Urteile nach 3 Monaten (gewonnen und verloren), catch and kill, Krisenraum und Redaktion oeffnen, keine Fehler."],
+      concepts: ["medien-imperium"], images: [], commits: [], tags: ["Medien", "Politik", "UI"]
+    },
+    {
+      id: "redaktion-stufe2", date: "2026-11-11", phase: "p7", title: "Medien-Imperium Stufe 2: mehrere Blaetter im Wettbewerb – Publikum, Werbekunden, Gegendarstellung (#46)",
+      summary: "User: Stufe 2 und 3, ein Commit je Stufe. Jedes Mediengebaeude ist jetzt ein eigenes Blatt mit Namen und Blattlinie; alle Blaetter kaempfen um dasselbe Publikum.",
+      points: ["Jede fertige Zeitung bzw. jeder Sendeturm wird ein eigenes Blatt (Name, Blattlinie, Glaubwuerdigkeit); die Island Gazette bleibt. Reiter oben in der Redaktion waehlen das Blatt.", "Geteiltes Publikum je Art (Zeitung/TV): Glaubwuerdigkeit, Blattlinie, Exklusivmeldungen und Stab ziehen Leser von der Konkurrenz ab, Richtigstellungen kosten welche. Leiste mit den Anteilen aller Blaetter.", "Werbekunden: Angebote mit monatlicher Zahlung, manche mit Bedingung (nichts Schlechtes ueber einen bestimmten Spieler). Wer trotzdem druckt, verliert den Vertrag; wer einen Skandal zu lange liegen laesst, liefert den anderen eine Spur 'Interessenkonflikt'.", "Grosse Skandale koennen mitten im Monat als Extrablatt erscheinen, wenn eine andere Redaktion sie auch kennt (Wettlauf um die Exklusivmeldung).", "Gegendarstellung: binnen 3 Monaten auf eine Geschichte ueber sich antworten - bei duenner Beweislage holt sie Ruf zurueck und kostet das andere Blatt Glaubwuerdigkeit, bei fester schadet sie einem selbst. Computer antworten selbst.", "Im Spiel geprueft (-game, Log): Blaetter entstehen, Anteile wandern, Vertrag bricht beim Druck, Computer nehmen Angebote an, Extrablatt zur Monatsmitte, Gegendarstellung."],
+      concepts: ["medien-imperium"], images: [], commits: [], tags: ["Medien", "UI"]
+    },
+    {
+      id: "redaktion-stufe1", date: "2026-11-11", phase: "p7", title: "Medien-Imperium Stufe 1: eine Redaktion mit Spuren, Rahmen und Titelseite (#46)",
+      summary: "User: „Stage 1: one outlet“ – die Redaktion aus dem Konzept „Medien-Imperium“ spielbar im grossen Hauptfenster; Aufbau wie das Referenzbild des Testers Nohr (Spuren links, Zeitung Mitte, Rahmen + Platz rechts).",
+      points: ["Spuren (Leads) entstehen aus dem Spiel: Umschlaege, gelenkte Ausschreibungen, Leichen im Keller, Dossiers der Ermittler, hoher Verdacht, Umweltverschmutzung, gute Nachrichten (Eroeffnungen, Wohlstand). Jede hat Beweislage, Wirkung, Verfall und weiss, welche Redaktionen sie kennen.", "Redaktion = eigene Zeitung/Sendeturm oder 51 % der Island Gazette; Blattlinie (ausgewogen, investigativ, parteiisch, Boulevard) einmal im Jahr waehlbar.", "Je Geschichte Rahmen (investigativ, ausgewogen, kritisch, wohlwollend, reisserisch) und Platz (Titelseite, innen, versteckt) mit Prognose vor dem Druck: Ruf und Verdacht des Betroffenen, eigene Glaubwuerdigkeit, Risiko einer Richtigstellung, Zusatzverkauf.", "Recherchieren (Beweislage +12..+38 in einem Monat), Extrablatt sofort, eigene Skandale beerdigen (kann auffliegen), Ausgabe am Monatsende; wer zuerst druckt, hat die Exklusivmeldung.", "Computer-Redaktionen (Gazette, Bezirke) arbeiten selbst nach Profil; Titelseiten mit grossem Ausschlag landen auf der Titelseiten-Szene.", "Im Spiel geprueft (-game, Log): Druck, Richtigstellung, Beerdigen mit Leck, Extrablatt, Recherche, Blattlinie."],
+      concepts: ["medien-imperium"], images: [], commits: [], tags: ["Medien", "UI"]
+    },
     {
       id: "live-council-portraits", date: "2026-11-11", phase: "p7", title: "Live-Portraets im Stadtrat: Ratsmitglieder atmen, blinzeln, schauen und zeigen ihre Haltung",
       summary: "User: „Yes, build live“ – statt gemalter Figuren echte 3D-Koepfe im Stadtrat-Fenster, im Spiel geprueft und freigegeben.",
@@ -2926,6 +2996,36 @@ window.JOURNAL = {
   // ---------- Konzepte ----------
   concepts: [
     {
+      id: "bezirksraete", title: "Bezirksräte: Politik unter dem Stadtrat", file: "", status: "Entschieden", updated: "2026-11-11",
+      summary: "Ticket #47: jeder Bezirk bekommt einen eigenen Rat mit fünf Sitzen. Der Leader ist dieselbe Person wie der Bezirkssitz im Stadtrat. Der Rat entscheidet über Programme und Ausnahmen, nicht über jedes Bauvorhaben. Alle sechs offenen Fragen hat der User am 11.11. beantwortet.",
+      sections: [
+        { h: "Aufbau", s: "Entschieden", items: [
+          "Je Bezirk 5 Sitze: Leader (= Bezirkssitz im Stadtrat, kein zweiter Datensatz) und 4 Mitglieder; Mehrheit 3 von 5.",
+          "Politiker mit mehreren Prioritäten (Wirtschaft, Anwohner, nach Vorschrift, Umwelt, Infrastruktur, Finanzen, Soziales), Ehrlichkeit, Preis, Angst, Loyalität zum Leader, Glaubwürdigkeit, Unterstützung, Gunst je Spieler und Gedächtnis der letzten Stimmen.",
+          "Wahl im November alle 4 Jahre wie heute; Verlierer bleiben als Politiker im Spiel."
+        ]},
+        { h: "Die sechs Entscheidungen des Users (11.11.)", s: "Entschieden", items: [
+          "Q1 Bezirkskasse: der Rat stimmt nur über Programme und Sonderprojekte ab; öffentliche Gebäude baut der Bezirksspieler weiter selbst.",
+          "Q2 Rivalen: 3 dauerhafte Computer-Rivalen je Bezirk ums Leader-Amt, der Spieler tritt als vierter an.",
+          "Q3 Feldfreigaben entscheidet der Bezirksrat (3 von 5); der inselweite Bauausschuss entfällt.",
+          "Q4 Stadtkasse kommt jetzt: gespeist aus einem Anteil der Bezirkssteuern, der Stadtrat vergibt daraus Zuschüsse an Bezirks-Programme.",
+          "Q5 Spieler können in derselben Wahl auch einen der 4 normalen Sitze gewinnen.",
+          "Q6 Nur zwei Ausnahmen brauchen beim Bauen eine Abstimmung: Hochhaus über dem Höhenlimit des Bezirks und Industrie näher als 150 m an Wohnhäusern; alles andere baut wie heute."
+        ]},
+        { h: "Anträge", s: "Entschieden", items: [
+          "Bereiche A Bauplanung, B Infrastruktur, C Dienste, D Budget, E Wirtschaft, F Umwelt; Ablauf Antrag → Tagesordnung → Vorab-Positionen → Lobby/Kompromiss/Kampagne/Umschlag → Abstimmung → Umsetzung genau einmal → Meldung.",
+          "Nach Ablehnung 12 Monate Sperre für dieselbe Vorlage; reicht die Kasse nicht, scheitert die Umsetzung mit Meldung."
+        ]},
+        { h: "Vorläufige Werte (bis der User sie bestätigt)", s: "Vorschlag", items: [
+          "Höhenlimit 6 / 12 / 20 Geschosse (bis 1969 / bis 1989 / danach), Antrag 5 Einfluss, Programme 50–80 k$ × Epoche mit 24 Monaten Wirkung, Umschlag 10 k$ × Epoche × Preis, Stadtgeld-Antrag 10 Einfluss."
+        ]},
+        { h: "Verbindung zu Medien und Diensten", s: "Vorschlag", items: [
+          "Ein gedruckter Skandal (#46) senkt künftig auch die Gunst der Bezirkspolitiker und macht Räte unruhig, in denen der Betroffene sitzt.",
+          "Das geplante Bezirksamt (#42) wird der Sitz des Bezirksrats."
+        ]}
+      ]
+    },
+    {
       id: "medien-imperium", title: "Medien-Imperium: Redaktion, Exklusivmeldungen, Publikum, Skandale – Medien als PvP", file: "", status: "Vorschlag", updated: "2026-11-11",
       summary: "Wunsch von Tester Nohr (Discord, Ticket #46) mit Design-Dokument und zwei UI-Bogen: Medien sollen mehr Spass machen, mehr bedeuten und Spieler gegeneinander antreten lassen. Kern: einen Sender zu besitzen ist erst der Anfang – das Spiel ist die Entscheidung, welche Geschichte recherchiert, begraben, gerahmt und wann gebracht wird, und den Gegenschlag zu ueberstehen. Baut auf dem auf, was es schon gibt (Meldungen, Recherchen, War Room, Stab, Zeitung/Fernsehturm, Titelseite, Publikum aus #44).",
       sections: [
@@ -2948,9 +3048,13 @@ window.JOURNAL = {
           "Alle im grossen Hauptfenster mit Portraets: Redaktion, Recherche-Tisch, Programmplaner (ab 1960), Publikumsanalyse, Talente, Konkurrenz, Uebernahme, Krise, Artikel schreiben.",
           "Zuerst Redaktion + Recherche-Tisch + Krise (tragen die Skandal-Kette)."
         ]},
-        { h: "Stufen und offene Fragen", s: "Offen", items: [
+        { h: "Stufen und Entscheidungen", s: "Entschieden", items: [
           "1 ein Sender macht Spass · 2 zwei Sender konkurrieren · 3 Saeulen verbunden (Skandal-Kette, Krisenfenster, NPC-Pressebarone) · 4 Imperium (Programmplaner, Uebernahmen, Kabel/Web/Social).",
-          "Offen: welche Gebaeude werden Sender, Unterbrechung mitten im Monat, Portraets jetzt oder nach dem Personen-Piloten, Stufe 1 oder Skandal-Kette zuerst."
+          "Entschieden (User 11.11.): jedes Medien-Gebaeude ein eigenes Blatt mit Name und Linie · grosse Exklusivmeldungen auch mitten im Monat · Journalisten-Portraets aus dem MPFB-Portraet-Piloten · nach Stufe 1 jetzt Stufe 2 und 3."
+        ]},
+        { h: "Gebaut: Stufen 1–3 (11.11.), Plan Stufe 4", s: "Entschieden", items: [
+          "Stufe 1: eine Redaktion mit Spuren aus dem Spielgeschehen, Rahmen, Platzierung und Titelseite. Stufe 2: jedes Blatt/jeder Sender ein eigener Titel im Wettbewerb ums Publikum, Werbekunden mit Bedingungen, Gegendarstellung. Stufe 3: Skandalkette mit Folgen (Rat, Wahlkampf, Verträge, Bodenwert), Krisenraum mit sieben Antworten, Spuren verkaufen, Computer-Medienbarone.",
+          "Stufe 4 (Vorschlag, wartet auf den User): 4a Recherche-Tisch, 4b Medien-Stab mit Gesicht und Abwerben, 4c Sender-Profile und Übernahmen."
         ]}
       ]
     },
@@ -3034,6 +3138,12 @@ window.JOURNAL = {
           "Bonus des Bezirksamts an Sitzinhaber oder Bezirksbesitzer?",
           "Straßen- und Parkzustand (Abnutzung) überhaupt einführen?",
           "Private Praxen ja/nein? Uni als Lots oder gemalte Fläche?"
+        ]},
+        { h: "Ergänzung ", s: "Vorschlag", items: [
+          "Epochenkette je Dienst 1950–2030 (z. B. Bauhof: Klinkerdepot → Salzhalle → Wertstoffhof → E-Flotte → Roboter-Depot); Sanierung wie bei allen Familien.",
+          "Zuerst Platzhalter aus vorhandenen Gebäuden (Postamt, Lagerhaus, Schule), damit die Regeln in einer Woche testbar sind; die 25 echten Familien danach über den Gebäude-Autopilot.",
+          "Bezirksamt = Sitz des Bezirksrats (#47): mit Amt monatliche Sitzungen und billigere Anträge. Medien (#46): neue Spuren wie „Schlaglöcher nach sechs Monaten zurück“ oder „Park verwahrlost“, gute Meldungen wie das Sommerkonzert, Journalismus-Fakultät bringt bessere Reporter.",
+          "Empfehlungen (vorläufig, bis der User antwortet): Bonus an den Sitzinhaber, Abnutzung mild in zwei Schritten (erst Parks, dann Straßen), private Praxen ja, Uni als feste Mehr-Lot-Gebäude, Reihenfolge Praxis → Bezirksamt → Grünflächenamt → Bauhof → Uni."
         ]}
       ]
     },
@@ -3056,10 +3166,19 @@ window.JOURNAL = {
           "Kläranlage mit runden Becken und langsam drehender Räumerbrücke, 1990 silberne Faultürme; Auslass mit brauner Fahne im Wasser.",
           "Wasserqualität sichtbar: sauber türkis, schlecht grünlich-trüb, grauer Schaum, Müll am Ufer, „No swimming“-Schild."
         ]},
-        { h: "Offen", s: "Offen", items: [
-          "Echtes System (Bedarf, Ausfälle) oder nur Gebäude mit Bonus?",
-          "Wasser privat wie Strom oder immer öffentlich?",
-          "Wasserqualität jetzt oder erst mit den Waterfront-Lots?"
+        { h: "Zahlen (Entwurf)", s: "Vorschlag", items: [
+          "Einheit WU = 1000 m³ im Monat (wie MW beim Strom): Haus 0,03, Wohnblock 0,24, Fabrik 2,0; Bedarf je Kopf ×1,0 (1950) / 1,4 (1970) / 1,2 (1990).",
+          "Pumpwerk am See 120 k$ (−40 WU, 1,5 MW), Brunnenfeld 60 k$ (−12), Wasserturm 45 k$ (Puffer gegen „trockener Sommer“), Entsalzung 1990 900 k$ (−80, 6 MW).",
+          "Abwasser-Pumpstation 25 k$, Auslass 5 k$, Kläranlage 1950 150 k$ (reinigt 30 WU), 1970 280 k$ (60 WU).",
+          "Netz wie Strom: Vertrag → eigene Pumpwerke → Überschuss anderer Bezirke → Stadt kauft teuer (400 $/WU). Mangel −6 Zufriedenheit, kein Zuzug, Feuerwehr 60 %.",
+          "Wasserqualität je Ufer: −0,1 je ungeklärter WU im Umkreis von 600 m um einen Auslass, unter 0,6 = „verdorben“ wie bei Industrie (kein Waterfront-Bonus)."
+        ]},
+        { h: "Entscheidungen (je mit Empfehlung)", s: "Offen", items: [
+          "1. Echtes System oder nur Gebäude mit Bonus? – entschieden (User, 11.11.): echtes System als Kopie des Stromnetzes.",
+          "2. Privat oder öffentlich? – entschieden (User, 11.11.): Wasser UND Abwasser öffentlich (Kasse baut und zahlt, keine privaten Wasserwerke, kein Wasserverkauf mit Gewinn); Ausgleich zwischen Bezirken über die Kassen.",
+          "3. Wie genau ist die Wasserqualität? – entschieden (User, 11.11.): je Auslass mit 600-m-Radius, dieselbe Regel wie Industrie bei den Waterfront-Lots (dort kein Waterfront-Bonus).",
+          "4. Schmutzige Seite (Clean Water Act, Verklappen, Wasserverträge) gleich mit? – entschieden (User, 11.11.): JETZT, im ersten Wasser-Ausbau – Clean Water Act, Verklappen (spart Geld, Skandal-Risiko), Ausschreibungen für Wasserwerke/Kläranlagen (Umschläge, Begünstigung); private Baufirmen/Betreiber bieten auf öffentliche Aufträge.",
+          "5. Erst Platzhalter oder erst echte 1950er-Gebäude? – entschieden (User, 11.11.): echte Modelle ZUERST, keine Platzhalter – Wasserturm, Pumpwerk, Kläranlage + Auslass über die Gebäude-Pipeline (1950, Nanite, Katalog), danach Regeln und Schmutzseite."
         ]}
       ]
     },
@@ -3517,6 +3636,13 @@ window.JOURNAL = {
 
   // ---------- Entscheidungen ----------
   decisions: [
+    { date: "2026-11-11", area: "Spiel", title: "Bezirksrat stimmt nur über Programme und Sonderprojekte ab (#47 Q1)", why: "User 11.11.: sonst würde jedes Bauen langsam. Öffentliche Gebäude baut der Bezirksspieler weiter selbst aus der Bezirkskasse." },
+    { date: "2026-11-11", area: "Spiel", title: "Drei dauerhafte Computer-Rivalen je Bezirk (#47 Q2)", why: "User 11.11.: ums Leader-Amt treten 3 Rivalen an, der Spieler als vierter; Verlierer behalten Unterstützung, Gunst und Gedächtnis – Gegner mit Geschichte statt Namen auf dem Wahlzettel." },
+    { date: "2026-11-11", area: "Spiel", title: "Feldfreigaben entscheidet der Bezirksrat statt des Bauausschusses (#47 Q3)", why: "User 11.11.: 3 von 5 Bezirksräten; der inselweite Bauausschuss mit drei Mitgliedern entfällt." },
+    { date: "2026-11-11", area: "Spiel", title: "Stadtkasse jetzt einbauen (#47 Q4)", why: "User 11.11.: eine Inselkasse aus einem Anteil der Bezirkssteuern; der Stadtrat vergibt daraus Zuschüsse an Bezirks-Programme. Die bisherige „city treasury“ im Spiel heißt künftig „district treasury“." },
+    { date: "2026-11-11", area: "Spiel", title: "Spieler können auch normale Bezirksratssitze gewinnen (#47 Q5)", why: "User 11.11.: in derselben Wahl, nicht nur das Leader-Amt." },
+    { date: "2026-11-11", area: "Spiel", title: "Nur zwei Bau-Ausnahmen brauchen eine Abstimmung (#47 Q6)", why: "User 11.11.: Hochhaus über dem Höhenlimit des Bezirks und Industrie näher als 150 m an Wohnhäusern; alles andere baut wie heute ohne Abstimmung." },
+    { date: "2026-11-11", area: "Spiel", title: "Kosten der Stadtprogramme richten sich nach den Einwohnern (#45)", why: "User 11.11. („Scale by population“): vorher zahlte jeder Bezirk den vollen Betrag, Computer-Bezirke gingen ab ~1960 pleite. Jetzt ein Faktor nach Einwohnern (0,1 bis 3)." },
     { date: "2026-11-10", area: "Spiel", title: "Eine Main-Session orchestriert, drei Kanban-Sessions arbeiten das Board ab", why: "User 10.11.: Main vergibt EDITOR-/GAME-Slots (hoechstens ein Host+Client-Paar am PC, GPU-Absturz mit vier Instanzen), leitet Bugs an die zustaendige Session und baut/veroeffentlicht Patches nur nach Rueckfrage; Kanban-Sessions committen nur eigene Dateien und melden „ready for patch“." },
     { date: "2026-11-09", area: "Spiel", title: "Online über Epic Online Services mit Raumcode statt Portfreigabe oder eigenem fly.io-Relay", why: "User 09.11.: Freunde sollen ohne Technik beitreten können. Ein eigener Relay (wie fly.io bei Starhunter) müsste den ganzen Spielverkehr tragen und kostet Betrieb; EOS ist kostenlos, in Unreal schon als NetDriver vorhanden und übernimmt NAT-Durchstich und Relay. Steam bleibt später per Config möglich, LAN/IP bleibt für das Heimnetz." },
     { date: "2026-11-09", area: "Spiel", title: "Ratsabstimmung jedes Quartal statt nur im Dezember; Antrag braucht zwei Monate Vorlauf", why: "Claude in der Nachtschicht: Ein Jahr Wartezeit je Abstimmung hätte die Schleife Agenda → War Room → Roll Call → Debrief zu selten laufen lassen. Vier Sitzungen im Jahr geben vier Spannungsmomente, die zwei Monate Vorlauf geben jeder Kampagne Zeit zu wirken. Ereignis-Gesetze kommen zur nächsten Sitzung." },
@@ -3558,6 +3684,8 @@ window.JOURNAL = {
 
   // ---------- Ideenpool ----------
   ideas: [
+    { title: "Pressekonferenz im eigenen Bezirksamt", text: "Antwortet man auf eine Krise mit Entschuldigung oder Dementi und hält den Sitz samt gebautem Bezirksamt, zählt das als Pressekonferenz: etwas mehr Ruf zurück. Verbindet Dienste (#42) mit dem Krisenraum (#46).", source: "Konzepte 11.11." },
+    { title: "Journalismus-Fakultät an der Universität", text: "Eine Uni im Bezirk bringt je Quartal einen besseren Bewerber für Reporter, Redakteure und Rechercheure – Medien-Bezirke bekommen einen Grund, eine Uni zu bauen.", source: "Konzepte 11.11." },
     { title: "Titelseite für Wendepunkte", text: "Fällt ein Gesetz mit eigenem Einsatz, beginnt eine Krise oder gewinnt ein Rivale einen Sitz, erscheint statt der Toast-Zeile eine große Zeitungs-Titelseite mit Schlagzeile, Bild des Rats und Knopf in den War Room – die dritte Alarmstufe aus dem Kampagnen-Konzept.", source: "Nachtschicht 09.11." },
     { title: "Wahlnacht Bezirk für Bezirk mit Hochrechnung", text: "Die Wahlnacht zeigt heute je Amt den Sieger. Spannender: erst Hochrechnungen mit Spanne, dann Bezirk für Bezirk die Auszählung, der eigene Bezirk zuletzt – wie der Roll Call, nur mit Prozenten.", source: "Nachtschicht 09.11." },
     { title: "Gesetze zurücknehmen als Kampagnenziel", text: "Jedes Gesetz der frühen Jahre kann später zur Rücknahme auf die Tagesordnung – „Repeal the 1955 Smoke ordinance“ als typisches Ziel, sobald man Geld und einen Sitz hat. So wird der Anfang zum Tutorial ohne Tutorial-Texte.", source: "Kompendium 1950–2030" },
