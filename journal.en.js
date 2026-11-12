@@ -38,6 +38,8 @@ window.JOURNAL_EN = {
       { title: "Surface patterns for buildings", area: "Buildings", detail: "1950s done (tower approved in Play, then rolled out to department store, hospital, café, house): ashlar stone with joints, granite slabs, brick, tiles, clapboard, shingles, render, glass different per window, grained metal – all procedural. Then 1970s (precast concrete, exposed aggregate, fibre cement, concrete roof tiles, brick) and 1990s (granite slabs 1.2 × 0.8 m, flat glass) built – waiting for the user's play test." }
     ],
     done: [
+      { title: "Update 0.1.444 published: avenues with a green median (the ring too), visible road wear + repair tenders with a botched-job scandal, clinic news lead, students", area: "Game", date: "2026-11-12" },
+      { title: "Service follow-ups (#42): worn roads look worn, road repair tenders every March with a cheap-work scandal, newsroom lead \"Overcrowded clinic\", students as residents", area: "Game", date: "2026-11-12" },
       { title: "Update 0.1.425 published: ring road as an avenue (19.5 m), fewer stutters while building, buses, Classic HUD, coast and new services", area: "Game", date: "2026-11-12" },
       { title: "New base version 0.1.407 built for Windows and Linux (after the engine update to 5.8.4; updates no longer build on 0.1.210)", area: "Game", date: "2026-11-12" },
       { title: "Second interface \"Classic\" after the user's mockup (switch in the gear window, Radial stays)", area: "UI", date: "2026-11-12" },

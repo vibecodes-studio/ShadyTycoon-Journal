@@ -1,5 +1,5 @@
 window.JOURNAL = {
-  updated: "2026-11-12 12:45",
+  updated: "2026-11-12 13:20",
 
   // ---------- Jetzt: woran gerade gearbeitet wird ----------
   now: {
@@ -40,6 +40,8 @@ window.JOURNAL = {
       { title: "Oberflächenmuster für Gebäude", area: "Gebäude", detail: "1950er fertig (Hochhaus im Play freigegeben, dann auf Kaufhaus, Krankenhaus, Café, Wohnhaus ausgerollt): Natursteinquader mit Fugen, Granitplatten, Klinker, Fliesen, Stulpschalung, Schindeln, Putz, Glas je Fenster verschieden, Metall mit Körnung – alles prozedural. Danach 1970er (Betonfertigteile, Waschbeton, Faserzement, Betondachsteine, Klinker) und 1990er (Granitplatten 1,2 × 0,8 m, planes Glas) gebaut – wartet auf den Play-Test des Users." }
     ],
     done: [
+      { title: "Update 0.1.444 veroeffentlicht: Alleen mit Gruenstreifen (auch der Ring), sichtbarer Strassenverschleiss + Reparatur-Ausschreibungen mit Pfusch-Skandal, Klinik-Meldung, Studenten", area: "Spiel", date: "2026-11-12" },
+      { title: "Dienste-Nachtraege (#42): Strassen sehen abgenutzt aus, Reparatur-Ausschreibungen im Maerz mit Pfusch-Skandal, Zeitungsspur „Praxis ueberlaufen“, Studenten als Einwohner", area: "Spiel", date: "2026-11-12" },
       { title: "Update 0.1.425 veroeffentlicht: Ringstrasse als Allee (19,5 m), weniger Ruckler beim Bauen, Busse, Classic-HUD, Kueste und neue Dienste", area: "Spiel", date: "2026-11-12" },
       { title: "Neue Basis-Fassung 0.1.407 fuer Windows und Linux gebaut (nach dem Engine-Update auf 5.8.4; alte Updates bauen nicht mehr auf 0.1.210 auf)", area: "Spiel", date: "2026-11-12" },
       { title: "Zweite Oberflaeche „Classic“ nach dem Mockup des Users (im Zahnrad umschaltbar, Radial bleibt)", area: "UI", date: "2026-11-12" },
