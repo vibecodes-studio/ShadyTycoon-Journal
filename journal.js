@@ -1,5 +1,5 @@
 window.JOURNAL = {
-  updated: "2026-11-13 10:31",
+  updated: "2026-11-13 12:00",
 
   // ---------- Jetzt: woran gerade gearbeitet wird ----------
   now: {
@@ -44,6 +44,7 @@ window.JOURNAL = {
       { title: "Oberflächenmuster für Gebäude", area: "Gebäude", detail: "1950er fertig (Hochhaus im Play freigegeben, dann auf Kaufhaus, Krankenhaus, Café, Wohnhaus ausgerollt): Natursteinquader mit Fugen, Granitplatten, Klinker, Fliesen, Stulpschalung, Schindeln, Putz, Glas je Fenster verschieden, Metall mit Körnung – alles prozedural. Danach 1970er (Betonfertigteile, Waschbeton, Faserzement, Betondachsteine, Klinker) und 1990er (Granitplatten 1,2 × 0,8 m, planes Glas) gebaut – wartet auf den Play-Test des Users." }
     ],
     done: [
+      { title: "Update 0.1.488 veroeffentlicht: Gesetzeswerkstatt (Bills), Puppets, Stab mit Laufbahn, Medien-Hauptfenster, Strassen abreissen, Busse mit Haltestellen, Wiedereinstieg ins laufende Spiel, Platz-Generator, Bezirkswertung", area: "Spiel", date: "2026-11-13" },
       { title: "Classic: Medien im Hauptfenster im Stil des Puppets-Fensters – links die Medien-Navigation (Newsroom mit sieben Reitern, Crisis room, Stories, Ads, Probes, Outlets, Research, Playbook, Mood, War Room), rechts goldgerahmte Karten mit denselben Knöpfen wie bisher; das Infofenster bleibt für Gebäude, Felder, Meldungen und die Agenda; Radial unverändert", area: "UI", date: "2026-11-13" },
       { title: "Medien in eigenen Bildschirmen (#46): das Hauptfenster der Redaktion hat sieben Reiter – Newsroom, Investigations (Recherche-Tisch mit Portraets der Reporter und der Betroffenen), Audience (Anteile je Mediengattung und je Bezirk, nur echte Daten: Umfrage, Kampagnen-Reichweite, Stimmung), Competitors (alle Zeitungen und Sender mit Titelseite und Journalisten), Talent (eigene Leute, Arbeitsmarkt, Abwerben), Crisis room, Outlet market; gleiche Mechanik wie vorher", area: "UI", date: "2026-11-13" },
       { title: "Politik-Menü: eigener Eintrag „Elections“ (öffnet „Elections & offices“, in Radial und Classic; „Puppet“ bleibt bis zum Puppets-Hauptfenster daneben), Hinweistexte nennen jetzt Politics > Elections; Bezirksrat: die Marke „Rival“ heißt „Contender“ (las sich wie „mein Rivale“) – Entscheidungen des Users vom 12.11. aus dem Konzept Puppets", area: "Spiel", date: "2026-11-12" },
