@@ -1,6 +1,7 @@
 window.JOURNAL_EN = {
   now: {
     inProgress: [
+      { title: "Concept: Puppets – the way in", area: "Concept", date: "2026-11-14", detail: "The user's feedback after his first look at the built window (14 Nov): it looks nice, but the player cannot tell what he is supposed to do. Concept written and accepted as the basis; reworked after the user's second round the same evening: no longer explained in text, but clear at a glance. The first page asks in large letters \"Who do you want to influence?\" and shows everybody in the city's politics ordered by power (city council, district councils, newcomers without office – 57 people, 24 of them new); per person only the seat, how hard as a colour word (EASY to VERY HARD) and one symbol for what works on her (\"Loves money\", \"Loose living\" …). Plus the run of five steps with arrows and page dots as in Mad Games Tycoon 2 (Choose, Study, Court, Answer, Lead), one gold button per page, as many pages as it takes. Four pictures redrawn. The user approved the first page the same evening (\"from the layout really good\"; without \"The way up\", with more people without office) and decided: the menu entry is called \"Influence\" instead of \"Puppets\". The first build shall contain all four rungs – city council, district councils and newcomers (\"Yes, all of them\"); nothing is built." },
       { title: "Building the concepts: staff careers, bills, puppets", area: "Game", date: "2026-11-13", detail: "The user's brief (13 Nov): build the three concepts of 12 Nov into the game, in the style of the Classic menu, windows modelled on the City Council. All three stages stand: staff careers, Bills (stage B1) and Puppets (stage C1 on the nine council seats). Checked in the game (three test matches without a mouse: drafting, tabling, committee, a vote lost 4 to 5, mail, revising, a verdict of 58 % SOLID; meeting, operations at 40 % and 60 %, letters, a pitch accepted). Open: district ordinances and the climate (Bills), district politicians, the trap and rivals (Puppets), courses and retired advisers (staff)." },
       { title: "Concept: Bills", area: "Concept", date: "2026-11-12", detail: "The next entry of the Politics menu after Puppets (the user's brief, 12 Nov): a law as a project – a climate with three meters and windows, a policy shop, a workshop with three pages and eight sliders, six gates through the council, consequences after the vote, about 120 topics in ten areas. Written with research and five pictures; all six questions decided (composed bills, develop first, six gates with a verdict at the end, the climate as a strong influence, hidden clauses, two to four quarters), plus the two tiers (district ordinance and city law) and the collision rules – accepted as the basis. Addendum: sliders have nine fixed notches (1 to 9) everywhere; a failed bill may come back at once; every bill gets a mailbox in which the letters arrive one after another (sixth picture); only who writes the letters is still open." },
       { title: "Concept: staff with careers", area: "Concept", date: "2026-11-12", detail: "Follow-up concept to Puppets (the user's wish, 12 Nov): employees with an age, experience from work done, three skills per role, traits from level 6, retirement with a mentor year, illness, death and poaching with an answer card. Written with three pictures; all six questions decided (three skills per role, the player chooses the traits, a bench for two juniors, knowledge leaves with a poached person, veterans may run for office, death rare from 50) – accepted as the basis." },
@@ -2318,6 +2319,118 @@ window.JOURNAL_EN = {
   },
 
   concepts: {
+    "puppets-entry": {
+      title: "Puppets: the way in – clear at a glance",
+      summary: "The built Puppets window looks good but does not explain itself: nine equal cards, no question, no next step. The concept does not change the rules, it changes the way in – and after the user's second round (14 Nov, evening) not with explanatory text, but so that you see it. The first page asks in large letters \"Who do you want to influence?\" and shows everybody in the city's politics ordered by power: the city council at the top, the district councils below, newcomers without office at the bottom. Three things per person: where she sits, how hard she is to win (one word in one colour) and what works on her (one symbol – \"Loves money\", \"Loose living\" …). Instead of a menu on the left, a run of five steps with arrows and page dots as in Mad Games Tycoon 2: one big question per page, exactly one gold button, few words, as many pages as it takes. Accepted by the user on 14 Nov as the basis, and the reworked first page approved the same evening (\"from the layout really good\"); the menu entry will be called \"Influence\". Nothing is built.",
+      dgNotes: [
+        "At the top today's menu with five equal entries, below it the new run of five steps – per step the big question, what you do and the gold button; the arrow back is the learning loop. At the bottom the frame every page gets.",
+        "Mock-up of the first page \"Choose\" (second version): one big question, everybody ordered by power in three bands, per person the seat, how hard as a colour word and one symbol for what works on her; at the bottom the selected person and the one gold button.",
+        "Mock-up of the second page \"Study\" (second version): on the left the person, large, with five dots for how far you are, in the middle the file as ten cards – the first one is open already –, on the right four large buttons for finding out.",
+        "Power and price: four rungs from the mayor down to the newcomers without office, on the right what the rung decides and how hard it is to win; below that three routes to a vote."
+      ],
+      sections: [
+        { h: "The user's feedback (14 Nov)", items: [
+          "It looks nice, but it is not clear to the player at all what he is supposed to do.",
+          "Politics → Puppets shows nine portraits – who are they? All of them are \"Stranger\". The title \"Grown, Not Bought\" explains nothing.",
+          "The dossier shows Grip, Strain, Exposure; the explanation sits in the tooltip – that is not intuitive.",
+          "The user's proposal: no menu on the left to click through, but arrows to the right and left with dots for the pages as in Mad Games Tycoon 2; a first page on which it is clear at once: these are the political offices, these people hold them – which seat, which person do I go for?",
+          "The user's open question: only the nine with a city-council seat, the district councils too (five each) – or a pool of some fifty people from which I pick one to raise?",
+          "The rule: the player always has to be taken by the hand and must know at once what is happening here and what his choice is good for."
+        ]},
+        { h: "The user's second round (14 Nov, evening)", items: [
+          "The problem was not missing descriptions, but intuition: no long text that explains what is happening – it has to feel right at once: aha, here are people I can influence.",
+          "The first page says it in large letters: \"Who do you want to influence?\" – \"Puppet\" may already be the wrong word at this point.",
+          "At first glance: who is there at all, how many, in which position – who has power, who has less, who has none.",
+          "Power has its price: whoever has no power may cost less – I build him up from the start and push him until he gets a seat and later sits on the city council. Or I take an expensive one who already sits there and takes far more effort.",
+          "Hints from the very first look: one sets great store by money – he can be bought; another lives loosely – perhaps he can be pressured. Then I pick him and want to know more; the process after that (lunch and so on) is fine.",
+          "Clear, not compact and squeezed: one page or four does not matter – whatever does not fit gets another page."
+        ]},
+        { h: "The user's third round (14 Nov): the first page fits", items: [
+          "\"I find that much better already – from the layout I find it really good, I like it very much this way.\"",
+          "\"The way up\" (the small picture at the bottom right) is not needed on this page – removed.",
+          "Choosing between the districts in the second row: \"super\".",
+          "No office yet: feel free to show a few more people – now four newcomers per district instead of two.",
+          "The menu entry shall no longer be called \"Puppets\" but \"Influence\"."
+        ]},
+        { h: "Why the built window does not explain itself", items: [
+          "No question, no goal: the window never says what I am doing here. The header shows three numbers without a reason.",
+          "Nine equal cards: STRANGER, grip 0, 0 facts everywhere – nothing sets the persons apart, so there is nothing to choose by.",
+          "Power is invisible: the mayor and a district leader look the same; who is cheap or expensive cannot be seen.",
+          "A process disguised as a menu: People, Dossier, Operation, Letters & Score are steps that follow each other but stand side by side like independent pages; three of them are empty for a newcomer.",
+          "Words before their moment: Grip, Strain, Exposure appear before any of them has a value or a consequence.",
+          "No next step: no page has exactly one obvious button.",
+          "Dense: a lot of small text in little room."
+        ]},
+        { h: "How other games guide the player", items: [
+          "Mad Games Tycoon 2 (the user's model): creating a game is a fixed run of pages with arrows forward and back and dots for the position – this becomes the run of pages, the menu on the left goes.",
+          "Middle-earth: Shadow of War (army screen): the whole hierarchy as one picture – who stands above whom is seen, not read; unknown captains are darkened figures, intel opens strengths and weaknesses. This becomes the people ordered by power and the unknown as a closed card.",
+          "The Guild 2 (and Die Fugger II): offices stand in a hierarchy at the town hall, you see who holds which office – this becomes \"offices first, people on them\".",
+          "Stellaris (espionage): one number grows, every operation states the level it needs – grip as one meter with marks.",
+          "Crusader Kings III (schemes): the success chance with everything that raises and lowers it – the outlook before an Operation starts.",
+          "XCOM 2: War of the Chosen (covert actions): reward, risk and duration stand there before you commit – the summary before \"Start it\".",
+          "Football Manager (scouting): a knowledge percentage per player, scouts fill it – \"file: 1 of 10\".",
+          "Persona 5 (confidants): every relationship has ranks with a named gain – five dots for how far you are with a person.",
+          "What they share: you see the structure before you read anything – position, colour and symbols carry the meaning."
+        ]},
+        { h: "Seven rules for the way in", items: [
+          "One big question per page. Page 1: \"Who do you want to influence?\" – the question is the largest thing on the page.",
+          "See it, do not read it: position shows power, a colour shows how hard, a symbol shows what works on a person. Text is a label of a few words, never a paragraph; exact numbers stay in the tooltip.",
+          "Air, not density: few large elements per page; whatever does not fit gets another page – as many as it takes.",
+          "Every person differs at first sight – by her seat, how hard she is and one visible trait. The trait is always true.",
+          "The six symbols are one language: the symbol on a person's card is the symbol of the string that works on her – on every later page too.",
+          "The road is visible: five steps stand at the top; a closed step says in a few words what opens it.",
+          "Exactly one gold button per page – the next step."
+        ]},
+        { h: "Power and price: four rungs", items: [
+          "The answer to \"nine or fifty?\": everybody in the city's politics, ordered by power – 57 people on four rungs. The game already has 33 of them; new would be four newcomers without office per district – the people with no power at all whom you build up from nothing.",
+          "Mayor (1): breaks ties, can veto – very hard, grip 85.",
+          "City council (8): two at-large seats and six district leaders, one vote each, 5 of 9 pass a law – hard, grip 72 to 78.",
+          "District councils (24): four members in each of six districts, they decide in their own district – medium, grip 65. Every district council has five seats; the fifth is the leader, who stands at the top in the city council.",
+          "No office yet (24, new): four newcomers per district, later a veteran of the own staff too – no power, easy and cheap, grip 55.",
+          "Route 1 – win over: someone who already sits high. Counts at once, is expensive (years and a lot of effort), rivals pull on the same people.",
+          "Route 2 – raise: a newcomer or a council member. Cheap and grateful (Career string +15 at the pledge, +15 on election night), but counts only once he holds the seat – I carry him through the elections; in the higher office he needs more grip and can outgrow me.",
+          "Route 3 – send your own: a loyal veteran of my staff runs for office (decided in the concept \"staff careers\"); he starts as a protégé and is gone from the staff."
+        ]},
+        { h: "The new run: five steps, pages as needed", items: [
+          "The frame: no menu on the left. At the top the steps Choose · Study · Court · Answer · Lead, below them, large, the page's question, at the bottom Back, the page dots and one gold button.",
+          "Page 1, Choose – \"Who do you want to influence?\": the whole page is one picture, everybody ordered by power in three bands (city council 9, district councils 24 – the own district is open, the others one click away –, no office 24). An arrow at the left edge: more power upwards, cheaper downwards.",
+          "Every person is a tile with three things: where she sits, how hard she is (one word in one colour: EASY green, MEDIUM yellow, HARD orange, VERY HARD red) and what shows at first glance – one symbol with two words.",
+          "Six symbols, one per string: $ Loves money (Money), ♥ Has a cause (Cause), ★ Loves fame (Spotlight), ⇄ Trades favours (Favors), ▲ Wants to rise (Career), ♣ Loose living (Leverage). The trait is always true; \"Loose living\" appears only on somebody who really has something to hide.",
+          "A click picks a person; at the bottom she appears once more in one line next to the gold button \"Find out more\".",
+          "Page 2, Study – \"What moves him?\": on the left the person, large, with five dots for how far you are (Stranger to Puppet), in the middle the file as ten cards – what page 1 showed is the first open one; every closed one shows by a coloured dot who can open it –, on the right four large buttons: Meet him, Lunch, His circle, Private eye. Nothing else.",
+          "Court: the built workshop, spread over as many pages as it takes – for instance \"What do you bring?\" (the six strings as large tiles with their symbols, the topic), \"How do you come?\" (route, size), \"How do you behave?\" (effort, eight sliders), \"Last touches\" (touches, cover, cost, months, outlook).",
+          "Answer – \"What came back?\": first the gain in one sentence (\"Sam Ferreira is now your ALLY\"), then score, strings, letters; every letter turns a card of the file.",
+          "Lead – \"What do you ask of him?\": the pitch, later orders and his requests. New: for every bill on the table it says what his vote changes – \"Without him 4 to 5. With him 5 to 4.\""
+        ]},
+        { h: "Few words", items: [
+          "Labels instead of sentences: a term gets a few words at most; anything longer is a tooltip.",
+          "\"Dossier\" becomes \"His file\"; \"STRANGER\" on every card is dropped – the five dots show how far you are.",
+          "Grip, Strain and Exposure keep their names but appear only where they have a value: grip when courting and leading, strain and exposure only above zero.",
+          "The menu entry is called \"Influence\" instead of \"Puppets\" (user 14 Nov); the page asks \"Who do you want to influence?\". \"Puppet\" stays the name of the last stage."
+        ]},
+        { h: "Doors from outside", items: [
+          "After a lost vote: \"Lost 4 to 5. The closest no was Ray Okafor – Influence him\" opens the window on his file. That is the best moment to learn what all this is good for.",
+          "In the council chamber a click on a person offers \"Find out more\"; agenda dots and edge cards as planned (\"Osei wants a word\").",
+          "Politics overview (the user's Classic menu, a remark only): a tile could carry one live number (\"you steer 0 of 9 votes\")."
+        ]},
+        { h: "Build stages", items: [
+          "E1 – the guided run: the frame (steps, arrows, dots, one gold button), page 1 as the picture of power with tiles, page 2 with five dots, the file and four buttons, Court over several pages, the gain first. The colour word and the symbol follow from each person's fixed values.",
+          "E2 – the pay-off: \"without him 4 to 5, with him 5 to 4\", the door after a lost vote.",
+          "E3 – the lower rungs: district councillors as persons you can court (24), then the newcomers without office (24) and the way up through the elections.",
+          "E4 – a veteran of the staff runs for office (with the concept \"staff careers\").",
+          "Decided (user 14 Nov, \"Yes, all of them\"): the first build contains all four rungs – E1 and E3 together. District councillors and newcomers can be courted from the first day; E2 and E4 follow."
+        ]},
+        { h: "Open questions", items: [
+          "Decided (user 14 Nov, \"Yes, as basis\"): the concept is the basis for rebuilding the way in.",
+          "Decided (user 14 Nov, \"Always true\"): the hint at first glance is always true – since the second round no longer a sentence but one symbol with two words.",
+          "Decided (user 14 Nov): courting sits on as many pages as it takes – clear and airy beats compact.",
+          "Decided (user 14 Nov): the reworked first page fits – \"from the layout really good\"; without \"The way up\", with a few more people without office.",
+          "Decided (user 14 Nov): the menu entry is called \"Influence\", no longer \"Puppets\".",
+          "Decided (user 14 Nov, \"Yes, all of them\"): the first build contains the city council, the district councils and the newcomers.",
+          "Open: the same pattern for the Politics overview?"
+        ]}
+      ]
+    },
     "bills": {
       title: "Bills: a law is a project – climate, draft, the road through the council",
       summary: "Laws are no longer just picked from a list and voted on. First a topic needs the right climate (problem, solution, politics), then the draft is developed in a workshop and set up on three pages, then it passes six gates at which it can fail or be changed – and after the vote it is not over. Plus a broad field of about 120 topics in ten areas – on two tiers: most as district ordinances at home, city laws as framework and weapon. Accepted by the user on 12 Nov as the basis after going through all eight questions; numbers are starting values, nothing is built yet.",
@@ -3297,6 +3410,11 @@ window.JOURNAL_EN = {
   },
 
   decisions: {
+    "Puppets-Einstieg: der erste Bau enthält alle vier Sprossen – Bezirksräte und Neulinge von Anfang an": { title: "Puppets entry: the first build contains all four rungs – district councillors and newcomers from the start", why: "Decided by the user on 14 Nov (\"Yes, all of them\"). The first page lives from showing the powerful and expensive at the top and the cheap ones at the bottom; today the game can only court the nine people of the city council. So the 24 members of the district councils and the 24 newcomers without office become persons you can court in the very first build – more work than the window alone (new persons, their elections, votes in the district council), but the page is true from the first day. Rejected: building the window on the nine first and adding the lower rows later." },
+    "Politik-Menü: der Eintrag heißt „Influence“ statt „Puppets“ – die erste Seite des Einstiegs ist freigegeben": { title: "Politics menu: the entry is called \"Influence\" instead of \"Puppets\" – the first page of the way in is approved", why: "Decided by the user on the evening of 14 Nov after he had seen the reworked first page: \"from the layout I find it really good\". The page asks \"Who do you want to influence?\" – so the menu entry is called \"Influence\" too and no longer \"Puppets\" (replaces the naming of 12 Nov); \"Puppet\" stays the name of the last of five stages. The small picture \"The way up\" is dropped from the page (not needed there); in return more people without office stand at the bottom: four newcomers per district instead of two. Choosing a district in the second row stays. To keep in mind: \"influence\" is also the name of the resource spent here – it always appears with its number." },
+    "Puppets-Einstieg: zeigen statt beschreiben – eine große Frage, alle Leute nach Macht geordnet, Seiten nach Bedarf": { title: "Puppets entry: show, do not describe – one big question, everybody ordered by power, pages as needed", why: "The user's second round on the evening of 14 Nov, after the first version of the way in worked with caption lines and text panels: \"The problem was not missing descriptions, but intuition.\" The first page asks in large letters \"Who do you want to influence?\" and shows everybody in the city's politics ordered by power; per person only the seat, how hard as a colour word and one symbol for what works on her. Text is a label, not a paragraph. Whether courting sits on one page or four does not matter – clear and airy beats compact; whatever does not fit gets another page. This is the yardstick for all new windows." },
+    "Puppets-Einstieg: das Stadtgespräch ist immer wahr, aber ungenau": { title: "Puppets entry: the talk of the town is always true, but vague", why: "Decided by the user on 14 Nov (\"Always true\"). Every card on the first page carries one line of talk of the town that points to one of the person's two wishes – never exact, but never wrong; lunch confirms it. So a newcomer's first choice never rests on a false lead, and scouting still pays because the hint stays vague. Rejected: rumours that are sometimes wrong." },
+    "Puppets: der Einstieg wird ein geführter Weg – Ziel zuerst, Ämter als Bild, fünf Schritte statt Menü": { title: "Puppets: the way in becomes a guided run – goal first, the offices as a picture, five steps instead of a menu", why: "Accepted by the user on 14 Nov as the basis (\"Yes, as basis\") after he had seen the built Puppets window for the first time: nice, but the player does not know what to do. Instead of the menu on the left the window gets a run of five steps (Choose, Study, Court, Answer, Lead) with arrows and page dots as in Mad Games Tycoon 2, one question per page and exactly one gold button. The goal stands there first (votes on the city council), the offices appear as a picture, every person shows what the whole town knows about her, terms are explained on the page instead of in a tooltip. Instead of a pool of fifty people: the 33 politicians that already exist, on three rungs – with three routes to a vote (win over, raise, send a veteran of your own). The rules of Puppets stay; it is built in stages, first the guided run on the nine votes of the city council. Three smaller questions are still open." },
     "Bezirksgrenzen zeigen die Spielerfarben, Feldlinien bleiben dunkel": { title: "District borders show the player colours, field lines stay dark", why: "Decided by the user on 14 Nov (\"Yes, show colours\"). While making the lines fade by height it turned out that the terrain material draws all line colours as black – so the two-coloured district borders of 8 Nov never showed. With the separate line material it works: each half of a border in the colour of its district, so from high up you can see who owns which land. The field lines stay dark, so the map does not suddenly get light strokes; in the lobby and on the end screen the borders are dark as well. Back to all black is possible by console (shady.LineColors 0)." },
     "Bills: die Arbeit des Verfassers wird auf vier Stimmen verteilt – jeder Bereich wiegt sie anders": { title: "Bills: the drafter's work is split over four voices – every area weighs them differently", why: "Open question 10 of the Bills concept, decided by the user on 13 Nov (\"Yes, add it\") and built right away. In the workshop you split the drafter's work over craft, fit, balance and delivery – 100 % in steps of 5, like the design priorities in Mad Games Tycoon. Nine areas (zoning, housing, transport, environment, economy, order, media, clean hands, social) weigh the four voices differently: a tax law lives on craft and delivery, a social law on balance. The weights are hidden (\"city: ?\") until the first own verdict in that area – after that they stand in the workshop, and the newspaper names the heaviest voice. That gives the verdict its own learning loop next to the sliders, which mostly decide whether the bill passes. Checked in the game (a test match without a mouse: work 15 / 25 / 40 / 20 on a housing law, a verdict of 75 % HIT at 10 points off, after that the weights stand in the workshop)." },
     "Bills: wer in das Postfach schreibt – Rat für das Durchkommen, Zeitung, Betroffene und Prüfer für die Wertung": { title: "Bills: who writes to the mailbox – the council about passing, the newspaper, those affected and the auditor about the score", why: "Open question 9 of the Bills concept, confirmed by the user on 13 Nov (\"Yes, keep it\") after the mailbox could be seen in the game. The committee report and the council members who voted no write about what stood in the bill's way in the council – follow them and it passes at the next attempt. The newspaper, those affected (after a quarter) and the auditor (after a year) write about what pulls the verdict down. So the mail says both: how it passes and how it gets good. A council voice also counts as \"read\": how that seat reacts to the terms shows in the outlook afterwards." },

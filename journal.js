@@ -1,9 +1,10 @@
 window.JOURNAL = {
-  updated: "2026-11-14 10:09",
+  updated: "2026-11-14 20:10",
 
   // ---------- Jetzt: woran gerade gearbeitet wird ----------
   now: {
     inProgress: [
+      { title: "Konzept: Puppets – der Einstieg", area: "Konzept", date: "2026-11-14", detail: "Rückmeldung des Users nach dem ersten Blick ins gebaute Fenster (14.11.): sieht schön aus, aber dem Spieler wird nicht klar, was er tun soll. Konzept geschrieben und als Grundlage angenommen; nach der zweiten Runde des Users am selben Abend überarbeitet: nicht mehr Erklärtext, sondern auf einen Blick klar. Die erste Seite fragt groß „Who do you want to influence?“ und zeigt alle Leute der Stadtpolitik nach Macht geordnet (Stadtrat, Bezirksräte, Neulinge ohne Amt – 57 Personen, 24 davon neu); je Person nur Sitz, Schwierigkeit als Farbwort (EASY bis VERY HARD) und ein Zeichen für das, was bei ihr zieht („Loves money“, „Loose living“ …). Dazu der Weg in fünf Schritten mit Pfeilen und Seitenpunkten wie in Mad Games Tycoon 2 (Choose, Study, Court, Answer, Lead), ein goldener Knopf je Seite, so viele Seiten wie nötig. Vier Bilder neu gezeichnet. Der User hat die erste Seite am selben Abend freigegeben („vom Layout her richtig gut“; ohne „The way up“, mit mehr Leuten ohne Amt) und entschieden: der Menüeintrag heißt „Influence“ statt „Puppets“. Der erste Bau soll alle vier Sprossen enthalten – Stadtrat, Bezirksräte und Neulinge („Yes, all of them“); gebaut ist nichts." },
       { title: "Konzepte einbauen: Stab mit Laufbahn, Bills, Puppets", area: "Spiel", date: "2026-11-13", detail: "Auftrag des Users (13.11.): die drei Konzepte vom 12.11. ins Spiel bauen, im Stil des Classic-Menüs, Fenster nach dem Vorbild des Stadtrats. Alle drei Stufen stehen: Stab mit Laufbahn, Bills (Stufe B1) und Puppets (Stufe C1 auf den neun Ratssitzen). Im Spiel geprüft (drei Testpartien ohne Maus: entwerfen, einbringen, Ausschuss, Abstimmung 4 zu 5 verloren, Post, überarbeiten, Wertung 58 % SOLID; treffen, Operation 40 % und 60 %, Briefe, Pitch angenommen). Offen: Bezirksverordnungen und Klima (Bills), Bezirkspolitiker, Falle und Rivalen (Puppets), Kurse und Berater im Ruhestand (Stab)." },
       { title: "Konzept: Bills", area: "Konzept", date: "2026-11-12", detail: "Nächster Punkt im Politik-Menü nach Puppets (Auftrag des Users 12.11.): ein Gesetz als Projekt – Klima mit drei Anzeigen und Fenstern, Policy shop, Werkstatt mit drei Seiten und acht Reglern, sechs Tore durch den Rat, Folgen nach der Abstimmung, rund 120 Themen in zehn Bereichen. Geschrieben mit Recherche und fünf Bildern; alle sechs Fragen entschieden (zusammengesetzte Gesetze, erst entwickeln, sechs Tore mit Wertung am Ende, Klima als starker Einfluss, verdeckte Klauseln, zwei bis vier Quartale), dazu die zwei Ebenen (Bezirksverordnung und Stadtgesetz) und die Kollisionsregeln – als Grundlage angenommen. Nachtrag: Regler haben überall neun feste Stufen (1 bis 9); ein gescheitertes Gesetz darf sofort wieder kommen; jedes Gesetz bekommt ein Postfach, in dem die Briefe nach und nach eintreffen (sechstes Bild); offen ist nur noch, wer die Briefe schreibt." },
       { title: "Konzept: Stab mit Laufbahn", area: "Konzept", date: "2026-11-12", detail: "Folgekonzept zu Puppets (Wunsch des Users 12.11.): Angestellte mit Alter, Erfahrung aus getaner Arbeit, drei Fähigkeiten je Rolle, Eigenschaften ab Level 6, Ruhestand mit Mentor-Jahr, Krankheit, Tod und Abwerben mit Antwortkarte. Geschrieben mit drei Bildern; alle sechs Fragen entschieden (drei Fähigkeiten je Rolle, der Spieler wählt die Eigenschaften, Bank für zwei Neulinge, Wissen geht beim Abwerben mit, Veteranen dürfen kandidieren, Tod selten ab 50) – als Grundlage angenommen." },
@@ -3102,6 +3103,118 @@ window.JOURNAL = {
   // ---------- Konzepte ----------
   concepts: [
     {
+      id: "puppets-entry", title: "Puppets: der Einstieg – auf einen Blick klar", file: "", status: "teils entschieden", updated: "2026-11-14",
+      summary: "Das gebaute Puppets-Fenster sieht gut aus, erklärt sich aber nicht: neun gleiche Karten, keine Frage, kein nächster Schritt. Das Konzept ändert nicht die Regeln, sondern den Einstieg – und nach der zweiten Runde des Users (14.11. abends) nicht mit Erklärtext, sondern so, dass man es sieht. Die erste Seite fragt groß „Who do you want to influence?“ und zeigt alle Leute der Stadtpolitik nach Macht geordnet: oben der Stadtrat, darunter die Bezirksräte, unten Neulinge ohne Amt. Je Person drei Dinge: wo sie sitzt, wie schwer sie zu gewinnen ist (ein Wort in einer Farbe) und was bei ihr zieht (ein Zeichen – „Loves money“, „Loose living“ …). Statt eines Menüs links führt ein Weg in fünf Schritten mit Pfeilen und Seitenpunkten wie in Mad Games Tycoon 2: eine große Frage je Seite, genau ein goldener Knopf, wenig Text, so viele Seiten wie nötig. Vom User am 14.11. als Grundlage angenommen und die überarbeitete erste Seite am selben Abend freigegeben („vom Layout her richtig gut“); der Menüeintrag heißt künftig „Influence“. Gebaut ist nichts.",
+      diagrams: [
+        { id: "pupin-flow", note: "Oben das heutige Menü mit fünf gleichen Einträgen, darunter der neue Weg in fünf Schritten – je Schritt die große Frage, die Tätigkeit und der goldene Knopf; der Pfeil zurück ist die Lernschleife. Unten der Rahmen, den jede Seite bekommt." },
+        { id: "pupin-pick", note: "Entwurf der ersten Seite „Choose“ (zweite Fassung): eine große Frage, alle Leute nach Macht geordnet in drei Bändern, je Person Sitz, Schwierigkeit als Farbwort und ein Zeichen für das, was bei ihr zieht; unten die gewählte Person und der eine goldene Knopf." },
+        { id: "pupin-file", note: "Entwurf der zweiten Seite „Study“ (zweite Fassung): links die Person groß mit fünf Punkten für den Stand, in der Mitte die Akte als zehn Karten – die erste ist schon offen –, rechts vier große Knöpfe zum Herausfinden." },
+        { id: "pupin-ladder", note: "Macht und Preis: vier Sprossen vom Bürgermeister bis zu den Neulingen ohne Amt, rechts was die Sprosse entscheidet und wie schwer sie zu gewinnen ist; darunter drei Wege zu einer Stimme." }
+      ],
+      sections: [
+        { h: "Rückmeldung des Users (14.11.)", s: "Entschieden", items: [
+          "Sieht schön aus, aber dem Spieler wird überhaupt nicht klar, was er machen soll.",
+          "Politics → Puppets zeigt neun Porträts – wer sind die? Alle sind „Stranger“. Der Titel „Grown, Not Bought“ erklärt nichts.",
+          "Im Dossier stehen Grip, Strain, Exposure; die Erklärung steckt im Tooltip – intuitiv ist das nicht.",
+          "Vorschlag des Users: kein Menü links zum Durchklicken, sondern wie in Mad Games Tycoon 2 Pfeile nach rechts und links mit Punkten für die Seiten; eine Einstiegsseite, auf der sofort klar ist: das sind die politischen Ämter, diese Leute haben sie inne – welchen Sitz, welche Person nehme ich mir vor?",
+          "Offene Frage des Users: nur die neun mit Stadtratssitz, auch die Bezirksräte (je fünf) – oder ein Pool von etwa fünfzig Leuten, aus dem ich mir jemanden zum Großziehen aussuche?",
+          "Grundsatz: Der Spieler muss immer an die Hand genommen werden und sofort wissen, was hier passiert und wofür seine Wahl gut ist."
+        ]},
+        { h: "Zweite Runde des Users (14.11. abends)", s: "Entschieden", items: [
+          "Das Problem waren nicht fehlende Beschreibungen, sondern das Intuitive: kein langer Text, der erklärt, was passiert – es muss vom Gefühl her sofort stimmen: aha, hier sind Leute, die ich beeinflussen kann.",
+          "Die erste Seite sagt es groß: „Wen willst du beeinflussen?“ – „Puppet“ ist an dieser Stelle vielleicht schon das falsche Wort.",
+          "Auf den ersten Blick: wen es überhaupt gibt, wie viele, in welcher Position – wer Macht hat, wer weniger, wer gar keine.",
+          "Macht hat ihren Preis: wer keine Macht hat, kostet vielleicht weniger – den baue ich von Anfang an auf und pushe ihn, bis er einen Sitz bekommt und später im Stadtrat sitzt. Oder ich nehme einen teuren, der schon dort sitzt und viel mehr Einsatz braucht.",
+          "Hinweise schon beim ersten Blick: einer legt viel Wert auf Geld – der ist bestechlich; ein anderer hat einen lockeren Lebensstil – der ist vielleicht erpressbar. Dann wähle ich ihn aus und will mehr erfahren; der Ablauf danach (Essen gehen und so weiter) passt.",
+          "Übersichtlich, nicht kompakt und gepresst: eine Seite oder vier ist egal – was nicht passt, bekommt eine weitere Seite."
+        ]},
+        { h: "Dritte Runde des Users (14.11.): die erste Seite passt", s: "Entschieden", items: [
+          "„Das finde ich jetzt schon viel besser – vom Layout her finde ich es richtig gut, das gefällt mir sehr gut so.“",
+          "„The way up“ (das Bildchen unten rechts) braucht es auf dieser Seite nicht – entfernt.",
+          "Dass man in der zweiten Zeile zwischen den Bezirken wählen kann: „super“.",
+          "Ohne Amt: ruhig ein paar mehr Leute zeigen – jetzt vier Neulinge je Bezirk statt zwei.",
+          "Der Menüeintrag soll nicht mehr „Puppets“ heißen, sondern „Influence“."
+        ]},
+        { h: "Warum sich das gebaute Fenster nicht erklärt", s: "Recherche", items: [
+          "Keine Frage, kein Ziel: das Fenster sagt nie, was ich hier tue. Die Kopfzeile zeigt drei Zahlen ohne Grund.",
+          "Neun gleiche Karten: überall STRANGER, Grip 0, 0 Fakten – nichts unterscheidet die Personen, also gibt es nichts, wonach man wählen könnte.",
+          "Macht ist unsichtbar: Bürgermeister und Bezirks-Leader sehen gleich aus; wer billig oder teuer ist, sieht man nicht.",
+          "Ein Ablauf, verkleidet als Menü: People, Dossier, Operation, Letters & Score sind Schritte nacheinander, stehen aber wie gleichrangige Seiten nebeneinander; drei davon sind für einen Neuling leer.",
+          "Wörter vor ihrem Moment: Grip, Strain, Exposure tauchen auf, bevor eines davon einen Wert oder eine Folge hat.",
+          "Kein nächster Schritt: keine Seite hat genau einen naheliegenden Knopf.",
+          "Dicht: viel kleiner Text auf wenig Raum."
+        ]},
+        { h: "Wie andere Spiele den Spieler führen", s: "Recherche", items: [
+          "Mad Games Tycoon 2 (Vorlage des Users): ein Spiel anzulegen ist eine feste Folge von Seiten mit Pfeilen vor und zurück und Punkten für die Position – daraus wird der Seitenlauf, das Menü links entfällt.",
+          "Mittelerde: Schatten des Krieges (Armee-Bildschirm): die ganze Hierarchie als ein Bild – wer über wem steht, sieht man, man liest es nicht; unbekannte Hauptmänner sind dunkle Figuren, Informationen decken Stärken und Schwächen auf. Daraus werden die Leute nach Macht geordnet und das Unbekannte als geschlossene Karte.",
+          "Die Gilde 2 (und Die Fugger II): Ämter stehen im Rathaus in einer Rangfolge, man sieht, wer welches Amt hat – daraus wird „Ämter zuerst, Menschen darauf“.",
+          "Stellaris (Spionage): eine Zahl wächst, jede Operation nennt die Stufe, die sie braucht – der Griff als eine Anzeige mit Marken.",
+          "Crusader Kings III (Intrigen): die Erfolgschance mit allem, was sie hebt und senkt – die Aussicht vor dem Start einer Operation.",
+          "XCOM 2: War of the Chosen (verdeckte Aktionen): Belohnung, Risiko und Dauer stehen da, bevor man sich festlegt – die Zusammenfassung vor „Start it“.",
+          "Football Manager (Scouting): ein Wissensstand in Prozent je Spieler, Scouts füllen ihn – „Akte: 1 von 10“.",
+          "Persona 5 (Vertraute): jede Beziehung hat Ränge mit einem benannten Gewinn – fünf Punkte für den Stand mit einer Person.",
+          "Gemeinsam ist allen: man sieht die Struktur, bevor man etwas liest – Lage, Farbe und Zeichen tragen die Bedeutung."
+        ]},
+        { h: "Sieben Regeln für den Einstieg", s: "Vorschlag", items: [
+          "Eine große Frage je Seite. Seite 1: „Who do you want to influence?“ – die Frage ist das Größte auf der Seite.",
+          "Sehen statt lesen: die Lage zeigt die Macht, eine Farbe die Schwierigkeit, ein Zeichen das, was bei einer Person zieht. Text ist Beschriftung aus wenigen Worten, nie ein Absatz; genaue Zahlen bleiben im Tooltip.",
+          "Luft statt Dichte: wenige große Elemente je Seite; was nicht passt, bekommt eine weitere Seite – so viele wie nötig.",
+          "Jede Person unterscheidet sich auf den ersten Blick – durch ihren Sitz, ihre Schwierigkeit und eine sichtbare Eigenschaft. Die Eigenschaft stimmt immer.",
+          "Die sechs Zeichen sind eine Sprache: das Zeichen auf der Karte einer Person ist das Zeichen des Fadens, der bei ihr zieht – auch auf jeder späteren Seite.",
+          "Der Weg ist sichtbar: fünf Schritte stehen oben; ein geschlossener Schritt sagt in wenigen Worten, was ihn öffnet.",
+          "Genau ein goldener Knopf je Seite – der nächste Schritt."
+        ]},
+        { h: "Macht und Preis: vier Sprossen", s: "Vorschlag", items: [
+          "Antwort auf „neun oder fünfzig?“: alle Leute der Stadtpolitik, nach Macht geordnet – 57 Personen auf vier Sprossen. 33 davon gibt es im Spiel schon; neu wären vier Neulinge ohne Amt je Bezirk – die Leute ganz ohne Macht, die man von null aufbaut.",
+          "Bürgermeister (1): bricht Gleichstand, kann ablehnen – sehr schwer, Griff 85.",
+          "Stadtrat (8): zwei Insel-Sitze und sechs Bezirks-Leader, je eine Stimme, 5 von 9 beschließen ein Gesetz – schwer, Griff 72 bis 78.",
+          "Bezirksräte (24): je vier Mitglieder in sechs Bezirken, entscheiden im eigenen Bezirk – mittel, Griff 65. Jeder Bezirksrat hat fünf Sitze; der fünfte ist der Leader, er steht oben im Stadtrat.",
+          "Ohne Amt (24, neu): vier Neulinge je Bezirk, später auch ein Veteran des eigenen Stabs – keine Macht, leicht und billig, Griff 55.",
+          "Weg 1 – Gewinnen: wer schon oben sitzt. Zählt sofort, ist teuer (Jahre und viel Einsatz), Rivalen ziehen an denselben Leuten.",
+          "Weg 2 – Aufbauen: ein Neuling oder ein Ratsmitglied. Billig und dankbar (Karriere-Faden +15 beim Versprechen, +15 am Wahlabend), zählt aber erst, wenn er den Sitz hat – ich trage ihn durch die Wahlen; im höheren Amt braucht er mehr Griff und kann mir entwachsen.",
+          "Weg 3 – Schicken: ein treuer Veteran meines Stabs kandidiert (im Konzept „Stab mit Laufbahn“ entschieden); er startet als Protégé und fehlt danach im Stab."
+        ]},
+        { h: "Der neue Ablauf: fünf Schritte, Seiten nach Bedarf", s: "Vorschlag", items: [
+          "Rahmen: kein Menü links. Oben die Schritte Choose · Study · Court · Answer · Lead, darunter groß die Frage der Seite, unten Zurück, die Seitenpunkte und ein goldener Knopf.",
+          "Seite 1, Choose – „Who do you want to influence?“: die ganze Seite ist ein Bild, alle Leute nach Macht geordnet in drei Bändern (Stadtrat 9, Bezirksräte 24 – der eigene Bezirk ist aufgeschlagen, die anderen mit einem Klick –, ohne Amt 24). Ein Pfeil am linken Rand: nach oben mehr Macht, nach unten billiger.",
+          "Jede Person ist eine Kachel mit drei Dingen: wo sie sitzt, wie schwer sie ist (ein Wort in einer Farbe: EASY grün, MEDIUM gelb, HARD orange, VERY HARD rot) und was auf den ersten Blick auffällt – ein Zeichen mit zwei Worten.",
+          "Sechs Zeichen, eines je Faden: $ Loves money (Geld), ♥ Has a cause (Überzeugung), ★ Loves fame (Rampenlicht), ⇄ Trades favours (Gefälligkeiten), ▲ Wants to rise (Karriere), ♣ Loose living (Druckmittel). Die Eigenschaft stimmt immer; „Loose living“ steht nur bei jemandem, der wirklich etwas zu verbergen hat.",
+          "Ein Klick wählt eine Person; unten steht sie noch einmal in einer Zeile neben dem goldenen Knopf „Find out more“.",
+          "Seite 2, Study – „What moves him?“: links die Person groß mit fünf Punkten für den Stand (Stranger bis Puppet), in der Mitte die Akte als zehn Karten – was Seite 1 zeigte, ist die erste offene; jede geschlossene zeigt per Farbpunkt, wer sie aufdeckt –, rechts vier große Knöpfe: Meet him, Lunch, His circle, Private eye. Sonst nichts.",
+          "Court: die gebaute Werkstatt, auf so viele Seiten verteilt wie nötig – etwa „What do you bring?“ (die sechs Fäden als große Kacheln mit ihren Zeichen, Thema), „How do you come?“ (Weg, Größe), „How do you behave?“ (Einsatz, acht Regler), „Last touches“ (Gesten, Deckung, Kosten, Monate, Aussicht).",
+          "Answer – „What came back?“: zuerst der Gewinn in einem Satz („Sam Ferreira is now your ALLY“), dann Wertung, Fäden, Briefe; jeder Brief deckt eine Karte der Akte auf.",
+          "Lead – „What do you ask of him?“: das Angebot, später Aufträge und seine Bitten. Neu: zu jedem Gesetz auf dem Tisch steht, was seine Stimme ändert – „Without him 4 to 5. With him 5 to 4.“"
+        ]},
+        { h: "Wenige Worte", s: "Vorschlag", items: [
+          "Beschriftungen statt Sätze: ein Begriff bekommt höchstens ein paar Worte; alles Längere ist ein Tooltip.",
+          "„Dossier“ heißt „His file“; „STRANGER“ auf jeder Karte entfällt – die fünf Punkte zeigen den Stand.",
+          "Grip, Strain und Exposure behalten ihre Namen, erscheinen aber nur dort, wo sie einen Wert haben: der Griff beim Umwerben und Führen, Spannung und Sichtbarkeit erst über null.",
+          "Der Menüeintrag heißt „Influence“ statt „Puppets“ (User 14.11.); die Seite fragt „Who do you want to influence?“. „Puppet“ bleibt der Name der letzten Stufe."
+        ]},
+        { h: "Türen von außen", s: "Vorschlag", items: [
+          "Nach einer verlorenen Abstimmung: „Lost 4 to 5. The closest no was Ray Okafor – Influence him“ öffnet das Fenster auf seiner Akte. Das ist der beste Moment, um zu lernen, wozu das alles gut ist.",
+          "Im Ratssaal bietet ein Klick auf eine Person „Find out more“ an; Agenda-Punkte und Randkarten wie geplant („Osei wants a word“).",
+          "Politik-Übersicht (Classic-Menü des Users, nur als Anmerkung): eine Kachel könnte eine lebende Zahl tragen („du lenkst 0 von 9 Stimmen“)."
+        ]},
+        { h: "Ausbaustufen", s: "Vorschlag", items: [
+          "E1 – der geführte Weg: Rahmen (Schritte, Pfeile, Punkte, ein goldener Knopf), Seite 1 als Bild der Macht mit Kacheln, Seite 2 mit fünf Punkten, Akte und vier Knöpfen, Court über mehrere Seiten, Gewinn zuerst. Farbwort und Zeichen folgen aus den festen Werten jeder Person.",
+          "E2 – der Lohn: „ohne ihn 4 zu 5, mit ihm 5 zu 4“, die Tür nach der verlorenen Abstimmung.",
+          "E3 – die unteren Sprossen: Bezirksräte als Personen, die man umwerben kann (24), dann die Neulinge ohne Amt (24) und der Aufstieg über die Wahlen.",
+          "E4 – ein Veteran des Stabs kandidiert (mit dem Konzept „Stab mit Laufbahn“).",
+          "Entschieden (User 14.11., „Yes, all of them“): der erste Bau enthält alle vier Sprossen – E1 und E3 zusammen. Bezirksräte und Neulinge sind vom ersten Tag an umwerbbar; E2 und E4 folgen."
+        ]},
+        { h: "Offene Fragen", s: "teils entschieden", items: [
+          "Entschieden (User 14.11., „Yes, as basis“): das Konzept ist die Grundlage für den Umbau des Einstiegs.",
+          "Entschieden (User 14.11., „Always true“): der Hinweis auf den ersten Blick stimmt immer – seit der zweiten Runde kein Satz mehr, sondern ein Zeichen mit zwei Worten.",
+          "Entschieden (User 14.11.): das Umwerben steht auf so vielen Seiten wie nötig – übersichtlich und luftig schlägt kompakt.",
+          "Entschieden (User 14.11.): die überarbeitete erste Seite passt – „vom Layout her richtig gut“; ohne „The way up“, mit ein paar mehr Leuten ohne Amt.",
+          "Entschieden (User 14.11.): der Menüeintrag heißt „Influence“, nicht mehr „Puppets“.",
+          "Entschieden (User 14.11., „Yes, all of them“): der erste Bau enthält Stadtrat, Bezirksräte und Neulinge.",
+          "Offen: Dasselbe Muster für die Politik-Übersicht?"
+        ]}
+      ]
+    },
+    {
       id: "bills", title: "Bills: ein Gesetz ist ein Projekt – Klima, Entwurf, der Weg durch den Rat", file: "", status: "Entschieden", updated: "2026-11-12",
       summary: "Gesetze werden nicht mehr nur aus einer Liste gewählt und abgestimmt. Erst braucht ein Thema das richtige Klima (Problem, Lösung, Politik), dann wird der Entwurf in einer Werkstatt entwickelt und auf drei Seiten eingestellt, danach geht er durch sechs Tore, an denen er scheitern oder verändert werden kann – und nach der Abstimmung ist es nicht vorbei. Dazu ein breites Feld von rund 120 Themen in zehn Bereichen – auf zwei Ebenen: die meisten als Bezirksverordnung zu Hause, Stadtgesetze als Rahmen und Waffe. Vom User am 12.11. nach Durchsicht aller acht Fragen als Grundlage angenommen; Zahlen sind Startwerte, gebaut ist noch nichts.",
       diagrams: [
@@ -4082,6 +4195,11 @@ window.JOURNAL = {
 
   // ---------- Entscheidungen ----------
   decisions: [
+    { date: "2026-11-14", area: "Spiel", title: "Puppets-Einstieg: der erste Bau enthält alle vier Sprossen – Bezirksräte und Neulinge von Anfang an", why: "Vom User am 14.11. entschieden („Yes, all of them“). Die erste Seite lebt davon, dass man Mächtige und Teure oben und Billige unten sieht; das Spiel kann heute nur die neun Leute des Stadtrats umwerben. Deshalb werden die 24 Mitglieder der Bezirksräte und die 24 Neulinge ohne Amt gleich im ersten Bau zu Personen, die man umwerben kann – mehr Arbeit als das Fenster allein (neue Personen, ihre Wahlen, Abstimmungen im Bezirksrat), aber die Seite stimmt vom ersten Tag an. Verworfen: erst das Fenster auf den neun bauen und die unteren Reihen nachliefern." },
+    { date: "2026-11-14", area: "Spiel", title: "Politik-Menü: der Eintrag heißt „Influence“ statt „Puppets“ – die erste Seite des Einstiegs ist freigegeben", why: "Vom User am 14.11. abends entschieden, nachdem er die überarbeitete erste Seite gesehen hatte: „vom Layout her finde ich es richtig gut“. Die Seite fragt „Who do you want to influence?“ – also heißt auch der Menüeintrag „Influence“ und nicht mehr „Puppets“ (ersetzt die Benennung vom 12.11.); „Puppet“ bleibt der Name der letzten von fünf Stufen. Auf der Seite entfällt das Bildchen „The way up“ (dort nicht nötig), dafür stehen unten mehr Leute ohne Amt: vier Neulinge je Bezirk statt zwei. Die Bezirkswahl in der zweiten Zeile bleibt. Zu beachten: „influence“ heißt auch die Ressource, die man hier ausgibt – sie steht immer mit ihrer Zahl da." },
+    { date: "2026-11-14", area: "Spiel", title: "Puppets-Einstieg: zeigen statt beschreiben – eine große Frage, alle Leute nach Macht geordnet, Seiten nach Bedarf", why: "Zweite Runde des Users am 14.11. abends, nachdem die erste Fassung des Einstiegs mit Erklärzeilen und Textfeldern arbeitete: „Das Problem waren nicht fehlende Beschreibungen, sondern das Intuitive.“ Die erste Seite fragt groß „Who do you want to influence?“ und zeigt alle Leute der Stadtpolitik nach Macht geordnet; je Person nur Sitz, Schwierigkeit als Farbwort und ein Zeichen für das, was bei ihr zieht. Text ist Beschriftung, kein Absatz. Ob das Umwerben auf einer oder vier Seiten steht, ist egal – übersichtlich und luftig schlägt kompakt; was nicht passt, bekommt eine weitere Seite. Das gilt als Maßstab für alle neuen Fenster." },
+    { date: "2026-11-14", area: "Spiel", title: "Puppets-Einstieg: das Stadtgespräch ist immer wahr, aber ungenau", why: "Vom User am 14.11. entschieden („Always true“). Jede Karte auf der ersten Seite trägt einen Satz Stadtgespräch, der auf einen der beiden Wünsche der Person zeigt – nie genau, aber nie falsch; das Mittagessen bestätigt ihn. So beruht die erste Wahl eines Neulings nie auf einer falschen Fährte, und das Erkunden lohnt sich trotzdem, weil der Hinweis ungenau bleibt. Verworfen: Gerüchte, die manchmal falsch sind." },
+    { date: "2026-11-14", area: "Spiel", title: "Puppets: der Einstieg wird ein geführter Weg – Ziel zuerst, Ämter als Bild, fünf Schritte statt Menü", why: "Vom User am 14.11. als Grundlage angenommen („Yes, as basis“), nachdem er das gebaute Puppets-Fenster zum ersten Mal gesehen hatte: schön, aber der Spieler weiß nicht, was er tun soll. Das Fenster bekommt statt des Menüs links einen Weg in fünf Schritten (Choose, Study, Court, Answer, Lead) mit Pfeilen und Seitenpunkten wie in Mad Games Tycoon 2, eine Frage je Seite und genau einen goldenen Knopf. Zuerst steht das Ziel da (Stimmen im Stadtrat), die Ämter erscheinen als Bild, jede Person zeigt, was die ganze Stadt über sie weiß, Begriffe werden auf der Seite erklärt statt im Tooltip. Statt eines Pools von fünfzig Leuten: die 33 Politiker, die es schon gibt, auf drei Sprossen – mit drei Wegen zu einer Stimme (gewinnen, aufbauen, einen eigenen Veteranen schicken). Die Regeln von Puppets bleiben; gebaut wird in Stufen, zuerst der geführte Weg auf den neun Stimmen des Stadtrats. Drei kleinere Fragen sind noch offen." },
     { date: "2026-11-14", area: "Landschaft", title: "Bezirksgrenzen zeigen die Spielerfarben, Feldlinien bleiben dunkel", why: "Vom User am 14.11. entschieden („Yes, show colours“). Beim Ausblenden der Linien nach Höhe fiel auf, dass das Gelände-Material alle Linienfarben schwarz zeichnet – die zweifarbigen Bezirksgrenzen vom 08.11. waren deshalb nie zu sehen. Mit dem eigenen Linien-Material geht es: jede Hälfte der Grenze in der Farbe ihres Bezirks, so sieht man aus der Höhe, wem welches Land gehört. Die Feldlinien bleiben dunkel, damit die Karte nicht plötzlich helle Striche bekommt; in Lobby und Endwertung sind auch die Grenzen dunkel. Zurück auf alles schwarz geht per Konsole (shady.LineColors 0)." },
     { date: "2026-11-13", area: "Spiel", title: "Bills: die Arbeit des Verfassers wird auf vier Stimmen verteilt – jeder Bereich wiegt sie anders", why: "Offene Frage 10 des Bills-Konzepts, vom User am 13.11. entschieden („Yes, add it“) und gleich gebaut. In der Werkstatt verteilt man die Arbeit des Verfassers auf Handwerk, Passung, Ausgleich und Vollzug – 100 % in 5-%-Schritten, wie die Design-Prioritäten in Mad Games Tycoon. Neun Bereiche (Baurecht, Wohnen, Verkehr, Umwelt, Wirtschaft, Ordnung, Medien, saubere Hände, Soziales) wiegen die vier Stimmen verschieden: ein Steuergesetz lebt von Handwerk und Vollzug, ein Sozialgesetz vom Ausgleich. Die Gewichte sind verborgen („city: ?“), bis die erste eigene Wertung in dem Bereich da ist – danach stehen sie in der Werkstatt, und die Zeitung nennt die schwerste Stimme. So bekommt die Wertung ihre eigene Lernschleife neben den Reglern, die vor allem über das Durchkommen entscheiden. Im Spiel geprüft (Testpartie ohne Maus: Arbeit 15 / 25 / 40 / 20 auf ein Wohnungsgesetz, Wertung 75 % HIT bei 10 Punkten Abweichung, danach stehen die Gewichte in der Werkstatt)." },
     { date: "2026-11-13", area: "Spiel", title: "Bills: wer in das Postfach schreibt – Rat für das Durchkommen, Zeitung, Betroffene und Prüfer für die Wertung", why: "Offene Frage 9 des Bills-Konzepts, vom User am 13.11. bestätigt („Yes, keep it“), nachdem das Postfach im Spiel zu sehen war. Der Ausschussbericht und die Ratsmitglieder, die mit Nein gestimmt haben, schreiben über das, was dem Gesetz im Rat im Weg stand – wer ihnen folgt, bringt es beim nächsten Anlauf durch. Die Zeitung, die Betroffenen (nach einem Vierteljahr) und der Rechnungsprüfer (nach einem Jahr) schreiben über das, was die Wertung drückt. So sagt die Post beides: wie es durchkommt und wie es gut wird. Eine Stimme des Rats zählt außerdem als „gelesen“: wie dieser Sitz auf die Regler reagiert, steht danach in der Aussicht." },
