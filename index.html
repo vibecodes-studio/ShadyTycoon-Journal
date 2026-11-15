@@ -1005,8 +1005,8 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
 </template>
 <!-- KB-DG-END -->
 
-<script src="journal.js?v=4bb9b87aad"></script>
-<script src="journal.en.js?v=76816ab315"></script>
+<script src="journal.js?v=6a8668ac9b"></script>
+<script src="journal.en.js?v=8191cf8e8c"></script>
 <script>
 // Sprache: DE = journal.js (Master), EN = journal.en.js (Uebersetzung, Fallback je Eintrag auf Deutsch).
 const DE_DATA = window.JOURNAL, EN_DATA = window.JOURNAL_EN || null;
@@ -2350,13 +2350,14 @@ function vKonzepte() {
       return `<div class="back" onclick="location.hash='#konzepte'">‹ ${T().allConcepts}</div>
       <div class="card cdetail">${statusTag(c.status)}${untrTag(c)} <span class="mono muted" style="font-size:12px;margin-left:8px">${fmt(c.updated)}${c.file?' · '+esc(c.file):''}</span>
         <h2 class="big">${esc(c.title)}</h2><p style="color:var(--ink-1);line-height:1.6;margin:0 0 6px">${esc(c.summary)}</p>${dg}
+        ${(() => { const m = c.imagesFrom && J.milestones.find(x => x.id === c.imagesFrom); return m && (m.images||[]).length ? thumbs(m.images, 'ms:'+m.id) : ''; })()}
         ${(c.sections || []).map(s => `<div class="sec"><h4>${esc(s.h)} ${statusTag(s.s)}</h4><ul>${(s.items || []).map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}
       </div>`;
     }
   }
   const list = J.concepts.filter(c => match(c.title, c.summary, (c.sections || []).map(s => (s.items || []).join(' ')).join(' ')));
   return `<div class="cgrid">${list.map(c => `<div class="card ccard" onclick="location.hash='#konzepte/${c.id}'">${statusTag(c.status)}${untrTag(c)}<h3>${esc(c.title)}</h3><p>${esc(c.summary)}</p>
-    <div class="meta"><span class="mono muted" style="font-size:11px">${fmt(c.updated)}</span>${(c.diagram||c.diagrams)?`<span class="tag grey">${T().withDiagram}${c.diagrams?' ×'+c.diagrams.length:''}</span>`:''}</div></div>`).join('') || `<div class="empty">${T().none}</div>`}</div>`;
+    <div class="meta"><span class="mono muted" style="font-size:11px">${fmt(c.updated)}</span>${(c.diagram||c.diagrams)?`<span class="tag grey">${T().withDiagram}${c.diagrams?' ×'+c.diagrams.length:''}</span>`:''}${(() => { const m = c.imagesFrom && J.milestones.find(x => x.id === c.imagesFrom); return m && (m.images||[]).length ? `<span class="tag grey">🖼 ×${m.images.length}</span>` : ''; })()}</div></div>`).join('') || `<div class="empty">${T().none}</div>`}</div>`;
 }
 
 function vEntsch() {

@@ -3178,6 +3178,43 @@ window.JOURNAL = {
   // ---------- Konzepte ----------
   concepts: [
     {
+      id: "medien-imperium", title: "Medien-Imperium (#46): Redaktion, Skandale, PvP – und neun Fenster-Entwürfe", file: "", status: "Vorschlag", updated: "2026-11-15", imagesFrom: "media-mockups",
+      summary: "Wunsch von Tester Nohr (Discord, Ticket #46) mit Design-Dokument und zwei UI-Bogen: Medien sollen mehr Spass machen, mehr bedeuten und Spieler gegeneinander antreten lassen. Kern: einen Sender zu besitzen ist erst der Anfang – das Spiel ist die Entscheidung, welche Geschichte recherchiert, begraben, gerahmt und wann gebracht wird, und den Gegenschlag zu ueberstehen. Baut auf dem auf, was es schon gibt (Meldungen, Recherchen, War Room, Stab, Zeitung/Fernsehturm, Titelseite, Publikum aus #44).",
+      sections: [
+        { h: "Medien-Fenster als gemalte Entwürfe (15.11.)", s: "Vorschlag", items: [
+          "Je Medien-Fenster ein Entwurf im Stil des Stadtrat-Fensters (Bilder im Meilenstein vom 15.11.): Newsroom, Crisis room, Stories, Ads, Probes, Outlets, Research, Playbook, Mood – je eine große Frage, ein goldener Knopf und ein Zuhause in einem Schlüsselgebäude.",
+          "Offen: welche übernommen werden; eigener Hintergrund je Fenster oder ein gemeinsamer des Medienhauses."
+        ]},
+        { h: "Stand heute (0.1.305)", s: "Offen", items: [
+          "Vorhanden: Zeitung/Fernsehturm als Gebaeude mit Reichweite, Meldungen (Push/Spike/Spin/Gegendarstellung), Recherchen (Geruecht → Spur → Dossier), War Room mit 10 Kanaelen je Epoche, Stab mit Sternen/Loyalitaet/Abwerben, Werbung, Titelseite, My bets.",
+          "Es fehlt die Entscheidungsebene: der Spieler schreibt und rahmt keine Geschichte, Sender haben keinen Namen/Ruf, Werbekunden verlangen nichts, Stab hat kein Gesicht, Gegenschlaege sind kein eigener Ablauf."
+        ]},
+        { h: "Kreislauf und Kernsysteme", s: "Vorschlag", items: [
+          "Kreislauf: Entdecken → Formen (Geschichte, Rahmen, Platz, Zeitpunkt) → Publikum gewinnen → in Macht umwandeln (Werbegeld, Druck auf Abstimmungen, Wahlen, Nachfrage) → Gegenschlag ueberstehen. Eine Ausgabe = ein Monat.",
+          "Sender als Figuren (`FOutletRec`): Name, Blattlinie, vier Werte Glaubwuerdigkeit / Reichweite / Einfluss / Angreifbarkeit – Boulevard und Qualitaetsblatt beide spielbar.",
+          "Spuren als Informationsmarkt (`FLeadRec`): aus echten Ereignissen (gelenkte Ausschreibungen, Umschlaege, Abstimmungen gegen die Stimmung, Fabriken, Leichen im Keller); Beweislage 0–100, Exklusivitaet, Ablauf. Wahl: weiter recherchieren, jetzt bringen, verkaufen, zurueckhalten, begraben.",
+          "Redaktion je Monat: Rahmen (investigativ, ausgewogen, kritisch, wohlwollend, reisserisch) und Platz (Titelseite, innen, versteckt, zurueckhalten), Prognose wie im War Room; die gebaute Titelseite IST die, die andere sehen.",
+          "Begrenztes Publikum je Bezirk/Zielgruppe (aus #44), Werbekunden mit Bedingungen, Stab mit Gesicht (Personen-System), Medienverbund mit abnehmendem Zusatznutzen."
+        ]},
+        { h: "Skandal-Kette und PvP", s: "Vorschlag", items: [
+          "Fuenf Stufen: Entdeckung → Entscheidung → Kampf um die Veroeffentlichung (Erster bekommt den Exklusiv-Bonus) → Folgen (Rat, Wahl, Bodenwert, Vertraege, Verdacht) → Vergeltung (Werbekunde springt ab, Klage, Gegen-Enthuellung). Jede Stufe als Karte in My bets, grosse als Titelseite.",
+          "PvP: Wettlauf um Exklusivmeldungen, Abwerben von Moderatoren, Werbekriege, zwei Rahmen fuer dasselbe Ereignis, Zweckbuendnisse. Regel: ein Angriff schafft ein Problem, nimmt aber nie die Spielfaehigkeit."
+        ]},
+        { h: "Fenster (aus den UI-Bogen)", s: "Vorschlag", items: [
+          "Alle im grossen Hauptfenster mit Portraets: Redaktion, Recherche-Tisch, Programmplaner (ab 1960), Publikumsanalyse, Talente, Konkurrenz, Uebernahme, Krise, Artikel schreiben.",
+          "Zuerst Redaktion + Recherche-Tisch + Krise (tragen die Skandal-Kette)."
+        ]},
+        { h: "Stufen und Entscheidungen", s: "Entschieden", items: [
+          "1 ein Sender macht Spass · 2 zwei Sender konkurrieren · 3 Saeulen verbunden (Skandal-Kette, Krisenfenster, NPC-Pressebarone) · 4 Imperium (Programmplaner, Uebernahmen, Kabel/Web/Social).",
+          "Entschieden (User 11.11.): jedes Medien-Gebaeude ein eigenes Blatt mit Name und Linie · grosse Exklusivmeldungen auch mitten im Monat · Journalisten-Portraets aus dem MPFB-Portraet-Piloten · nach Stufe 1 jetzt Stufe 2 und 3."
+        ]},
+        { h: "Gebaut: Stufen 1–3 (11.11.), Plan Stufe 4", s: "Entschieden", items: [
+          "Stufe 1: eine Redaktion mit Spuren aus dem Spielgeschehen, Rahmen, Platzierung und Titelseite. Stufe 2: jedes Blatt/jeder Sender ein eigener Titel im Wettbewerb ums Publikum, Werbekunden mit Bedingungen, Gegendarstellung. Stufe 3: Skandalkette mit Folgen (Rat, Wahlkampf, Verträge, Bodenwert), Krisenraum mit sieben Antworten, Spuren verkaufen, Computer-Medienbarone.",
+          "Stufe 4 (Vorschlag, wartet auf den User): 4a Recherche-Tisch, 4b Medien-Stab mit Gesicht und Abwerben, 4c Sender-Profile und Übernahmen."
+        ]}
+      ]
+    },
+    {
       id: "key-buildings", title: "Schlüsselgebäude: wo etwas geschieht", file: "", status: "Entschieden", updated: "2026-11-15",
       summary: "Idee des Users (14.11.): Alles, was ein Tycoon tut – einen Politiker umwerben, ein Gesetz schreiben, eine Geschichte drucken, forschen –, bekommt ein Zuhause auf der Karte. Am 15.11. hat er sich festgelegt: acht Schlüsselgebäude je Bezirk – Bezirksrathaus, Polizeipräsidium, Politisches Zentrum, Medienhaus, Bankhaus, Handelshof, Universität, Privatclub –, jedes mit Abteilungen (zusammen 23); dazu die fünf Orte der Stadt im Zentrum. Alle acht sind freiwillig und in jeder Reihenfolge zu bauen – eine Partie beginnt ohne sie; bestimmte Funktionen gibt es nur mit dem passenden Haus. Das Haus wird ganz gebaut; seine Abteilungen öffnet man eine nach der anderen. Daneben bleiben Nebengebäude, deren erstes im Bezirk eine kleine Funktion öffnet. Was darin läuft, zeigt ein Balken über dem Haus; ist es fertig, klickt man das Haus an und entscheidet. Die zehn Fragen, die noch offen waren, sind mit den Vorschlägen der Session entschieden („always take your suggested answer“). Das Datenblatt – 213 Funktionen in 23 Abteilungen und fünf Epochen, 80 davon gibt es im Spiel – ist der Plan; Stufe 1, der Rahmen, ist gebaut (15.11.).",
       diagrams: [
@@ -3777,43 +3814,6 @@ window.JOURNAL = {
         { h: "Verbindung zu Medien und Diensten", s: "Vorschlag", items: [
           "Ein gedruckter Skandal (#46) senkt künftig auch die Gunst der Bezirkspolitiker und macht Räte unruhig, in denen der Betroffene sitzt.",
           "Das geplante Bezirksamt (#42) wird der Sitz des Bezirksrats."
-        ]}
-      ]
-    },
-    {
-      id: "medien-imperium", title: "Medien-Imperium: Redaktion, Exklusivmeldungen, Publikum, Skandale – Medien als PvP", file: "", status: "Vorschlag", updated: "2026-11-15",
-      summary: "Wunsch von Tester Nohr (Discord, Ticket #46) mit Design-Dokument und zwei UI-Bogen: Medien sollen mehr Spass machen, mehr bedeuten und Spieler gegeneinander antreten lassen. Kern: einen Sender zu besitzen ist erst der Anfang – das Spiel ist die Entscheidung, welche Geschichte recherchiert, begraben, gerahmt und wann gebracht wird, und den Gegenschlag zu ueberstehen. Baut auf dem auf, was es schon gibt (Meldungen, Recherchen, War Room, Stab, Zeitung/Fernsehturm, Titelseite, Publikum aus #44).",
-      sections: [
-        { h: "Medien-Fenster als gemalte Entwürfe (15.11.)", s: "Vorschlag", items: [
-          "Je Medien-Fenster ein Entwurf im Stil des Stadtrat-Fensters (Bilder im Meilenstein vom 15.11.): Newsroom, Crisis room, Stories, Ads, Probes, Outlets, Research, Playbook, Mood – je eine große Frage, ein goldener Knopf und ein Zuhause in einem Schlüsselgebäude.",
-          "Offen: welche übernommen werden; eigener Hintergrund je Fenster oder ein gemeinsamer des Medienhauses."
-        ]},
-        { h: "Stand heute (0.1.305)", s: "Offen", items: [
-          "Vorhanden: Zeitung/Fernsehturm als Gebaeude mit Reichweite, Meldungen (Push/Spike/Spin/Gegendarstellung), Recherchen (Geruecht → Spur → Dossier), War Room mit 10 Kanaelen je Epoche, Stab mit Sternen/Loyalitaet/Abwerben, Werbung, Titelseite, My bets.",
-          "Es fehlt die Entscheidungsebene: der Spieler schreibt und rahmt keine Geschichte, Sender haben keinen Namen/Ruf, Werbekunden verlangen nichts, Stab hat kein Gesicht, Gegenschlaege sind kein eigener Ablauf."
-        ]},
-        { h: "Kreislauf und Kernsysteme", s: "Vorschlag", items: [
-          "Kreislauf: Entdecken → Formen (Geschichte, Rahmen, Platz, Zeitpunkt) → Publikum gewinnen → in Macht umwandeln (Werbegeld, Druck auf Abstimmungen, Wahlen, Nachfrage) → Gegenschlag ueberstehen. Eine Ausgabe = ein Monat.",
-          "Sender als Figuren (`FOutletRec`): Name, Blattlinie, vier Werte Glaubwuerdigkeit / Reichweite / Einfluss / Angreifbarkeit – Boulevard und Qualitaetsblatt beide spielbar.",
-          "Spuren als Informationsmarkt (`FLeadRec`): aus echten Ereignissen (gelenkte Ausschreibungen, Umschlaege, Abstimmungen gegen die Stimmung, Fabriken, Leichen im Keller); Beweislage 0–100, Exklusivitaet, Ablauf. Wahl: weiter recherchieren, jetzt bringen, verkaufen, zurueckhalten, begraben.",
-          "Redaktion je Monat: Rahmen (investigativ, ausgewogen, kritisch, wohlwollend, reisserisch) und Platz (Titelseite, innen, versteckt, zurueckhalten), Prognose wie im War Room; die gebaute Titelseite IST die, die andere sehen.",
-          "Begrenztes Publikum je Bezirk/Zielgruppe (aus #44), Werbekunden mit Bedingungen, Stab mit Gesicht (Personen-System), Medienverbund mit abnehmendem Zusatznutzen."
-        ]},
-        { h: "Skandal-Kette und PvP", s: "Vorschlag", items: [
-          "Fuenf Stufen: Entdeckung → Entscheidung → Kampf um die Veroeffentlichung (Erster bekommt den Exklusiv-Bonus) → Folgen (Rat, Wahl, Bodenwert, Vertraege, Verdacht) → Vergeltung (Werbekunde springt ab, Klage, Gegen-Enthuellung). Jede Stufe als Karte in My bets, grosse als Titelseite.",
-          "PvP: Wettlauf um Exklusivmeldungen, Abwerben von Moderatoren, Werbekriege, zwei Rahmen fuer dasselbe Ereignis, Zweckbuendnisse. Regel: ein Angriff schafft ein Problem, nimmt aber nie die Spielfaehigkeit."
-        ]},
-        { h: "Fenster (aus den UI-Bogen)", s: "Vorschlag", items: [
-          "Alle im grossen Hauptfenster mit Portraets: Redaktion, Recherche-Tisch, Programmplaner (ab 1960), Publikumsanalyse, Talente, Konkurrenz, Uebernahme, Krise, Artikel schreiben.",
-          "Zuerst Redaktion + Recherche-Tisch + Krise (tragen die Skandal-Kette)."
-        ]},
-        { h: "Stufen und Entscheidungen", s: "Entschieden", items: [
-          "1 ein Sender macht Spass · 2 zwei Sender konkurrieren · 3 Saeulen verbunden (Skandal-Kette, Krisenfenster, NPC-Pressebarone) · 4 Imperium (Programmplaner, Uebernahmen, Kabel/Web/Social).",
-          "Entschieden (User 11.11.): jedes Medien-Gebaeude ein eigenes Blatt mit Name und Linie · grosse Exklusivmeldungen auch mitten im Monat · Journalisten-Portraets aus dem MPFB-Portraet-Piloten · nach Stufe 1 jetzt Stufe 2 und 3."
-        ]},
-        { h: "Gebaut: Stufen 1–3 (11.11.), Plan Stufe 4", s: "Entschieden", items: [
-          "Stufe 1: eine Redaktion mit Spuren aus dem Spielgeschehen, Rahmen, Platzierung und Titelseite. Stufe 2: jedes Blatt/jeder Sender ein eigener Titel im Wettbewerb ums Publikum, Werbekunden mit Bedingungen, Gegendarstellung. Stufe 3: Skandalkette mit Folgen (Rat, Wahlkampf, Verträge, Bodenwert), Krisenraum mit sieben Antworten, Spuren verkaufen, Computer-Medienbarone.",
-          "Stufe 4 (Vorschlag, wartet auf den User): 4a Recherche-Tisch, 4b Medien-Stab mit Gesicht und Abwerben, 4c Sender-Profile und Übernahmen."
         ]}
       ]
     },

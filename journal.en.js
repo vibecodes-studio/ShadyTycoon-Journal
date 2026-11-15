@@ -2981,7 +2981,7 @@ window.JOURNAL_EN = {
       ]
     },
     "medien-imperium": {
-      title: "Media empire: newsroom, scoops, audiences, scandals – media as PvP",
+      title: "Media empire (#46): newsroom, scandals, PvP – and nine window mockups",
       summary: "Request by tester Nohr (Discord, ticket #46) with a design document and two UI sheets: media should be more fun, more meaningful and pit players against each other. Core: owning an outlet is only the start – the game is deciding which story gets investigated, buried, framed and when it runs, and surviving the counterattack. Builds on what exists (stories, probes, War Room, staff, newspaper/TV tower, front page, audiences from #44).",
       sections: [
         { h: "Media windows as painted mockups (15.11.)", items: [
